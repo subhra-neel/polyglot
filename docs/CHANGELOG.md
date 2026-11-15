@@ -24,7 +24,7 @@ Kannada MVP plan". This file records what has actually been built and tested.
 ### Tested
 - 86 unit and database tests, including FSRS ordering (Again < Hard < Good <
   Easy), lapses, own-cards-only, invalid ratings, settings bounds.
-- Phone smoke test: 36 steps, adding Today's due card, a full review session
+- Phone smoke test: 34 steps, adding Today's due card, a full review session
   with a forgotten card returning, review logs, the goal bar, progress
   figures, and settings changing lesson cards.
 
