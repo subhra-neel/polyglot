@@ -7,6 +7,10 @@
  * "configured" expects the app to have been built and started with
  *   NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54399
  *   NEXT_PUBLIC_SUPABASE_ANON_KEY=mock-key
+ *   SARVAM_API_KEY=test-sarvam-key
+ *   SARVAM_API_BASE=http://127.0.0.1:54399
+ * Set SMOKE_NO_TTS=1 (and leave out the SARVAM_ settings) to test the app
+ * without a voice service.
  *
  * Requires Playwright with a Chromium browser. Screenshots go to the
  * directory named in SMOKE_SHOTS, when set.
@@ -14,7 +18,7 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { join } from "node:path";
-import { startMockSupabase } from "./mock-supabase.mjs";
+import { fakeAudio, startMockSupabase } from "./mock-supabase.mjs";
 
 const { chromium, devices } = createRequire(import.meta.url)("playwright");
 
@@ -120,13 +124,56 @@ async function configured() {
     await shot("10-lesson");
     step("lesson shows six sentence cards and hides the draft");
 
-    // Headless Chromium has no Kannada voice, so Play must be off and explained.
-    await page.getByText("No Kannada voice on this device").waitFor();
-    assert.equal(await page.getByRole("button", { name: "Play" }).first().isDisabled(), true);
-    step("with no Kannada voice, Play is disabled and the reason is shown");
+    if (process.env.SMOKE_NO_TTS) {
+      // App built without a voice service: Play depends on the phone's voice,
+      // and headless Chromium has none.
+      await page.getByText("No Kannada voice on this device").waitFor();
+      assert.equal(await page.getByRole("button", { name: "Play" }).first().isDisabled(), true);
+      step("without a voice service or phone voice, Play is off and the reason is shown");
+    } else {
+    // Recorded audio (the stand-in Sarvam). Headless Chromium has no Kannada
+    // voice, so Play working here proves it does not depend on the phone.
+    assert.equal(await page.getByText("No Kannada voice on this device").count(), 0);
+    const hello = page.locator("article:visible").first();
+    await page.evaluate(() => {
+      window.__played = [];
+      HTMLMediaElement.prototype.play = function () {
+        window.__played.push(new URL(this.src).pathname + new URL(this.src).search);
+        return Promise.resolve();
+      };
+    });
+    await hello.getByRole("button", { name: "Play" }).click();
+    await hello.getByRole("button", { name: "Slow" }).click();
+    const played = await page.evaluate(() => window.__played);
+    assert.equal(played.length, 2);
+    assert.match(played[0], /^\/api\/audio\/[0-9a-f-]{36}\/normal\?v=[0-9a-f]{12}$/);
+    assert.match(played[1], /^\/api\/audio\/[0-9a-f-]{36}\/slow\?v=[0-9a-f]{12}$/);
+    step("Play and Slow use recorded audio, with no phone voice needed");
 
-    // With a Kannada voice (faked here), Play reads the Kannada script at
-    // normal speed and Slow reads it slower.
+    const normal = await page.request.get(played[0]);
+    assert.equal(normal.status(), 200);
+    assert.equal(normal.headers()["content-type"], "audio/mpeg");
+    assert.match(normal.headers()["cache-control"], /immutable/);
+    assert.ok(!normal.headers()["set-cookie"], "audio response must not set cookies, or it cannot be cached");
+    assert.deepEqual(await normal.body(), fakeAudio("ನಮಸ್ಕಾರ", 1));
+    const slow = await page.request.get(played[1]);
+    assert.deepEqual(await slow.body(), fakeAudio("ನಮಸ್ಕಾರ", 0.75));
+    const asked = mock.speechRequests.at(-1);
+    assert.equal(asked.key, "test-sarvam-key");
+    assert.equal(asked.language_code, "kn-IN");
+    step("the audio is Sarvam's reading of the Kannada script, at pace 1 and 0.75, and can be cached");
+
+    const anonymous = await browser.newContext({ baseURL: BASE });
+    assert.equal((await anonymous.request.get(played[0])).status(), 401);
+    await anonymous.close();
+    const draftId = "00000000-0000-5000-8000-000000000000";
+    assert.equal((await page.request.get(`/api/audio/${draftId}/normal`)).status(), 404);
+    assert.equal((await page.request.get(played[0].replace("/normal", "/fast"))).status(), 404);
+    const draft = await mock.db.query("select id from public.sentences where validation_status = 'draft' limit 1");
+    assert.equal((await page.request.get(`/api/audio/${draft.rows[0].id}/normal`)).status(), 404);
+    step("audio is refused when signed out, and for unknown or draft sentences");
+
+    // If recorded audio fails to load, Play falls back to the phone's voice.
     const voicePage = await context.newPage();
     await voicePage.addInitScript(() => {
       const spoken = [];
@@ -147,19 +194,19 @@ async function configured() {
           removeEventListener: () => {},
         },
       });
+      HTMLMediaElement.prototype.play = () => Promise.reject(new Error("network down"));
     });
     await voicePage.goto("/learn/greetings/hello-how-are-you");
-    await voicePage.getByText("Audio uses your phone's Kannada voice for now.").waitFor();
     const firstCard = voicePage.locator("article:visible").first();
     await firstCard.getByRole("button", { name: "Play" }).click();
     await firstCard.getByRole("button", { name: "Slow" }).click();
-    const spoken = await voicePage.evaluate(() => window.__spoken);
-    assert.deepEqual(spoken, [
+    assert.deepEqual(await voicePage.evaluate(() => window.__spoken), [
       { text: "ನಮಸ್ಕಾರ", rate: 0.9, lang: "kn-IN" },
       { text: "ನಮಸ್ಕಾರ", rate: 0.6, lang: "kn-IN" },
     ]);
     await voicePage.close();
-    step("with a Kannada voice, Play and Slow speak the Kannada script at two speeds");
+    step("if recorded audio fails, the phone's Kannada voice takes over");
+    }
 
     const card = page.locator("article:visible").filter({ hasText: "hēgiddīrā?" });
     await card.getByRole("button", { name: "How it works" }).click();

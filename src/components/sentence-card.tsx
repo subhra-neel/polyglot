@@ -3,7 +3,7 @@
 import { useActionState, useState } from "react";
 import { flagSentence, type FlagState } from "@/app/(app)/learn/actions";
 import type { Sentence } from "@/lib/lessons";
-import { SpeakButtons } from "./speak-buttons";
+import { type AudioUrls, SpeakButtons } from "./speak-buttons";
 
 const RELATION_LABEL: Record<string, string> = {
   casual: "Casual",
@@ -55,7 +55,9 @@ function FlagForm({ sentenceId }: { sentenceId: string }) {
   );
 }
 
-export function SentenceCard({ sentence, index, total }: { sentence: Sentence; index: number; total: number }) {
+type CardProps = { sentence: Sentence; audio: AudioUrls | null; index: number; total: number };
+
+export function SentenceCard({ sentence, audio, index, total }: CardProps) {
   const [open, setOpen] = useState(false);
   const [flagging, setFlagging] = useState(false);
   const detailsId = `details-${sentence.id}`;
@@ -80,8 +82,8 @@ export function SentenceCard({ sentence, index, total }: { sentence: Sentence; i
         </div>
       ) : null}
 
-      <div className="mt-4 flex items-center justify-between gap-2">
-        <SpeakButtons script={sentence.script} />
+      <div className="mt-4 flex items-start justify-between gap-2">
+        <SpeakButtons script={sentence.script} audio={audio} />
         <button
           type="button"
           aria-expanded={open}
