@@ -29,6 +29,12 @@ describe("readSupabaseEnv", () => {
     ).toEqual({ url: URL, key: "key" });
   });
 
+  it("keeps only the base address when a longer one is pasted", () => {
+    for (const pasted of [`${URL}/`, `${URL}/rest/v1/`, `${URL}/rest/v1`, `${URL}/auth/v1?x=1`]) {
+      expect(readSupabaseEnv({ NEXT_PUBLIC_SUPABASE_URL: pasted, NEXT_PUBLIC_SUPABASE_ANON_KEY: "k" })?.url).toBe(URL);
+    }
+  });
+
   it("rejects a value that is not a secure web address", () => {
     expect(readSupabaseEnv({ NEXT_PUBLIC_SUPABASE_URL: "not a url", NEXT_PUBLIC_SUPABASE_ANON_KEY: "k" })).toBeNull();
     expect(

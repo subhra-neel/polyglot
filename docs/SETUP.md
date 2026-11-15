@@ -16,6 +16,21 @@ Check: **Table Editor** now lists tables such as `languages`, `units` and
 Run it once only. Running it a second time fails with "already exists", which
 is harmless but changes nothing.
 
+## 1b. Lesson functions and Unit 1 content (Supabase)
+
+Two more files, in this order, each pasted into a **new query** in the SQL
+Editor and run:
+
+1. `supabase/migrations/0002_lessons.sql`: the functions the app uses to read
+   lessons and save progress. Safe to run again.
+2. `supabase/content.sql`: the lesson content (Unit 1 so far). Safe to run
+   again; your progress is kept.
+
+Check: **Table Editor → sentences** has 19 rows.
+
+Whenever lesson content changes, the changelog will say so: run
+`supabase/content.sql` again.
+
 ## 2. Sign-in settings (Supabase)
 
 Open **Authentication → Sign In / Providers → Email**.
@@ -62,7 +77,7 @@ After adding or changing a variable, redeploy: **Deployments → ⋯ → Redeplo
 1. Open the Vercel address on your phone.
 2. **Get started → Create account** with an email and a password of 8+ characters.
 3. You should land on **Today**. Open **Learn**: it lists eight Level 1 units,
-   read live from your database.
+   read live from your database. Unit 1 opens into two lessons.
 4. In Chrome's menu choose **Add to Home screen** to install it.
 
 ## If something looks wrong
@@ -70,7 +85,9 @@ After adding or changing a variable, redeploy: **Deployments → ⋯ → Redeplo
 | What you see | Cause | Fix |
 | --- | --- | --- |
 | "Setup needed" on the sign-in page | Vercel does not have the two settings, or was not redeployed after adding them | Step 3 |
-| "The database is not set up yet" on Learn | The SQL has not been run | Step 1 |
+| "The database is not set up yet" or "needs an update" on Learn | A SQL file has not been run | Steps 1 and 1b |
+| Unit 1 says "Coming soon" | `supabase/content.sql` has not been run | Step 1b |
+| Play and Slow are greyed out | Your phone has no Kannada voice installed | Settings → search "Text-to-speech" → install Kannada voice data |
 | Learn shows no units | The SQL ran only partly | Tell Claude; the tables need checking |
 | "Check your email for a confirmation link" | Confirm email is on | Step 2 |
 | "Email or password is incorrect" on a new account | The account was created but not confirmed | Step 2 |

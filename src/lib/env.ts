@@ -20,16 +20,19 @@ export function readSupabaseEnv(source: EnvSource): SupabaseEnv | null {
 
   if (!url || !key) return null;
 
+  let parsed: URL;
   try {
-    const parsed = new URL(url);
-    if (parsed.protocol !== "https:" && parsed.hostname !== "localhost" && parsed.hostname !== "127.0.0.1") {
-      return null;
-    }
+    parsed = new URL(url);
   } catch {
     return null;
   }
+  if (parsed.protocol !== "https:" && parsed.hostname !== "localhost" && parsed.hostname !== "127.0.0.1") {
+    return null;
+  }
 
-  return { url, key };
+  // Only the base address is wanted. A pasted ".../rest/v1/" or a trailing
+  // slash makes every Supabase call fail with "Invalid path specified".
+  return { url: parsed.origin, key };
 }
 
 // Next.js only inlines NEXT_PUBLIC_ variables that are referenced by their

@@ -1,0 +1,318 @@
+# Kannada · Level 1 · Unit 1: Greetings and politeness
+#
+# Spoken Bengaluru Kannada. `roman` is what learners read; `script` is used by
+# speech services and to check `roman` letter for letter.
+#
+# status
+#   source_checked  the phrase appears in at least one published source below
+#   draft           not yet confirmed in a source; hidden from learners
+#
+# Sources
+#   Preply        preply.com/en/blog/basic-words-in-kannada-70-phrases
+#   SWALPA        swalpa.pages.dev/03_social_interactions
+#   Sublearn      sublearn.com/learn/kn/grammar/hello-and-goodbye, …/polite-phrases
+#   Multibhashi   multibhashi.com/blogs/kannada-greetings-courtesies-locals
+#   KannadaMaadi  learnkannada.onrender.com (lesson 1 vocabulary, glossary)
+
+language: kn
+level: 1
+unit: greetings
+
+lessons:
+  - slug: hello-how-are-you
+    title: Hello and how are you
+    sentences:
+      - id: hello
+        roman: namaskāra
+        script: ನಮಸ್ಕಾರ
+        meaning: Hello
+        why: >-
+          One word for hello and for goodbye, at any time of day, with anyone.
+          It is always safe.
+        status: source_checked
+        sources: [Preply, SWALPA, Sublearn, KannadaMaadi]
+        tokens:
+          - word: namaskāra
+            gloss: greetings (hello or goodbye)
+
+      - id: how-are-you-respectful
+        roman: hēgiddīrā?
+        script: ಹೇಗಿದ್ದೀರಾ?
+        meaning: How are you?
+        why: >-
+          Two words run together: hēge (how) and iddīri (you are). The ending
+          -īri is the respectful "you", so use this with anyone older, strangers
+          and people at work. In speech it often ends in a long ā.
+        register: colloquial
+        formality: respectful
+        status: source_checked
+        sources: [Sublearn, SWALPA, Preply]
+        tokens:
+          - word: hēgiddīrā
+            gloss: how are you (respectful)
+            breakdown: hēge (how) + iddīri (you are, respectful)
+        variants:
+          - { relation: casual, sentence: how-are-you-casual }
+          - { relation: alternative, sentence: how-are-you-respectful-alt }
+
+      - id: how-are-you-casual
+        roman: hēgiddīyā?
+        script: ಹೇಗಿದ್ದೀಯಾ?
+        meaning: How are you? (to a friend)
+        why: >-
+          Same question with the casual "you". Only for friends your own age,
+          younger family and children. With a stranger it sounds rude.
+        register: colloquial
+        formality: casual
+        status: source_checked
+        sources: [Preply, Sublearn, KannadaMaadi]
+        tokens:
+          - word: hēgiddīyā
+            gloss: how are you (casual)
+            breakdown: hēge (how) + iddīya (you are, casual)
+        variants:
+          - { relation: respectful, sentence: how-are-you-respectful }
+
+      - id: im-fine
+        roman: chennāgiddīni
+        script: ಚೆನ್ನಾಗಿದ್ದೀನಿ
+        meaning: I'm fine
+        why: >-
+          chennāgi (well) and iddīni (I am). "I" does not need saying: the
+          ending -īni already means "I am". Books write chennāgiddēne; that
+          sounds stiff in conversation.
+        pronunciation: Hold the double nn and dd for a beat.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA, Preply]
+        tokens:
+          - word: chennāgiddīni
+            gloss: I am fine
+            breakdown: chennāgi (well) + iddīni (I am)
+
+      - id: and-you-respectful
+        roman: nīvu?
+        script: ನೀವು?
+        meaning: And you?
+        why: >-
+          Just "you?" with a rising voice, to return the question. nīvu is the
+          respectful "you".
+        formality: respectful
+        status: source_checked
+        sources: [KannadaMaadi, Preply]
+        tokens:
+          - word: nīvu
+            gloss: you (respectful)
+        variants:
+          - { relation: casual, sentence: and-you-casual }
+
+      - id: have-you-eaten
+        roman: ūTa āytā?
+        script: ಊಟ ಆಯ್ತಾ?
+        meaning: Have you eaten?
+        why: >-
+          A friendly Bengaluru greeting, used much like "how's it going". It is
+          not an invitation to a meal. āytu means "it is done"; adding a long ā
+          turns it into a yes-or-no question.
+        pronunciation: Long ū, then a hard T made with the tongue curled back.
+        register: colloquial
+        region: Bengaluru
+        status: source_checked
+        sources: [SWALPA]
+        tokens:
+          - word: ūTa
+            gloss: meal
+          - word: āytā
+            gloss: is it done?
+            breakdown: āytu (it is done) + ā (makes a yes-or-no question)
+
+      - id: yes-eaten
+        roman: āytu
+        script: ಆಯ್ತು
+        meaning: Yes, I have (it's done)
+        why: >-
+          The usual answer to ūTa āytā?: you answer with the same word, without
+          the question ending.
+        register: colloquial
+        status: draft
+        tokens:
+          - word: āytu
+            gloss: it is done
+
+  - slug: thanks-sorry-goodbye
+    title: Thanks, sorry and goodbye
+    sentences:
+      - id: thank-you
+        roman: dhanyavādagaLu
+        script: ಧನ್ಯವಾದಗಳು
+        meaning: Thank you
+        why: >-
+          dhanyavāda (thanks) with the plural ending -gaLu, which makes it
+          warmer and more polite. Right in shops, offices and with elders. In
+          casual Bengaluru talk you will also hear the English "thanks".
+        pronunciation: dh is breathy; the L near the end is made with the tongue curled back.
+        formality: respectful
+        status: source_checked
+        sources: [Preply, Multibhashi, Sublearn]
+        tokens:
+          - word: dhanyavādagaLu
+            gloss: thanks (polite)
+            breakdown: dhanyavāda (thanks) + gaLu (plural ending)
+
+      - id: thank-you-very-much
+        roman: tumbā dhanyavādagaLu
+        script: ತುಂಬಾ ಧನ್ಯವಾದಗಳು
+        meaning: Thank you very much
+        why: tumbā means "very" or "a lot". It goes before the word it strengthens.
+        formality: respectful
+        status: source_checked
+        sources: [Sublearn]
+        tokens:
+          - word: tumbā
+            gloss: very, a lot
+          - word: dhanyavādagaLu
+            gloss: thanks (polite)
+
+      - id: please
+        roman: dayaviTTu
+        script: ದಯವಿಟ್ಟು
+        meaning: Please
+        why: >-
+          Adds politeness to a request. Kannada also builds politeness into the
+          verb itself (you will meet koDi, "please give", in Unit 7), so
+          dayaviTTu is extra courtesy rather than required.
+        pronunciation: Hold the double TT, a hard T with the tongue curled back.
+        status: source_checked
+        sources: [Preply, Multibhashi, Sublearn]
+        tokens:
+          - word: dayaviTTu
+            gloss: please
+
+      - id: sorry
+        roman: kshamisi
+        script: ಕ್ಷಮಿಸಿ
+        meaning: Sorry / Excuse me
+        why: >-
+          The polite form of "forgive". Use it to apologise, and also to get
+          someone's attention before asking something.
+        formality: respectful
+        status: source_checked
+        sources: [Preply, Multibhashi]
+        tokens:
+          - word: kshamisi
+            gloss: forgive (me), polite
+            breakdown: kshamisu (to forgive), polite request form
+
+      - id: its-okay
+        roman: paravāgilla
+        script: ಪರವಾಗಿಲ್ಲ
+        meaning: It's okay / No problem
+        why: >-
+          Literally "there is no harm". The reply when someone says sorry or
+          thanks you.
+        status: source_checked
+        sources: [KannadaMaadi]
+        tokens:
+          - word: paravāgilla
+            gloss: no problem, it's okay
+
+      - id: okay
+        roman: sari
+        script: ಸರಿ
+        meaning: Okay / Right
+        why: >-
+          Agreeing, confirming plans, or showing you are following. You will
+          hear it constantly.
+        status: source_checked
+        sources: [Multibhashi, Preply]
+        tokens:
+          - word: sari
+            gloss: okay, right
+
+      - id: bye-go-and-come
+        roman: hōgi bartīni
+        script: ಹೋಗಿ ಬರ್ತೀನಿ
+        meaning: Bye (I'll go and come back)
+        why: >-
+          The polite way to leave. Literally "having gone, I will come". Saying
+          only "I'm going" is avoided, because it sounds as if you will not
+          return.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA, Sublearn]
+        tokens:
+          - word: hōgi
+            gloss: having gone
+          - word: bartīni
+            gloss: I will come
+
+      - id: bye-reply
+        roman: hōgi banni
+        script: ಹೋಗಿ ಬನ್ನಿ
+        meaning: Bye (go and come back)
+        why: >-
+          The reply to hōgi bartīni: "go and come", with banni, the respectful
+          "come".
+        formality: respectful
+        status: draft
+        tokens:
+          - word: hōgi
+            gloss: having gone
+          - word: banni
+            gloss: come (respectful)
+
+      - id: see-you-again
+        roman: matte sigōNa
+        script: ಮತ್ತೆ ಸಿಗೋಣ
+        meaning: See you again
+        why: >-
+          matte (again) and sigōNa (let's meet). The ending -ōNa means "let's",
+          and you will use it with many verbs.
+        pronunciation: The N is made with the tongue curled back.
+        status: source_checked
+        sources: [Preply, Sublearn]
+        tokens:
+          - word: matte
+            gloss: again
+          - word: sigōNa
+            gloss: let's meet
+            breakdown: sigu (meet) + ōNa (let's)
+
+      - id: see-you-tomorrow
+        roman: nāLe sigōNa
+        script: ನಾಳೆ ಸಿಗೋಣ
+        meaning: See you tomorrow
+        why: Swap matte (again) for nāLe (tomorrow). Same pattern, new meaning.
+        pronunciation: Curl the tongue back for the L in nāLe.
+        status: source_checked
+        sources: [Preply, Sublearn, SWALPA]
+        tokens:
+          - word: nāLe
+            gloss: tomorrow
+          - word: sigōNa
+            gloss: let's meet
+
+alternatives:
+  - id: how-are-you-respectful-alt
+    roman: hēgiddīri?
+    script: ಹೇಗಿದ್ದೀರಿ?
+    meaning: How are you? (respectful)
+    why: The same question without the long ā at the end. Both are common.
+    formality: respectful
+    status: source_checked
+    sources: [Preply]
+    tokens:
+      - word: hēgiddīri
+        gloss: how are you (respectful)
+
+  - id: and-you-casual
+    roman: nīnu?
+    script: ನೀನು?
+    meaning: And you? (to a friend)
+    why: The casual "you". Only with friends, younger family and children.
+    formality: casual
+    status: source_checked
+    sources: [KannadaMaadi, Preply]
+    tokens:
+      - word: nīnu
+        gloss: you (casual)

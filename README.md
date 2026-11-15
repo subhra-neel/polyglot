@@ -9,7 +9,7 @@ commercial product later.
 
 ## Status
 
-Phase 2, milestone 1: project skeleton, sign-in and database schema.
+Phase 2, milestone 2: Unit 1 lessons with sentence cards.
 See [docs/CHANGELOG.md](docs/CHANGELOG.md) for what is done and what is next.
 
 ## Stack
@@ -33,11 +33,23 @@ npm run dev                  # http://localhost:3000
 
 npm run typecheck
 npm run lint
-npm test                     # unit tests + database schema tests
+npm test                     # unit, database and content tests
 npm run build
+
+npm run content:check        # validate lesson files in content/
+npm run content:build        # validate, then regenerate supabase/content.sql
 ```
 
-End-to-end smoke test on a phone-sized screen (needs Playwright with Chromium):
+## Lesson content
+
+Lessons are written as YAML in `content/<language>/`. Each sentence holds its
+English-letter form and its Kannada script; `content:check` romanises the
+script and refuses the file if the two disagree, so a typo in either is
+caught. A sentence marked `draft` (not yet found in a published source) is
+loaded but hidden from learners.
+
+End-to-end smoke test on a phone-sized screen (needs Playwright with Chromium).
+The stand-in Supabase runs the real migrations and content in PGlite:
 
 ```bash
 # 1. With no Supabase settings
@@ -57,7 +69,10 @@ src/app/            pages: welcome, sign-in, and the five tabs under (app)/
 src/components/     shared interface pieces
 src/lib/            settings, routes, sign-in helpers, Supabase client
 src/proxy.ts        keeps sessions fresh and guards the signed-in pages
-supabase/migrations database schema
-tests/              unit, schema and end-to-end tests
+supabase/migrations database schema and functions
+supabase/content.sql generated lesson content (do not edit by hand)
+content/            lesson files (YAML)
+content-pipeline/   validation and SQL generation for lesson files
+tests/              unit, database, content and end-to-end tests
 docs/               setup guide and changelog
 ```

@@ -1,13 +1,17 @@
 /**
- * A stand-in for Supabase, just large enough to exercise sign-up, sign-in,
- * session checks, sign-out and one table read. It lets the smoke test run
- * the whole app without touching a real project.
+ * A stand-in for Supabase, large enough to run the whole app in a test:
+ * sign-up, sign-in, session checks and sign-out are imitated here, and
+ * database calls (/rest/v1/rpc/...) run the REAL migrations and content in
+ * a real Postgres engine (PGlite), as the signed-in learner.
  *
  * It is NOT Supabase: it proves our code handles the documented responses,
  * not that a real project is configured correctly.
  */
 import { createServer } from "node:http";
 import { createHmac, randomUUID } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { ROOT, asUser, createTestDb } from "../helpers/db.mjs";
 
 const SECRET = "mock-secret";
 const users = new Map(); // email -> { id, email, password }
@@ -47,17 +51,6 @@ const publicUser = (user) => ({
   created_at: new Date().toISOString(),
 });
 
-const UNITS = [
-  "Greetings and politeness",
-  "Who I am, who you are",
-  "This and that; yes and no",
-  "I want, I do not want",
-  "Is there, there is not; where",
-  "Numbers, money, how much",
-  "Come, go, give, stop: polite requests",
-  "I did not understand: repairing a conversation",
-].map((title, index) => ({ position: index + 1, title, levels: { language_code: "kn", number: 1 } }));
-
 function readJson(request) {
   return new Promise((resolve) => {
     let raw = "";
@@ -66,7 +59,20 @@ function readJson(request) {
   });
 }
 
-export function startMockSupabase(port, { tablesExist = true } = {}) {
+/** Calls a database function with named arguments, as `userId` (or anon). */
+async function callFunction(db, userId, name, args) {
+  if (!/^[a-z_]+$/.test(name)) throw Object.assign(new Error("bad function name"), { status: 404 });
+  const names = Object.keys(args);
+  if (!names.every((n) => /^p_[a-z_]+$/.test(n))) throw Object.assign(new Error("bad argument"), { status: 400 });
+  const list = names.map((n, i) => `${n} => $${i + 1}`).join(", ");
+  return asUser(db, userId, async () => {
+    const { rows } = await db.query(`select public.${name}(${list}) as result`, Object.values(args));
+    return rows[0].result;
+  });
+}
+
+export async function startMockSupabase(port) {
+  const db = await createTestDb(readFileSync(join(ROOT, "supabase", "content.sql"), "utf8"));
   const server = createServer(async (request, response) => {
     const url = new URL(request.url, `http://127.0.0.1:${port}`);
     const token = (request.headers.authorization ?? "").replace(/^Bearer /, "");
@@ -80,6 +86,7 @@ export function startMockSupabase(port, { tablesExist = true } = {}) {
       if (users.has(email)) return send(422, { code: 422, error_code: "user_already_exists", msg: "User already registered" });
       const user = { id: randomUUID(), email, password };
       users.set(email, user);
+      await db.query("insert into auth.users (id, email) values ($1, $2)", [user.id, email]);
       return send(200, issueSession(user));
     }
 
@@ -104,16 +111,27 @@ export function startMockSupabase(port, { tablesExist = true } = {}) {
 
     if (url.pathname === "/auth/v1/.well-known/jwks.json") return send(200, { keys: [] });
 
-    if (url.pathname === "/rest/v1/units") {
-      if (!tablesExist) {
-        return send(404, { code: "PGRST205", message: "Could not find the table 'public.units' in the schema cache" });
+    if (url.pathname.startsWith("/rest/v1/rpc/") && request.method === "POST") {
+      const name = url.pathname.slice("/rest/v1/rpc/".length);
+      const userId = sessions.get(token)?.id ?? null;
+      try {
+        const result = await callFunction(db, userId, name, await readJson(request));
+        return send(200, result);
+      } catch (error) {
+        const denied = /permission denied/.test(error.message);
+        return send(error.status ?? (denied ? 401 : 400), { code: denied ? "42501" : "P0001", message: error.message });
       }
-      // Row-level security: content is readable only when signed in.
-      return send(200, sessions.has(token) ? UNITS : []);
     }
 
     send(404, { message: `mock-supabase: no handler for ${request.method} ${url.pathname}` });
   });
 
-  return new Promise((resolve) => server.listen(port, "127.0.0.1", () => resolve(server)));
+  await new Promise((resolve) => server.listen(port, "127.0.0.1", resolve));
+  return {
+    db,
+    close: async () => {
+      await new Promise((resolve) => server.close(resolve));
+      await db.close();
+    },
+  };
 }

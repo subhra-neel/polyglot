@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 
 type Tab = { href: string; label: string; icon: ReactNode };
 
@@ -84,9 +84,26 @@ function SideTab({ tab, active }: { tab: Tab; active: boolean }) {
   );
 }
 
-/** Five tabs. The tutor sits in the middle, one tap from anywhere. */
+/**
+ * Five tabs. The tutor sits in the middle, one tap from anywhere.
+ *
+ * On pages whose address is only known at request time (a lesson, say), the
+ * bar first renders with no tab highlighted, then highlights once the
+ * address is read. Without the Suspense boundary those pages cannot build.
+ */
 export function TabBar() {
-  const pathname = usePathname();
+  return (
+    <Suspense fallback={<TabBarView pathname="" />}>
+      <TabBarWithPath />
+    </Suspense>
+  );
+}
+
+function TabBarWithPath() {
+  return <TabBarView pathname={usePathname()} />;
+}
+
+function TabBarView({ pathname }: { pathname: string }) {
   const talkActive = isActive(pathname, "/talk");
 
   return (

@@ -12,10 +12,10 @@ export default function TodayPage() {
         <p className="mt-2 text-xl font-medium tracking-tight">Greetings and politeness</p>
         <p className="mt-1 text-muted">Unit 1 of 8</p>
         <Link
-          href="/learn"
+          href="/learn/greetings"
           className="mt-5 flex h-12 items-center justify-center rounded-full bg-accent font-medium text-accent-ink"
         >
-          See the units
+          Start Unit 1
         </Link>
       </Card>
       <ComingNext milestone="Coming in milestone 4">

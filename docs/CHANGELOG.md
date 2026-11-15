@@ -3,6 +3,61 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-15 — Phase 2, milestone 2: Unit 1 lessons
+
+### Built
+- Unit 1 "Greetings and politeness" as `content/kn/level1-unit1-greetings.yaml`:
+  two lessons, 17 sentences (15 shown, 2 drafts hidden) plus 2 alternatives.
+- Content pipeline (`content-pipeline/`): strict file schema; romanises the
+  Kannada script and fails if it disagrees with the English-letter form;
+  checks word-by-word breakdowns add up to the sentence, variants exist, and
+  every shown sentence names a source. `npm run content:build` writes
+  `supabase/content.sql`, which is safe to re-run and keeps learner progress.
+- `supabase/migrations/0002_lessons.sql`: `get_units`, `get_unit`,
+  `get_lesson`, `complete_lesson`, `flag_sentence`. All run with the
+  learner's own permissions; signed-out visitors cannot call them.
+- Learn tab lists units with progress; Unit 1 opens, the rest say "Coming soon".
+- Unit page and lesson page with sentence cards: English-letter Kannada,
+  meaning, spoken / respectful / casual / Bengaluru labels, and "How it works"
+  (word by word, why it is built that way, pronunciation, other ways to say it,
+  sources). "I heard it differently" saves a note for re-checking.
+- "I've learned these" marks the lesson done and queues its sentences for
+  revision (scheduling arrives in milestone 4).
+- Temporary audio: Play and Slow use the phone's own Kannada voice when one is
+  installed; otherwise they are disabled and the reason is shown.
+- Today's main button now opens Unit 1.
+- Supabase address: anything after the base address (`/rest/v1/`, a trailing
+  slash) is now ignored, fixing the "Invalid path specified" error seen on
+  first setup.
+
+### Content decisions
+- Shown sentences are confirmed in at least one published phrase list
+  (Preply, SWALPA, Sublearn, Multibhashi, KannadaMaadi). The second-model
+  agreement check planned for `source_checked` has not been run yet.
+- Two drafts stay hidden until a source confirms them: *āytu* (reply to
+  "have you eaten?") and *hōgi banni* (reply to "I'll go and come").
+- Written-style forms appear only as a note (e.g. chennāgiddēne), never as cards.
+
+### Tested
+- `npm test`: 55 tests. The content tests load the generated SQL into a real
+  Postgres engine and read it back through the same functions the app calls:
+  drafts hidden, variants and word breakdowns present, completing a lesson
+  queues six cards once, reloading content keeps them, flags saved, signed-out
+  calls refused, committed SQL matches the YAML.
+- Phone-sized smoke test: 20 steps passing, including the full lesson flow
+  against the stand-in server (which now runs the real database functions),
+  Play/Slow speaking the Kannada script at two speeds with a stand-in voice,
+  and a deliberately over-long Supabase address.
+- typecheck, lint, build: clean.
+
+### Not tested
+- On your real Supabase project (needs the two new SQL files run first).
+- A real phone's Kannada voice: only a stand-in voice was tested. Whether your
+  phone has one, and how it sounds, is unknown.
+
+### Next — milestone 3: sentence lab
+- Patterns with swappable slots (e.g. nanage ___ bēku), negative and question forms.
+
 ## 2026-11-14 — Phase 2, milestone 1: skeleton, sign-in, database schema
 
 ### Built
@@ -55,14 +110,6 @@ Kannada MVP plan". This file records what has actually been built and tested.
 - The smoke test is not wired into `npm test` (it needs a browser and a running server).
 - `npm audit` reports 8 moderate findings, all inside the linting toolchain
   (development only, not shipped to users).
-
-### Next — milestone 2: content pipeline
-- Unit 1 written as YAML, schema-validated, loaded into the database.
-- Sentence cards with audio at two speeds.
-- Needs from the owner: nothing new until audio (a Google Cloud or Sarvam key).
-
-### Pending owner actions
-- Run the SQL migration, check the Vercel settings, try the app (`docs/SETUP.md`).
 
 ### Open questions
 - Alar dictionary licence terms for reuse.
