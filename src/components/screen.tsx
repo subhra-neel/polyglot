@@ -26,3 +26,13 @@ export function ComingNext({ milestone, children }: { milestone: string; childre
     </Card>
   );
 }
+
+export function ListSkeleton({ rows = 4 }: { rows?: number }) {
+  return (
+    <div className="space-y-3" aria-hidden="true">
+      {Array.from({ length: rows }, (_, row) => (
+        <div key={row} className="h-18 rounded-2xl border border-line bg-surface" />
+      ))}
+    </div>
+  );
+}

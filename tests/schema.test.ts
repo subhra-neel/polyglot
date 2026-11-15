@@ -1,55 +1,24 @@
 /**
- * Runs the real migration against a real Postgres engine (PGlite, Postgres
+ * Runs the real migrations against a real Postgres engine (PGlite, Postgres
  * compiled to WebAssembly) and checks the behaviour the app depends on:
  * the seed, the new-user trigger and row-level security.
  *
- * Supabase provides the `auth` schema and the `authenticated` role; here a
- * small stand-in is created so the migration can run unchanged.
+ * Supabase provides the `auth` schema and the `authenticated` role; the
+ * helper creates a small stand-in so the migrations run unchanged.
  */
-import { readFileSync, readdirSync } from "node:fs";
-import { join } from "node:path";
-import { PGlite } from "@electric-sql/pglite";
+import type { PGlite } from "@electric-sql/pglite";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-
-const MIGRATIONS_DIR = join(__dirname, "..", "supabase", "migrations");
-
-const SUPABASE_STAND_IN = `
-  create role anon nologin;
-  create role authenticated nologin;
-  create role service_role nologin bypassrls;
-  create schema auth;
-  create table auth.users (id uuid primary key, email text);
-  create function auth.uid() returns uuid language sql stable as $$
-    select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid
-  $$;
-  grant usage on schema auth to anon, authenticated;
-  grant usage on schema public to anon, authenticated, service_role;
-  alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
-  alter default privileges in schema public grant all on sequences to anon, authenticated, service_role;
-`;
+import { asUser as runAs, createTestDb } from "./helpers/db.mjs";
 
 const ALICE = "11111111-1111-1111-1111-111111111111";
 const BOB = "22222222-2222-2222-2222-222222222222";
 
 let db: PGlite;
 
-/** Run `fn` as a signed-in learner, then return to the superuser. */
-async function asUser<T>(userId: string, fn: () => Promise<T>): Promise<T> {
-  await db.exec(`set request.jwt.claim.sub = '${userId}'; set role authenticated;`);
-  try {
-    return await fn();
-  } finally {
-    await db.exec(`reset role; reset request.jwt.claim.sub;`);
-  }
-}
+const asUser = <T>(userId: string, fn: () => Promise<T>) => runAs(db, userId, fn);
 
 beforeAll(async () => {
-  db = new PGlite();
-  await db.exec(SUPABASE_STAND_IN);
-  for (const file of readdirSync(MIGRATIONS_DIR).sort()) {
-    await db.exec(readFileSync(join(MIGRATIONS_DIR, file), "utf8"));
-  }
-  await db.exec(`
+  db = await createTestDb(`
     insert into auth.users (id, email) values
       ('${ALICE}', 'alice@example.com'),
       ('${BOB}', 'bob@example.com');
@@ -180,13 +149,8 @@ describe("row-level security", () => {
   });
 
   it("shows nothing to visitors who are not signed in", async () => {
-    await db.exec("set role anon;");
-    try {
-      const { rows } = await db.query("select code from public.languages");
-      expect(rows).toHaveLength(0);
-    } finally {
-      await db.exec("reset role;");
-    }
+    const rows = await runAs(db, null, async () => (await db.query("select code from public.languages")).rows);
+    expect(rows).toHaveLength(0);
   });
 });
 
