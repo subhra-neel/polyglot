@@ -9,6 +9,7 @@ import { SetupNotice } from "@/components/setup-notice";
 import { VoiceStatus } from "@/components/speak-buttons";
 import { getCurrentUser } from "@/lib/auth";
 import { ContentUnavailableError, getLesson, isSlug, type Lesson } from "@/lib/lessons";
+import { getProgress } from "@/lib/progress";
 import { audioUrlsFor, getTtsProvider } from "@/lib/tts";
 
 export const metadata: Metadata = { title: "Lesson" };
@@ -21,8 +22,9 @@ async function LessonView({ params }: { params: Params }) {
   await getCurrentUser();
 
   let data: Lesson | null;
+  let settings: { show_english: boolean; show_script: boolean };
   try {
-    data = await getLesson(unitSlug, lessonSlug);
+    [data, settings] = await Promise.all([getLesson(unitSlug, lessonSlug), getProgress()]);
   } catch (error) {
     if (error instanceof ContentUnavailableError) return <SetupNotice detail={error.message} />;
     throw error;
@@ -57,6 +59,8 @@ async function LessonView({ params }: { params: Params }) {
                 key={sentence.id}
                 sentence={sentence}
                 audio={audioUrlsFor(sentence.id, sentence.script, tts)}
+                showEnglish={settings.show_english}
+                showScript={settings.show_script}
                 index={i + 1}
                 total={total}
               />

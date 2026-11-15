@@ -1,5 +1,5 @@
 /** Routes that need a signed-in learner. Everything under the five tabs. */
-export const APP_ROUTES = ["/today", "/learn", "/talk", "/build", "/me"] as const;
+export const APP_ROUTES = ["/today", "/learn", "/review", "/talk", "/build", "/me"] as const;
 
 export const SIGN_IN_ROUTE = "/sign-in";
 export const HOME_AFTER_SIGN_IN = "/today";

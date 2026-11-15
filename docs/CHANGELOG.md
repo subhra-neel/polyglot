@@ -3,6 +3,31 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-15 — Phase 2, milestone 4: revision, progress, settings
+
+### Built
+- Spaced repetition with FSRS (`ts-fsrs`, aiming for 90% recall). Finished
+  lessons' sentences come back when due.
+- `/review`: shows the English meaning, asks you to say the Kannada aloud,
+  then reveals it with audio and four answers (Again, Hard, Good, Easy), each
+  labelled with when the sentence would return. "Again" brings the sentence
+  back once more in the same session.
+- Today: revision first when anything is due, a daily review goal bar, and the
+  next unfinished lesson.
+- Me: sentences learning, known for a week or more, recall rate over 30 days,
+  lessons finished, open flags; settings to hide English meanings (tap to
+  reveal), show Kannada script, and set the daily review goal.
+- `supabase/migrations/0003_revision.sql`: get_review_queue, get_review_card,
+  record_review, get_progress, update_settings. "Today" is counted in the
+  learner's time zone (default Asia/Kolkata).
+
+### Tested
+- 86 unit and database tests, including FSRS ordering (Again < Hard < Good <
+  Easy), lapses, own-cards-only, invalid ratings, settings bounds.
+- Phone smoke test: 36 steps, adding Today's due card, a full review session
+  with a forgotten card returning, review logs, the goal bar, progress
+  figures, and settings changing lesson cards.
+
 ## 2026-11-15 — Recorded audio with Sarvam
 
 ### Built

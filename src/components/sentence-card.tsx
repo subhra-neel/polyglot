@@ -55,10 +55,18 @@ function FlagForm({ sentenceId }: { sentenceId: string }) {
   );
 }
 
-type CardProps = { sentence: Sentence; audio: AudioUrls | null; index: number; total: number };
+type CardProps = {
+  sentence: Sentence;
+  audio: AudioUrls | null;
+  index: number;
+  total: number;
+  showEnglish?: boolean;
+  showScript?: boolean;
+};
 
-export function SentenceCard({ sentence, audio, index, total }: CardProps) {
+export function SentenceCard({ sentence, audio, index, total, showEnglish = true, showScript = false }: CardProps) {
   const [open, setOpen] = useState(false);
+  const [meaningShown, setMeaningShown] = useState(showEnglish);
   const [flagging, setFlagging] = useState(false);
   const detailsId = `details-${sentence.id}`;
 
@@ -72,7 +80,18 @@ export function SentenceCard({ sentence, audio, index, total }: CardProps) {
           {index}/{total}
         </span>
       </div>
-      <p className="mt-1 text-muted">{sentence.meaning}</p>
+      {showScript && sentence.script ? (
+        <p className="mt-0.5 text-lg text-muted" lang="kn">
+          {sentence.script}
+        </p>
+      ) : null}
+      {meaningShown ? (
+        <p className="mt-1 text-muted">{sentence.meaning}</p>
+      ) : (
+        <button type="button" onClick={() => setMeaningShown(true)} className="mt-1 text-sm font-medium text-accent">
+          Show meaning
+        </button>
+      )}
 
       {sentence.formality !== "neutral" || sentence.register === "colloquial" || sentence.region ? (
         <div className="mt-3 flex flex-wrap gap-1.5">

@@ -231,6 +231,62 @@ async function configured() {
     assert.equal(cards.rows[0].n, 6);
     step("finishing the lesson queues its six sentences for revision");
 
+    // Today now leads with revision, because six sentences are due.
+    await page.goto("/today");
+    await page.getByText("6 sentences are ready to practise").waitFor();
+    await page.getByText("Thanks, sorry and goodbye").waitFor();
+    await shot("15-today-due");
+    step("Today puts the six due sentences first and suggests the next lesson");
+
+    await page.getByRole("link", { name: "Revise now" }).click();
+    await page.waitForURL("**/review");
+    const reviewCard = page.getByRole("article", { name: "Review card" }).filter({ visible: true });
+    await reviewCard.getByText("Say it in Kannada").waitFor();
+    assert.equal(await reviewCard.getByText("namaskāra").count(), 0, "answer shown before asking");
+    await page.getByText("6 left · 0 done").waitFor();
+    await shot("16-review-question");
+    await page.getByRole("button", { name: "Show answer" }).click();
+    await reviewCard.getByRole("button", { name: "Play" }).waitFor();
+    await page.getByRole("group", { name: "How well did you remember?" }).waitFor();
+    await shot("17-review-answer");
+    step("a review card asks for the Kannada first, then shows it with audio and four answers");
+
+    // "Again" brings the card back in this session; the rest are "Good".
+    await page.getByRole("button", { name: /^Again/ }).click();
+    await page.getByText("6 left · 1 done").waitFor();
+    for (let i = 0; i < 6; i++) {
+      await page.getByRole("button", { name: "Show answer" }).click();
+      await page.getByRole("button", { name: /^Good/ }).click();
+    }
+    await page.getByText("All done for now").waitFor();
+    await page.getByText("7 reviews finished").waitFor();
+    const logs = await mock.db.query("select rating, count(*)::int as n from public.review_logs group by rating order by rating");
+    assert.deepEqual(logs.rows, [{ rating: 1, n: 1 }, { rating: 3, n: 6 }]);
+    const due = await mock.db.query("select count(*)::int as n from public.review_cards where due <= now()");
+    assert.equal(due.rows[0].n, 0);
+    step("a forgotten card returns in the same session; afterwards nothing is due and every answer is logged");
+
+    await page.goto("/today");
+    await page.getByText("7 / 20").waitFor();
+    step("Today counts the seven reviews toward the daily goal");
+
+    await page.goto("/me");
+    await page.getByText("sentences learning").waitFor();
+    await page.getByText("86%").waitFor();
+    await page.getByLabel("Show English meanings").uncheck();
+    await page.getByLabel("Show Kannada script").check();
+    await page.getByRole("button", { name: "Save settings" }).click();
+    await page.getByText("Saved.").waitFor();
+    await shot("18-me");
+    await page.goto("/learn/greetings/hello-how-are-you");
+    const firstLessonCard = page.locator("article:visible").first();
+    await firstLessonCard.getByText("ನಮಸ್ಕಾರ").waitFor();
+    assert.equal(await firstLessonCard.getByText("Hello", { exact: true }).count(), 0);
+    await firstLessonCard.getByRole("button", { name: "Show meaning" }).click();
+    await firstLessonCard.getByText("Hello", { exact: true }).waitFor();
+    step("Me shows progress (6 of 7 recalled, 86%); settings hide English and show the script on lesson cards");
+
+    await page.goto("/learn/greetings/hello-how-are-you");
     await page.getByRole("link", { name: "Next: Thanks, sorry and goodbye" }).click();
     await page.getByRole("heading", { name: "Thanks, sorry and goodbye" }).waitFor();
     assert.equal(await page.locator("article:visible").count(), 9);
@@ -256,7 +312,7 @@ async function configured() {
     await shot("07-build");
     await page.getByRole("link", { name: "Me", exact: true }).click();
     await page.waitForURL("**/me");
-    await page.getByText(email).waitFor();
+    await page.getByText(email).filter({ visible: true }).waitFor();
     await assertFitsScreen("me");
     await shot("08-me");
     step("all five tabs open, and Me shows the signed-in email");

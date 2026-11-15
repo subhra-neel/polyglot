@@ -28,6 +28,15 @@ Editor and run:
 
 Check: **Table Editor → sentences** has 19 rows.
 
+Later database updates follow the same pattern: each new file in
+`supabase/migrations/` is run once, in number order. So far:
+
+| File | Adds |
+| --- | --- |
+| `0001_init.sql` | Tables, privacy rules, Level 1 units |
+| `0002_lessons.sql` | Lesson reading, completing, flagging |
+| `0003_revision.sql` | Revision schedule, progress, settings |
+
 Whenever lesson content changes, the changelog will say so: run
 `supabase/content.sql` again.
 
