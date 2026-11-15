@@ -51,6 +51,45 @@ the link to:
 
 Switch confirmation back on before opening the app to other people.
 
+## 2b. Password reset emails (Supabase)
+
+"Forgot password?" on the sign-in page emails a link. Three settings make
+that link work.
+
+**Where the link may send people.** Open **Authentication → URL
+Configuration**:
+
+- **Site URL**: your app's address, e.g. `https://your-app.vercel.app`
+  (the one you open on your phone). The default is `http://localhost:3000`,
+  which would make email links go nowhere.
+- **Redirect URLs → Add URL**: `https://your-app.vercel.app/**`
+
+**The email itself (recommended).** Open **Authentication → Emails →
+Reset Password** (older dashboards: **Email Templates**) and replace the link
+in the message with:
+
+```
+{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/reset-password
+```
+
+For example, the whole message can be:
+
+```html
+<h2>Reset your Polyglot password</h2>
+<p><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/reset-password">Set a new password</a></p>
+```
+
+Without this change the link still works, but only when opened in the same
+browser that asked for it. With it, you can open the email on any device.
+
+**Who can receive it.** Supabase's built-in email service only delivers to
+email addresses that are members of your Supabase organisation, and only a few
+emails an hour. Use the same email for your Polyglot account as for your
+Supabase login, or set up your own email service under **Authentication →
+Emails → SMTP Settings** before inviting anyone else.
+
+Only the newest reset link works: asking twice cancels the first link.
+
 ## 3. The two Supabase settings (Vercel)
 
 Open your project on vercel.com → **Settings → Environment Variables**.
@@ -91,3 +130,6 @@ After adding or changing a variable, redeploy: **Deployments → ⋯ → Redeplo
 | Learn shows no units | The SQL ran only partly | Tell Claude; the tables need checking |
 | "Check your email for a confirmation link" | Confirm email is on | Step 2 |
 | "Email or password is incorrect" on a new account | The account was created but not confirmed | Step 2 |
+| Reset email link opens localhost or an error page | Site URL or Redirect URLs not set | Step 2b |
+| "That reset link has expired" straight away | Link opened in a different browser without the recommended template, or an older link after asking twice | Step 2b, then ask for a new link |
+| "Email address not authorized" when asking for a reset | Built-in email only sends to your Supabase organisation's members | Step 2b |

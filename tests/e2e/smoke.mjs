@@ -234,6 +234,85 @@ async function configured() {
     await page.getByRole("button", { name: "Sign in" }).click();
     await page.waitForURL("**/today");
     step("signing back in with the same password works");
+
+    // An unknown email, from a separate browser so it does not replace this
+    // browser's pending reset (only the newest reset link works).
+    const stranger = await browser.newContext({ ...devices["Pixel 7"], baseURL: BASE });
+    const strangerPage = await stranger.newPage();
+    await strangerPage.goto("/forgot-password");
+    await strangerPage.getByLabel("Email").fill("nobody@example.com");
+    await strangerPage.getByRole("button", { name: "Send reset link" }).click();
+    await strangerPage.getByText("If an account exists for nobody@example.com").waitFor();
+    await stranger.close();
+    mock.recoveries.length = 0;
+    step("an unknown email gets the same answer, so accounts cannot be discovered");
+
+    // Forgot password, following the link from Supabase's default email.
+    await page.goto("/me");
+    await page.getByRole("button", { name: "Sign out" }).click();
+    await page.waitForURL(BASE + "/");
+    await page.goto("/sign-in");
+    await page.getByRole("link", { name: "Forgot password?" }).click();
+    await page.waitForURL("**/forgot-password");
+    // Next keeps the sign-in page mounted but hidden, so pick the visible field.
+    await page.getByLabel("Email").filter({ visible: true }).fill(email);
+    await page.getByRole("button", { name: "Send reset link" }).click();
+    await page.getByText("Check your email").waitFor();
+    await shot("13-forgot-sent");
+    assert.equal(mock.recoveries.length, 1);
+    assert.equal(mock.recoveries[0].email, email);
+    assert.equal(mock.recoveries[0].redirectTo, `${BASE}/auth/confirm?next=%2Freset-password`);
+    step("Forgot password sends a reset email that returns to this app");
+
+    await page.goto(mock.codeLinkFor(mock.recoveries[0]));
+    await page.waitForURL("**/reset-password");
+    await page.getByText(`Choose a new password for ${email}`).waitFor();
+    await page.getByLabel("New password").fill("brand-new-password");
+    await page.getByLabel("Type it again").fill("brand-new-passwrod");
+    await page.getByRole("button", { name: "Save new password" }).click();
+    await page.getByText("The two passwords do not match.").waitFor();
+    await page.getByLabel("New password").fill("brand-new-password");
+    await page.getByLabel("Type it again").fill("brand-new-password");
+    await shot("14-new-password");
+    await page.getByRole("button", { name: "Save new password" }).click();
+    await page.waitForURL("**/today");
+    step("the email link opens Set new password, which checks the two entries match");
+
+    await page.goto("/me");
+    await page.getByRole("button", { name: "Sign out" }).click();
+    await page.waitForURL(BASE + "/");
+    await page.goto("/sign-in");
+    await page.getByLabel("Email").fill(email);
+    await page.getByLabel("Password").fill(password);
+    await page.getByRole("button", { name: "Sign in" }).click();
+    await page.getByText("Email or password is incorrect.").waitFor();
+    await page.getByLabel("Password").fill("brand-new-password");
+    await page.getByRole("button", { name: "Sign in" }).click();
+    await page.waitForURL("**/today");
+    step("afterwards the old password fails and the new one works");
+
+    // The recommended email template (token_hash), opened in a fresh browser,
+    // as when the email is read on another device.
+    const otherDevice = await browser.newContext({ ...devices["Pixel 7"], baseURL: BASE });
+    const other = await otherDevice.newPage();
+    const link = mock.tokenHashLinkFor(email, BASE);
+    await other.goto(link);
+    await other.waitForURL("**/reset-password");
+    await other.getByText(`Choose a new password for ${email}`).waitFor();
+    step("the recommended email link works even on another device");
+
+    await other.goto(link);
+    await other.waitForURL("**/forgot-password?link=expired");
+    await other.getByText("That reset link has expired or was already used.").waitFor();
+    await otherDevice.close();
+    step("a used link is refused and offers to send a new one");
+
+    const fresh = await browser.newContext({ ...devices["Pixel 7"], baseURL: BASE });
+    const freshPage = await fresh.newPage();
+    await freshPage.goto("/reset-password");
+    await freshPage.getByText("This link has expired or was already used").waitFor();
+    await fresh.close();
+    step("Set new password cannot be used without an email link");
   } finally {
     await mock.close();
   }

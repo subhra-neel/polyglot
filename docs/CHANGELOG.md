@@ -3,6 +3,29 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-15 — Password reset
+
+### Built
+- "Forgot password?" link on the sign-in page, leading to a form that emails a
+  reset link. It gives the same answer whether or not the account exists.
+- `/reset-password`: set a new password (typed twice). Only reachable through
+  the email link; otherwise it offers to send a new link.
+- `/auth/confirm` now accepts both link styles Supabase sends: `?code=` (its
+  default email, same browser only) and `?token_hash=` (the recommended
+  template, any device). A failed reset link returns to "forgot password"
+  with an explanation. It now redirects to the address the learner used
+  rather than the server's own name, which could lose the session.
+- Clear messages for Supabase's email limits ("not authorised", rate limit).
+
+### Tested
+- Phone smoke test, 7 new steps: request, unknown email, follow the default
+  link, mismatched passwords refused, old password fails and new one works,
+  the recommended link on a second device, a used link refused, the page
+  refused without a link. 27 steps pass in total; `npm test` 56 tests pass.
+
+### Not tested
+- Real Supabase email delivery. Needs the settings in `docs/SETUP.md` step 2b.
+
 ## 2026-11-15 — Phase 2, milestone 2: Unit 1 lessons
 
 ### Built
@@ -106,7 +129,6 @@ Kannada MVP plan". This file records what has actually been built and tested.
 - iPhone Safari.
 
 ### Known gaps
-- No "forgot password" yet.
 - The smoke test is not wired into `npm test` (it needs a browser and a running server).
 - `npm audit` reports 8 moderate findings, all inside the linting toolchain
   (development only, not shipped to users).
