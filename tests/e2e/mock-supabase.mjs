@@ -8,7 +8,7 @@
  * not that a real project is configured correctly.
  */
 import { createServer } from "node:http";
-import { createHmac, randomUUID } from "node:crypto";
+import { createHash, createHmac, randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { ROOT, asUser, createTestDb } from "../helpers/db.mjs";
@@ -16,6 +16,9 @@ import { ROOT, asUser, createTestDb } from "../helpers/db.mjs";
 const SECRET = "mock-secret";
 const users = new Map(); // email -> { id, email, password }
 const sessions = new Map(); // access token -> user
+const recoveries = []; // reset emails "sent": { email, redirectTo, challenge, method }
+const codes = new Map(); // one-time ?code= values -> recovery
+const tokenHashes = new Map(); // one-time ?token_hash= values -> user email
 
 const b64 = (value) => Buffer.from(JSON.stringify(value)).toString("base64url");
 
@@ -90,13 +93,63 @@ export async function startMockSupabase(port) {
       return send(200, issueSession(user));
     }
 
-    if (url.pathname === "/auth/v1/token" && request.method === "POST") {
+    if (url.pathname === "/auth/v1/token" && url.searchParams.get("grant_type") === "password") {
       const { email, password } = await readJson(request);
       const user = users.get(email);
       if (url.searchParams.get("grant_type") === "password" && user && user.password === password) {
         return send(200, issueSession(user));
       }
       return send(400, { code: 400, error_code: "invalid_credentials", msg: "Invalid login credentials" });
+    }
+
+    // Password reset: Supabase emails a link. Here the "email" is recorded so
+    // the test can follow the link Supabase would have sent.
+    if (url.pathname === "/auth/v1/recover" && request.method === "POST") {
+      const body = await readJson(request);
+      recoveries.push({
+        email: body.email,
+        redirectTo: url.searchParams.get("redirect_to"),
+        challenge: body.code_challenge,
+        method: body.code_challenge_method,
+      });
+      return send(200, {});
+    }
+
+    if (url.pathname === "/auth/v1/token" && url.searchParams.get("grant_type") === "pkce") {
+      const { auth_code, code_verifier } = await readJson(request);
+      const recovery = codes.get(auth_code);
+      codes.delete(auth_code);
+      const expected =
+        recovery?.method === "s256"
+          ? createHash("sha256").update(code_verifier ?? "").digest("base64url")
+          : code_verifier;
+      const user = recovery && users.get(recovery.email);
+      if (!user || expected !== recovery.challenge) {
+        return send(400, { code: 400, error_code: "bad_code_verifier", msg: "code challenge does not match" });
+      }
+      return send(200, issueSession(user));
+    }
+
+    if (url.pathname === "/auth/v1/verify" && request.method === "POST") {
+      const { token_hash, type } = await readJson(request);
+      const email = tokenHashes.get(token_hash);
+      tokenHashes.delete(token_hash);
+      const user = email && users.get(email);
+      if (!user || type !== "recovery") {
+        return send(403, { code: 403, error_code: "otp_expired", msg: "Email link is invalid or has expired" });
+      }
+      return send(200, issueSession(user));
+    }
+
+    if (url.pathname === "/auth/v1/user" && request.method === "PUT") {
+      const user = sessions.get(token);
+      if (!user) return send(401, { code: 401, error_code: "bad_jwt", msg: "invalid JWT" });
+      const { password } = await readJson(request);
+      if (password === user.password) {
+        return send(422, { code: 422, error_code: "same_password", msg: "New password should be different" });
+      }
+      user.password = password;
+      return send(200, publicUser(user));
     }
 
     if (url.pathname === "/auth/v1/user") {
@@ -129,6 +182,21 @@ export async function startMockSupabase(port) {
   await new Promise((resolve) => server.listen(port, "127.0.0.1", resolve));
   return {
     db,
+    recoveries,
+    /** The link in the default email template: Supabase redirects with ?code=. */
+    codeLinkFor(recovery) {
+      const code = randomUUID();
+      codes.set(code, recovery);
+      const link = new URL(recovery.redirectTo);
+      link.searchParams.set("code", code);
+      return link.toString();
+    },
+    /** The link in the recommended template: ?token_hash=…&type=recovery. */
+    tokenHashLinkFor(email, siteUrl) {
+      const hash = randomUUID();
+      tokenHashes.set(hash, email);
+      return `${siteUrl}/auth/confirm?token_hash=${hash}&type=recovery&next=/reset-password`;
+    },
     close: async () => {
       await new Promise((resolve) => server.close(resolve));
       await db.close();

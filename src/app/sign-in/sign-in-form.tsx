@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { useSearchParams } from "next/navigation";
 import { authenticate, type AuthState } from "./actions";
@@ -43,7 +44,12 @@ export function SignInForm({ disabled }: { disabled: boolean }) {
           required
           disabled={locked}
         />
-        <span className="mt-2 block text-sm font-normal text-muted">At least 8 characters.</span>
+        <span className="mt-2 flex items-center justify-between text-sm font-normal text-muted">
+          At least 8 characters.
+          <Link href="/forgot-password" className="font-medium text-accent">
+            Forgot password?
+          </Link>
+        </span>
       </label>
 
       <div aria-live="polite">

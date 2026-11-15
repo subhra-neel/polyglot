@@ -21,8 +21,12 @@ describe("safeNextPath", () => {
     expect(safeNextPath("/learn/unit/2?card=3")).toBe("/learn/unit/2?card=3");
   });
 
+  it("allows the reset-password page, which email links lead to", () => {
+    expect(safeNextPath("/reset-password")).toBe("/reset-password");
+  });
+
   it("falls back to Today for anything else", () => {
-    for (const next of [null, undefined, "", "/", "/sign-in", "learn", "https://evil.example", "//evil.example", "/\\evil.example"]) {
+    for (const next of [null, undefined, "", "/", "/sign-in", "/forgot-password", "learn", "https://evil.example", "//evil.example", "/\\evil.example"]) {
       expect(safeNextPath(next)).toBe("/today");
     }
   });
