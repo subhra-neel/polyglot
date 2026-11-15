@@ -20,6 +20,7 @@ const recoveries = []; // reset emails "sent": { email, redirectTo, challenge, m
 const codes = new Map(); // one-time ?code= values -> recovery
 const tokenHashes = new Map(); // one-time ?token_hash= values -> user email
 const speechRequests = []; // calls to the stand-in Sarvam voice service
+const chatRequests = []; // calls to the stand-in Sarvam chat model
 
 /** Bytes the stand-in voice "speaks": readable, so tests can check what was asked for. */
 export const fakeAudio = (text, pace) => Buffer.from(`audio|${text}|${pace}`);
@@ -178,6 +179,52 @@ export async function startMockSupabase(port) {
       return send(200, { request_id: randomUUID(), audios: [fakeAudio(body.text, body.pace).toString("base64")] });
     }
 
+    // Stand-in for Sarvam's chat model, with fixed rules so tests know what to expect:
+    // the opening line greets; a sentence using "nānu" gets a case-ending correction.
+    if (url.pathname === "/v1/chat/completions" && request.method === "POST") {
+      const body = await readJson(request);
+      chatRequests.push({ key: request.headers["api-subscription-key"], ...body });
+      if (request.headers["api-subscription-key"] !== "test-sarvam-key") {
+        return send(403, { error: { message: "Invalid API key" } });
+      }
+      const last = body.messages.at(-1)?.content ?? "";
+      const opening = body.messages.filter((m) => m.role === "assistant").length === 0 && last.startsWith("(");
+      const none = { category: "none", corrected_kannada: "", what_was_wrong: "", why: "", more_natural_kannada: "", tags: [] };
+      const turn = opening
+        ? { reply_kannada: "ನಮಸ್ಕಾರ! ಏನು ಬೇಕು?", reply_english: "Hello! What would you like?", correction: none, aside_english: "" }
+        : /\bn(ā|aa|a)nu\b/i.test(last)
+          ? {
+              reply_kannada: "ಸರಿ, ಕಾಫಿ ಕೊಡ್ತೀನಿ.",
+              reply_english: "Okay, I'll give you coffee.",
+              correction: {
+                category: "error",
+                corrected_kannada: "ನನಗೆ ಕಾಫಿ ಬೇಕು",
+                what_was_wrong: "nānu (I) should be nanage (to me).",
+                why: "bēku takes the person who wants in the 'to me' form.",
+                more_natural_kannada: "ಒಂದು ಕಾಫಿ ಕೊಡಿ",
+                tags: ["wrong_case_ending"],
+              },
+              aside_english: "",
+            }
+          : { reply_kannada: "ಸರಿ. ಇನ್ನೇನು ಬೇಕು?", reply_english: "Okay. What else?", correction: none, aside_english: "" };
+      return send(200, { id: randomUUID(), choices: [{ index: 0, message: { role: "assistant", content: JSON.stringify(turn) } }] });
+    }
+
+    // Reading one tutor message, as the signed-in learner (row-level security applies).
+    if (url.pathname === "/rest/v1/messages" && request.method === "GET") {
+      const id = (url.searchParams.get("id") ?? "").replace(/^eq\./, "");
+      const role = (url.searchParams.get("role") ?? "").replace(/^eq\./, "");
+      const userId = sessions.get(token)?.id ?? null;
+      try {
+        const rows = await asUser(db, userId, async () =>
+          (await db.query("select text_script from public.messages where id = $1 and role = $2", [id, role])).rows,
+        );
+        return send(200, rows);
+      } catch (error) {
+        return send(400, { code: "22P02", message: error.message });
+      }
+    }
+
     // Reading one sentence by id, as the signed-in learner (row-level security applies).
     if (url.pathname === "/rest/v1/sentences" && request.method === "GET") {
       const id = (url.searchParams.get("id") ?? "").replace(/^eq\./, "");
@@ -212,6 +259,7 @@ export async function startMockSupabase(port) {
     db,
     recoveries,
     speechRequests,
+    chatRequests,
     /** The link in the default email template: Supabase redirects with ?code=. */
     codeLinkFor(recovery) {
       const code = randomUUID();

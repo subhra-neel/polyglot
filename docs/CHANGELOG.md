@@ -3,6 +3,36 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-15 — Phase 3, milestone 1: AI tutor (text roleplay)
+
+### Built
+- Talk tab: three Level 1 scenes (a new neighbour, a tea stall, an auto
+  ride), each with a persona, a goal and "Try:" phrases.
+- Chat: the tutor speaks in character in spoken Bengaluru Kannada. Its lines
+  show in English letters (converted from script by the app, not the model),
+  script if switched on, English on tap, and Play/Slow audio.
+- Corrections on the learner's line: Correction (error), More natural,
+  Formality, Also correct (valid regional or spoken forms are never counted
+  as mistakes). Each shows what you said, the better version, what changed
+  and why. English questions ("how do I say…") get a short answer.
+- Recurring mistakes are tagged and stored; the next conversation's prompt
+  includes them so the tutor watches for them.
+- Finish shows the corrections to practise; past conversations are listed.
+- Chat model behind a swappable connector (`src/lib/llm`); first one is
+  Sarvam `sarvam-105b-conversations` with a strict JSON reply schema, read
+  and checked by zod, retried once.
+- `0004_tutor.sql`: scenes and conversation functions, all under row-level
+  security.
+
+### Tested
+- 111 unit tests (reply parsing, corrections, prompt, connector, database
+  functions). Smoke test: 42 steps against a stand-in chat model.
+
+### Not yet verified
+- Sarvam's real Kannada quality and JSON reliability: this workspace cannot
+  reach Sarvam. Needs a check on the live app; the connector can be switched
+  to another model if needed.
+
 ## 2026-11-15 — Phase 2, milestone 3: sentence lab
 
 ### Built
