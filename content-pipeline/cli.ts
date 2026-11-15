@@ -6,6 +6,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadContentDir, unitsToSql } from "./build.ts";
+import { loadPatterns } from "./patterns.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const command = process.argv[2];
@@ -31,6 +32,19 @@ for (const language of languages) {
   }
 }
 
+const patternFiles = [];
+for (const language of languages) {
+  const path = join(root, "content", language, "patterns.yaml");
+  const { file, problems } = loadPatterns(path);
+  for (const p of problems) console.error(`✗ content/${language}/patterns.yaml · ${p}`);
+  if (problems.length || !file) failed = true;
+  else {
+    patternFiles.push({ language, file });
+    const combos = file.patterns.reduce((n, p) => n + p.words.length * p.endings.length, 0);
+    console.log(`✓ ${language} sentence lab: ${file.patterns.length} patterns, ${file.words.length} words, ${combos} sentences`);
+  }
+}
+
 if (failed) {
   console.error("\nContent has problems. Nothing was written.");
   process.exit(1);
@@ -41,6 +55,12 @@ if (command === "build") {
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, unitsToSql(allUnits));
   console.log(`\nWrote ${out.replace(root + "/", "")}`);
+  for (const { language, file } of patternFiles) {
+    const target = join(root, "src", "content", `${language}-patterns.json`);
+    mkdirSync(dirname(target), { recursive: true });
+    writeFileSync(target, JSON.stringify(file, null, 2) + "\n");
+    console.log(`Wrote ${target.replace(root + "/", "")}`);
+  }
 } else if (command !== "check") {
   console.error("Usage: node content-pipeline/cli.ts <check|build>");
   process.exit(1);

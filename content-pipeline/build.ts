@@ -83,7 +83,8 @@ export function checkUnit(file: string, data: unknown): { unit?: UnitFile; probl
 export function loadContentDir(dir: string): { units: UnitFile[]; problems: Problem[] } {
   const units: UnitFile[] = [];
   const problems: Problem[] = [];
-  for (const name of readdirSync(dir).filter((f) => f.endsWith(".yaml")).sort()) {
+  // patterns.yaml is the sentence lab, checked separately (patterns.ts).
+  for (const name of readdirSync(dir).filter((f) => f.endsWith(".yaml") && f !== "patterns.yaml").sort()) {
     const path = join(dir, name);
     let data: unknown;
     try {

@@ -3,6 +3,37 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-15 — Phase 2, milestone 3: sentence lab
+
+### Built
+- Build tab: four patterns from `content/kn/patterns.yaml`: "I want / don't
+  want" (nanage … bēku / bēDa), "there is / isn't / is there?" (… ide / illa /
+  ideyā?), "please give" (… koDi), "how much?" (… eshTu?). 9 words, 30
+  buildable sentences.
+- Pattern page: choose a word and an ending, see the sentence (English
+  letters, script if switched on, English) and hear it; "Your turn" gives an
+  English sentence to build, checks it, and explains a wrong word or ending.
+- `/api/audio/lab/<pattern>/<word>/<ending>/<speed>`: rebuilds the sentence
+  from the checked pattern data before speaking, so only real lab sentences
+  can use the voice credit.
+- Content pipeline checks every buildable combination letter for letter,
+  and writes `src/content/kn-patterns.json` for the app.
+
+### Content decisions
+- Patterns and words are attested in SWALPA (survival, logistics and social
+  chapters). Each combination is grammatical by construction rather than
+  individually attested.
+- Left out until a source confirms them: nimage ("to you"), the question bēkā?.
+- English loanwords (kāfi, Tī, bil, menu, help, karenT) are taught as used in
+  Bengaluru. The checker treats f and ph as one letter because Kannada writes
+  both with ಫ.
+- Lab patterns are bundled with the app rather than stored in the database,
+  so they need no SQL step. Practice results are not saved yet.
+
+### Tested
+- 91 unit and database tests; phone smoke test 36 steps including building,
+  hearing, refusing an unbuildable sentence, and practice feedback.
+
 ## 2026-11-15 — Phase 2, milestone 4: revision, progress, settings
 
 ### Built

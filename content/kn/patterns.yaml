@@ -1,0 +1,96 @@
+# Kannada · Level 1 · Sentence lab patterns
+#
+# A pattern is a sentence frame with one open slot and a choice of endings.
+# Every combination a learner can build is grammatical by construction: the
+# frame and each ending are attested in a source, and so is each word.
+#
+# Sources
+#   SWALPA-survival   swalpa.pages.dev/02_survival_and_emergencies
+#   SWALPA-logistics  swalpa.pages.dev/09_everyday_logistics_and_services
+#   SWALPA-social     swalpa.pages.dev/03_social_interactions
+
+language: kn
+
+words:
+  - { id: water, roman: nīru, script: ನೀರು, gloss: "water", sources: [SWALPA-survival, SWALPA-logistics] }
+  - { id: coffee, roman: kāfi, script: ಕಾಫಿ, gloss: "coffee (English word, used as is)", sources: [SWALPA-social] }
+  - { id: tea, roman: Tī, script: ಟೀ, gloss: "tea (English word, used as is)", sources: [SWALPA-social] }
+  - { id: meal, roman: ūTa, script: ಊಟ, gloss: "meal (lunch or dinner)", sources: [SWALPA-survival] }
+  - { id: help, roman: help, script: ಹೆಲ್ಪ್, gloss: "help (English word, used as is)", sources: [SWALPA-survival] }
+  - { id: bill, roman: bil, script: ಬಿಲ್, gloss: "bill (English word, used as is)", sources: [SWALPA-survival] }
+  - { id: menu, roman: menu, script: ಮೆನು, gloss: "menu (English word, used as is)", sources: [SWALPA-survival] }
+  - { id: power, roman: karenT, script: ಕರೆಂಟ್, gloss: "electricity, power (from English \"current\")", sources: [SWALPA-survival] }
+  - { id: rent, roman: bāDige, script: ಬಾಡಿಗೆ, gloss: "rent", sources: [SWALPA-logistics] }
+
+patterns:
+  - id: want
+    title: I want … / I don't want …
+    template: "nanage {word} {ending}"
+    template_script: "ನನಗೆ {word} {ending}"
+    explanation: >-
+      Kannada says "to me, water is wanted". The person who wants takes the
+      "to" form: nānu (I) becomes nanage (to me). The thing wanted stays as it
+      is, and bēku comes last. Swap bēku for bēDa to say you don't want it.
+    note: In quick speech nanage often shortens to nange.
+    sources: [SWALPA-survival]
+    endings:
+      - { id: statement, label: Want, roman: bēku, script: ಬೇಕು, english: "I want {word}" }
+      - { id: negative, label: Don't want, roman: bēDa, script: ಬೇಡ, english: "I don't want {word}" }
+    words:
+      - { word: water, english: water }
+      - { word: coffee, english: coffee }
+      - { word: tea, english: tea }
+      - { word: meal, english: a meal }
+      - { word: help, english: help }
+
+  - id: there-is
+    title: There is … / There isn't … / Is there …?
+    template: "{word} {ending}"
+    template_script: "{word} {ending}"
+    explanation: >-
+      ide means "there is" or "it's here", illa means "there isn't". Add a long
+      ā to ide and it becomes a yes-or-no question: ideyā? No word for "is"
+      or "there" is needed before it.
+    sources: [SWALPA-logistics, SWALPA-survival]
+    endings:
+      - { id: statement, label: There is, roman: ide, script: ಇದೆ, english: "There is {word}" }
+      - { id: negative, label: There isn't, roman: illa, script: ಇಲ್ಲ, english: "There is no {word}" }
+      - { id: question, label: Is there?, roman: ideyā?, script: ಇದೆಯಾ?, english: "Is there {word}?" }
+    words:
+      - { word: water, english: water }
+      - { word: power, english: power }
+      - { word: coffee, english: coffee }
+      - { word: tea, english: tea }
+
+  - id: please-give
+    title: Please give …
+    template: "{word} {ending}"
+    template_script: "{word} {ending}"
+    explanation: >-
+      koDi is the polite "give". Adding -i to a verb makes a polite request,
+      right for waiters, shopkeepers and anyone you don't know well. Name the
+      thing first, then koDi.
+    sources: [SWALPA-survival]
+    endings:
+      - { id: statement, label: Please give, roman: koDi, script: ಕೊಡಿ, english: "Please give me {word}" }
+    words:
+      - { word: bill, english: the bill }
+      - { word: menu, english: the menu }
+      - { word: water, english: water }
+      - { word: coffee, english: a coffee }
+
+  - id: how-much
+    title: How much is …?
+    template: "{word} {ending}"
+    template_script: "{word} {ending}"
+    explanation: >-
+      eshTu means "how much". It comes after the thing you are asking about,
+      the opposite of English: "rent how much?"
+    sources: [SWALPA-logistics]
+    endings:
+      - { id: question, label: How much?, roman: eshTu?, script: ಎಷ್ಟು?, english: "How much is {word}?" }
+    words:
+      - { word: rent, english: the rent }
+      - { word: coffee, english: a coffee }
+      - { word: tea, english: a tea }
+      - { word: meal, english: a meal }

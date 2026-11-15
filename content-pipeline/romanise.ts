@@ -77,10 +77,15 @@ export function romanise(script: string): string {
   return out;
 }
 
-/** Strip punctuation and squeeze spaces, so "hēgiddīrā?" compares as "hēgiddīrā". */
+/**
+ * Strip punctuation and squeeze spaces, so "hēgiddīrā?" compares as "hēgiddīrā".
+ * ಫ is written for both "ph" and the "f" of English words (kāfi, coffee), so
+ * the two spellings count as the same letter.
+ */
 export function normaliseRoman(text: string): string {
   return text
     .normalize("NFC")
+    .replace(/ph/g, "f")
     .replace(/[?!.,;:'"“”‘’()]/g, "")
     .replace(/\s+/g, " ")
     .trim();
