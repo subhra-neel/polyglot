@@ -9,6 +9,7 @@ import { SetupNotice } from "@/components/setup-notice";
 import { VoiceStatus } from "@/components/speak-buttons";
 import { getCurrentUser } from "@/lib/auth";
 import { ContentUnavailableError, getLesson, isSlug, type Lesson } from "@/lib/lessons";
+import { audioUrlsFor, getTtsProvider } from "@/lib/tts";
 
 export const metadata: Metadata = { title: "Lesson" };
 
@@ -29,6 +30,7 @@ async function LessonView({ params }: { params: Params }) {
   if (!data) notFound();
 
   const total = data.sentences.length;
+  const tts = getTtsProvider();
 
   return (
     <>
@@ -41,7 +43,7 @@ async function LessonView({ params }: { params: Params }) {
         </p>
         <h1 className="mt-1 text-3xl font-semibold tracking-tight">{data.lesson.title}</h1>
         <div className="mt-3">
-          <VoiceStatus />
+          <VoiceStatus recordedAudio={tts !== null} />
         </div>
       </header>
 
@@ -51,7 +53,13 @@ async function LessonView({ params }: { params: Params }) {
         <>
           <div className="mt-8 space-y-4">
             {data.sentences.map((sentence, i) => (
-              <SentenceCard key={sentence.id} sentence={sentence} index={i + 1} total={total} />
+              <SentenceCard
+                key={sentence.id}
+                sentence={sentence}
+                audio={audioUrlsFor(sentence.id, sentence.script, tts)}
+                index={i + 1}
+                total={total}
+              />
             ))}
           </div>
           <div className="mt-10">

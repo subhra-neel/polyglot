@@ -19,6 +19,10 @@ const sessions = new Map(); // access token -> user
 const recoveries = []; // reset emails "sent": { email, redirectTo, challenge, method }
 const codes = new Map(); // one-time ?code= values -> recovery
 const tokenHashes = new Map(); // one-time ?token_hash= values -> user email
+const speechRequests = []; // calls to the stand-in Sarvam voice service
+
+/** Bytes the stand-in voice "speaks": readable, so tests can check what was asked for. */
+export const fakeAudio = (text, pace) => Buffer.from(`audio|${text}|${pace}`);
 
 const b64 = (value) => Buffer.from(JSON.stringify(value)).toString("base64url");
 
@@ -164,6 +168,30 @@ export async function startMockSupabase(port) {
 
     if (url.pathname === "/auth/v1/.well-known/jwks.json") return send(200, { keys: [] });
 
+    // Stand-in for Sarvam's text-to-speech (the app's SARVAM_API_BASE points here).
+    if (url.pathname === "/text-to-speech" && request.method === "POST") {
+      const body = await readJson(request);
+      speechRequests.push({ key: request.headers["api-subscription-key"], ...body });
+      if (request.headers["api-subscription-key"] !== "test-sarvam-key") {
+        return send(403, { error: { message: "Invalid API key" } });
+      }
+      return send(200, { request_id: randomUUID(), audios: [fakeAudio(body.text, body.pace).toString("base64")] });
+    }
+
+    // Reading one sentence by id, as the signed-in learner (row-level security applies).
+    if (url.pathname === "/rest/v1/sentences" && request.method === "GET") {
+      const id = (url.searchParams.get("id") ?? "").replace(/^eq\./, "");
+      const userId = sessions.get(token)?.id ?? null;
+      try {
+        const rows = await asUser(db, userId, async () =>
+          (await db.query("select text_script, language_code from public.sentences where id = $1", [id])).rows,
+        );
+        return send(200, rows);
+      } catch (error) {
+        return send(400, { code: "22P02", message: error.message });
+      }
+    }
+
     if (url.pathname.startsWith("/rest/v1/rpc/") && request.method === "POST") {
       const name = url.pathname.slice("/rest/v1/rpc/".length);
       const userId = sessions.get(token)?.id ?? null;
@@ -183,6 +211,7 @@ export async function startMockSupabase(port) {
   return {
     db,
     recoveries,
+    speechRequests,
     /** The link in the default email template: Supabase redirects with ?code=. */
     codeLinkFor(recovery) {
       const code = randomUUID();

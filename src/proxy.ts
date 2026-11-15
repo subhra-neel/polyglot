@@ -68,7 +68,9 @@ function copyCookies(from: NextResponse, to: NextResponse) {
 
 export const config = {
   matcher: [
-    // Everything except Next.js internals and static files.
-    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
+    // Everything except Next.js internals, static files and lesson audio.
+    // Audio is left out so its responses carry no cookies and can be cached;
+    // the audio route checks the session itself.
+    "/((?!_next/static|_next/image|api/audio/|favicon.ico|manifest.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
   ],
 };

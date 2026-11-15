@@ -111,6 +111,20 @@ starts with `NEXT_PUBLIC_`. Those names are sent to every visitor's browser.
 
 After adding or changing a variable, redeploy: **Deployments → ⋯ → Redeploy**.
 
+### Lesson audio (optional, recommended)
+
+| Name | Value |
+| --- | --- |
+| `SARVAM_API_KEY` | Sarvam dashboard (dashboard.sarvam.ai) → API keys |
+| `SARVAM_TTS_SPEAKER` | Optional. A Sarvam voice name, e.g. `kavya` or `rahul`. Default `shubh`. |
+
+Each sentence is generated the first time anyone plays it, then cached by the
+phone and by Vercel, so it is paid for roughly once (about ₹2–3 per 1,000
+characters). Without the key, Play uses the phone's own Kannada voice when it
+has one. Changing the voice gives every sentence new audio.
+
+These two are secret: no `NEXT_PUBLIC_` in front of them.
+
 ## 4. Try it
 
 1. Open the Vercel address on your phone.
@@ -126,7 +140,8 @@ After adding or changing a variable, redeploy: **Deployments → ⋯ → Redeplo
 | "Setup needed" on the sign-in page | Vercel does not have the two settings, or was not redeployed after adding them | Step 3 |
 | "The database is not set up yet" or "needs an update" on Learn | A SQL file has not been run | Steps 1 and 1b |
 | Unit 1 says "Coming soon" | `supabase/content.sql` has not been run | Step 1b |
-| Play and Slow are greyed out | Your phone has no Kannada voice installed | Settings → search "Text-to-speech" → install Kannada voice data |
+| Play and Slow are greyed out | No `SARVAM_API_KEY`, and the phone has no Kannada voice | Add the key (step 3), or install Kannada voice data on the phone |
+| Play says "The audio could not load" | Sarvam refused the request (wrong key, no credit) or the connection dropped | Vercel → Logs, search for `[audio]` |
 | Learn shows no units | The SQL ran only partly | Tell Claude; the tables need checking |
 | "Check your email for a confirmation link" | Confirm email is on | Step 2 |
 | "Email or password is incorrect" on a new account | The account was created but not confirmed | Step 2 |
