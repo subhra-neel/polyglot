@@ -36,3 +36,17 @@ export function audioUrlsFor(sentenceId: string, script: string | null, provider
   const url = (speed: Speed) => `/api/audio/${sentenceId}/${speed}?v=${version}`;
   return { normal: url("normal"), slow: url("slow") };
 }
+
+/** Addresses for a sentence built in the lab. */
+export function labAudioUrls(
+  patternId: string,
+  wordId: string,
+  endingId: string,
+  script: string,
+  provider: TtsProvider | null,
+): AudioUrls | null {
+  if (!provider) return null;
+  const version = createHash("sha1").update(`${provider.cacheKey}\n${script}`).digest("hex").slice(0, 12);
+  const url = (speed: Speed) => `/api/audio/lab/${patternId}/${wordId}/${endingId}/${speed}?v=${version}`;
+  return { normal: url("normal"), slow: url("slow") };
+}

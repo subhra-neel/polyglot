@@ -8,7 +8,7 @@ import { join } from "node:path";
 import type { PGlite } from "@electric-sql/pglite";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { checkUnit, loadContentDir, sentenceUuid, stableUuid, unitsToSql } from "../content-pipeline/build.ts";
-import { romanise } from "../content-pipeline/romanise.ts";
+import { normaliseRoman, romanise } from "../content-pipeline/romanise.ts";
 import { ROOT, asUser, createTestDb } from "./helpers/db.mjs";
 
 const LEARNER = "33333333-3333-3333-3333-333333333333";
@@ -27,6 +27,10 @@ describe("romanise", () => {
     ["ಬೆಂಗಳೂರು", "bengaLūru"],
   ])("%s → %s", (script, roman) => {
     expect(romanise(script)).toBe(roman);
+  });
+
+  it("treats f and ph as the same letter, as Kannada writes both with ಫ", () => {
+    expect(normaliseRoman(romanise("ಕಾಫಿ"))).toBe(normaliseRoman("kāfi"));
   });
 
   it("refuses a Kannada character it does not know", () => {

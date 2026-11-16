@@ -16,6 +16,7 @@
  * directory named in SMOKE_SHOTS, when set.
  */
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { join } from "node:path";
 import { fakeAudio, startMockSupabase } from "./mock-supabase.mjs";
@@ -285,6 +286,60 @@ async function configured() {
     await firstLessonCard.getByRole("button", { name: "Show meaning" }).click();
     await firstLessonCard.getByText("Hello", { exact: true }).waitFor();
     step("Me shows progress (6 of 7 recalled, 86%); settings hide English and show the script on lesson cards");
+
+    // Sentence lab.
+    await page.goto("/build");
+    await page.getByRole("link", { name: /I want … \/ I don't want …/ }).click();
+    await page.waitForURL("**/build/want");
+    const lab = page.getByRole("region", { name: "Build a sentence" }).filter({ visible: true });
+    await lab.getByRole("button", { name: /^Tī/ }).click();
+    await lab.getByRole("button", { name: /^bēDa/ }).click();
+    await lab.getByText("nanage Tī bēDa").waitFor();
+    await lab.getByText("I don't want tea").waitFor();
+    await lab.getByText("ನನಗೆ ಟೀ ಬೇಡ").waitFor(); // script is switched on in settings above
+    await shot("19-lab");
+    await page.evaluate(() => {
+      window.__played = [];
+      HTMLMediaElement.prototype.play = function () {
+        window.__played.push(new URL(this.src).pathname + new URL(this.src).search);
+        return Promise.resolve();
+      };
+    });
+    await lab.getByRole("button", { name: "Play" }).click();
+    const [labUrl] = await page.evaluate(() => window.__played);
+    assert.match(labUrl, /^\/api\/audio\/lab\/want\/tea\/negative\/normal\?v=[0-9a-f]{12}$/);
+    assert.deepEqual(await (await page.request.get(labUrl)).body(), fakeAudio("ನನಗೆ ಟೀ ಬೇಡ", 1));
+    assert.equal((await page.request.get("/api/audio/lab/want/rent/statement/normal")).status(), 404);
+    step("the lab builds 'nanage Tī bēDa' from chosen parts and speaks it; unbuildable sentences are refused");
+
+    const patterns = JSON.parse(readFileSync(new URL("../../src/content/kn-patterns.json", import.meta.url), "utf8"));
+    const want = patterns.patterns.find((p) => p.id === "want");
+    const practise = page.getByRole("region", { name: "Practise" }).filter({ visible: true });
+    await practise.getByRole("button", { name: "Start practising" }).click();
+    for (let round = 0; round < 2; round++) {
+      const english = await practise.locator("p.text-xl").innerText();
+      const ending = want.endings.find((e) => english.startsWith(e.english.split("{word}")[0].replace(/^./, (c) => c.toUpperCase())));
+      const slot = want.words.find((w) => english.endsWith(w.english));
+      const wordRoman = patterns.words.find((w) => w.id === slot.word).roman;
+      if (round === 0) {
+        // Build it correctly.
+        await lab.getByRole("button", { name: new RegExp(`^${wordRoman}`) }).click();
+        await lab.getByRole("button", { name: new RegExp(`^${ending.roman}`) }).click();
+        await practise.getByRole("button", { name: "Check" }).click();
+        await practise.getByText(/^Right:/).waitFor();
+      } else {
+        // Build it with the wrong ending, and get told why.
+        const wrong = want.endings.find((e) => e.id !== ending.id);
+        await lab.getByRole("button", { name: new RegExp(`^${wordRoman}`) }).click();
+        await lab.getByRole("button", { name: new RegExp(`^${wrong.roman}`) }).click();
+        await practise.getByRole("button", { name: "Check" }).click();
+        await practise.getByText(new RegExp(`end with ${ending.roman}`)).waitFor();
+      }
+      await practise.getByRole("button", { name: "Next" }).click();
+    }
+    await practise.getByText("1 / 2 right").waitFor();
+    await shot("20-lab-practice");
+    step("practice checks a built sentence and explains a wrong ending");
 
     await page.goto("/learn/greetings/hello-how-are-you");
     await page.getByRole("link", { name: "Next: Thanks, sorry and goodbye" }).click();
