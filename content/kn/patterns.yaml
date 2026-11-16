@@ -8,6 +8,8 @@
 #   SWALPA-survival   swalpa.pages.dev/02_survival_and_emergencies
 #   SWALPA-logistics  swalpa.pages.dev/09_everyday_logistics_and_services
 #   SWALPA-social     swalpa.pages.dev/03_social_interactions
+#   Penn              ccat.sas.upenn.edu/plc/kannada/lesson2.html (language + gottu)
+#   Goethe            goethe-verlag.com/book2/EN/ENKN (nanage gottilla)
 
 language: kn
 
@@ -20,6 +22,9 @@ words:
   - { id: bill, roman: bil, script: ಬಿಲ್, gloss: "bill (English word, used as is)", sources: [SWALPA-survival] }
   - { id: menu, roman: menu, script: ಮೆನು, gloss: "menu (English word, used as is)", sources: [SWALPA-survival] }
   - { id: power, roman: karenT, script: ಕರೆಂಟ್, gloss: "electricity, power (from English \"current\")", sources: [SWALPA-survival] }
+  - { id: kannada, roman: kannaDa, script: ಕನ್ನಡ, gloss: "Kannada", sources: [Penn] }
+  - { id: english, roman: inglish, script: ಇಂಗ್ಲಿಷ್, gloss: "English (the language)", sources: [Penn] }
+  - { id: hindi, roman: hindi, script: ಹಿಂದಿ, gloss: "Hindi", sources: [Penn] }
   - { id: rent, roman: bāDige, script: ಬಾಡಿಗೆ, gloss: "rent", sources: [SWALPA-logistics] }
 
 patterns:
@@ -94,3 +99,20 @@ patterns:
       - { word: coffee, english: a coffee }
       - { word: tea, english: a tea }
       - { word: meal, english: a meal }
+
+  - id: know
+    title: I know … / I don't know …
+    template: "nanage {word} {ending}"
+    template_script: "ನನಗೆ {word} {ending}"
+    explanation: >-
+      Same shape as bēku: "to me, Kannada is known". The knower takes nanage
+      (to me), the language stays as it is, and gottu (known) comes last.
+      gottilla is gottu + illa, "not known".
+    sources: [Penn, Goethe]
+    endings:
+      - { id: statement, label: Know, roman: gottu, script: ಗೊತ್ತು, english: "I know {word}" }
+      - { id: negative, label: Don't know, roman: gottilla, script: ಗೊತ್ತಿಲ್ಲ, english: "I don't know {word}" }
+    words:
+      - { word: kannada, english: Kannada }
+      - { word: english, english: English }
+      - { word: hindi, english: Hindi }

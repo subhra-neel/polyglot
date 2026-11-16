@@ -135,11 +135,13 @@ describe("loaded into the database", () => {
     await db.close();
   });
 
-  it("lists Unit 1 with its lessons", async () => {
+  it("lists Level 1 units with their lessons; units without content yet have none", async () => {
     const list = await call<{ slug: string; lesson_count: number }[]>(LEARNER, "public.get_units('kn', 1::smallint)");
     expect(list).toHaveLength(8);
     expect(list[0]).toMatchObject({ slug: "greetings", lesson_count: unit.lessons.length, completed_count: 0 });
-    expect(list[1]).toMatchObject({ lesson_count: 0 });
+    expect(list[1]).toMatchObject({ slug: "who-i-am", lesson_count: 2 });
+    expect(list[2]).toMatchObject({ slug: "this-and-that", lesson_count: 2 });
+    expect(list[3]).toMatchObject({ lesson_count: 0 });
   });
 
   it("returns a lesson with checked sentences only, in order", async () => {

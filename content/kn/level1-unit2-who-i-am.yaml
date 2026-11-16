@@ -1,0 +1,262 @@
+# Kannada · Level 1 · Unit 2: Who I am, who you are
+#
+# Spoken Bengaluru Kannada. `roman` is what learners read; `script` is used by
+# speech services and to check `roman` letter for letter.
+#
+# status
+#   source_checked  the sentence appears in a source below, or is built from a
+#                   frame that does with words that do (each is named)
+#   draft           not yet confirmed; hidden from learners
+#
+# Sources
+#   Preply        preply.com/en/blog/basic-words-in-kannada-70-phrases,
+#                 preply.com/en/blog/how-to-introduce-yourself-in-kannada-2
+#   SWALPA        swalpa.pages.dev/03_social_interactions, /05_verbs_and_grammar
+#   Sublearn      sublearn.com/learn/kn/grammar/introductions
+#   KannadaMaadi  learnkannada.onrender.com/lessons/1/vocab
+#   Penn          ccat.sas.upenn.edu/plc/kannada/lesson2.html (Penn Language Center)
+
+language: kn
+level: 1
+unit: who-i-am
+
+lessons:
+  - slug: whats-your-name
+    title: What's your name?
+    sentences:
+      - id: your-name-respectful
+        roman: nimma hesaru ēnu?
+        script: ನಿಮ್ಮ ಹೆಸರು ಏನು?
+        meaning: What's your name?
+        why: >-
+          Word for word "your name what?". Kannada puts the question word at
+          the end, like a form with a blank: Name: ____? nimma is the
+          respectful "your", right for anyone you've just met.
+        formality: respectful
+        status: source_checked
+        sources: [Preply, Sublearn, SWALPA]
+        tokens:
+          - word: nimma
+            gloss: your (respectful)
+          - word: hesaru
+            gloss: name
+          - word: ēnu
+            gloss: what
+        variants:
+          - { relation: casual, sentence: your-name-casual }
+
+      - id: your-name-casual
+        roman: ninna hesaru ēnu?
+        script: ನಿನ್ನ ಹೆಸರು ಏನು?
+        meaning: What's your name? (to a child or friend)
+        why: >-
+          Same sentence with ninna, the casual "your". Use it with children
+          or friends your age; with an adult stranger it sounds rude.
+        formality: casual
+        status: source_checked
+        sources: [Preply, Sublearn]
+        tokens:
+          - word: ninna
+            gloss: your (casual)
+          - word: hesaru
+            gloss: name
+          - word: ēnu
+            gloss: what
+        variants:
+          - { relation: respectful, sentence: your-name-respectful }
+
+      - id: my-name-is
+        roman: nanna hesaru anitā
+        script: ನನ್ನ ಹೆಸರು ಅನಿತಾ
+        meaning: My name is Anita
+        why: >-
+          "My name Anita": no word for "is". Think of it as a name badge,
+          nanna hesaru then your name. Swap in your own name.
+        status: source_checked
+        sources: [Sublearn, Preply]
+        tokens:
+          - word: nanna
+            gloss: my
+          - word: hesaru
+            gloss: name
+          - word: anitā
+            gloss: Anita (a name)
+
+      - id: i-am-rahul
+        roman: nānu rāhul
+        script: ನಾನು ರಾಹುಲ್
+        meaning: I'm Rahul
+        why: >-
+          The shortest introduction: "I Rahul". Again no "am"; Kannada simply
+          puts the two side by side, like a caption under a photo.
+        status: source_checked
+        sources: [Sublearn]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: rāhul
+            gloss: Rahul (a name)
+
+      - id: this-is-my-friend
+        roman: ivaru nanna snēhita, ravi
+        script: ಇವರು ನನ್ನ ಸ್ನೇಹಿತ, ರವಿ
+        meaning: This is my friend, Ravi
+        why: >-
+          ivaru is "this person" said respectfully, the polite way to point
+          someone out when introducing them. snēhita is "friend"; in Bengaluru
+          you will often hear the English "friend" instead.
+        formality: respectful
+        status: source_checked
+        sources: [Sublearn]
+        tokens:
+          - word: ivaru
+            gloss: this person (respectful)
+          - word: nanna
+            gloss: my
+          - word: snēhita
+            gloss: friend
+          - word: ravi
+            gloss: Ravi (a name)
+
+  - slug: where-from-where-work
+    title: Where are you from? Where do you work?
+    sentences:
+      - id: where-from
+        roman: nīvu ellinda?
+        script: ನೀವು ಎಲ್ಲಿಂದ?
+        meaning: Where are you from?
+        why: >-
+          elli (where) plus -inda (from) makes ellinda, "from where". Kannada
+          adds little endings to words where English uses separate words like
+          "from" or "to", a bit like snapping a block onto a word.
+        formality: respectful
+        status: source_checked
+        sources: [Preply, KannadaMaadi]
+        tokens:
+          - word: nīvu
+            gloss: you (respectful)
+          - word: ellinda
+            gloss: from where
+            breakdown: elli (where) + inda (from)
+        variants:
+          - { relation: alternative, sentence: where-have-you-come-from }
+
+      - id: im-from-delhi
+        roman: nānu dehaliyinda bandiddīni
+        script: ನಾನು ದೆಹಲಿಯಿಂದ ಬಂದಿದ್ದೀನಿ
+        meaning: I'm from Delhi (I have come from Delhi)
+        why: >-
+          dehali (Delhi) + -inda (from), with a y to join the vowels. Then
+          bandiddīni, "I have come". Kannada says where you came from rather
+          than where you "are" from. Books write bandiddēne; -īni is how it is
+          said aloud.
+        register: colloquial
+        status: source_checked
+        sources: [Preply, KannadaMaadi, SWALPA]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: dehaliyinda
+            gloss: from Delhi
+            breakdown: dehali (Delhi) + inda (from)
+          - word: bandiddīni
+            gloss: I have come
+            breakdown: bandu (having come) + iddīni (I am)
+
+      - id: where-do-you-work
+        roman: nīvu elli kelsa māDtīri?
+        script: ನೀವು ಎಲ್ಲಿ ಕೆಲ್ಸ ಮಾಡ್ತೀರಿ?
+        meaning: Where do you work?
+        why: >-
+          "You where work do?": the verb goes last, always. kelsa is work and
+          māDtīri is "you do" (respectful). The ending tells you who: -īri is
+          "you", -īni is "I".
+        register: colloquial
+        formality: respectful
+        status: source_checked
+        sources: [Preply, SWALPA]
+        tokens:
+          - word: nīvu
+            gloss: you (respectful)
+          - word: elli
+            gloss: where
+          - word: kelsa
+            gloss: work
+          - word: māDtīri
+            gloss: you do (respectful)
+            breakdown: māDu (do) + tīri (you, respectful)
+
+      - id: i-work-in-bengaluru
+        roman: nānu bengaLūralli kelsa māDtīni
+        script: ನಾನು ಬೆಂಗಳೂರಲ್ಲಿ ಕೆಲ್ಸ ಮಾಡ್ತೀನಿ
+        meaning: I work in Bengaluru
+        why: >-
+          -alli means "in": bengaLūru becomes bengaLūralli. Same verb as the
+          question, with -īni for "I". Ask with -īri, answer with -īni.
+        register: colloquial
+        status: source_checked
+        sources: [Preply, Penn, SWALPA]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: bengaLūralli
+            gloss: in Bengaluru
+            breakdown: bengaLūru + alli (in)
+          - word: kelsa
+            gloss: work
+          - word: māDtīni
+            gloss: I do
+            breakdown: māDu (do) + tīni (I)
+
+      - id: where-are-you
+        roman: nīvu elliddīrā?
+        script: ನೀವು ಎಲ್ಲಿದ್ದೀರಾ?
+        meaning: Where are you (right now)?
+        why: >-
+          The phone-call question. elli (where) + iddīrā (you are). The same
+          iddīrā as in hēgiddīrā? (how are you?), so you already know half.
+        register: colloquial
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA]
+        tokens:
+          - word: nīvu
+            gloss: you (respectful)
+          - word: elliddīrā
+            gloss: where are you
+            breakdown: elli (where) + iddīrā (you are)
+
+      - id: im-in-bengaluru
+        roman: nānu bengaLūralli iddīni
+        script: ನಾನು ಬೆಂಗಳೂರಲ್ಲಿ ಇದ್ದೀನಿ
+        meaning: I'm in Bengaluru
+        why: >-
+          The answer: place + -alli (in), then iddīni (I am). Swap in any
+          place: maneyalli (at home), ofisalli (at the office).
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA, Penn]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: bengaLūralli
+            gloss: in Bengaluru
+            breakdown: bengaLūru + alli (in)
+          - word: iddīni
+            gloss: I am
+
+alternatives:
+  - id: where-have-you-come-from
+    roman: ellinda bandiddīrā?
+    script: ಎಲ್ಲಿಂದ ಬಂದಿದ್ದೀರಾ?
+    meaning: Where have you come from?
+    why: The fuller question, "from where have you come?". Also used to ask where someone is from.
+    register: colloquial
+    formality: respectful
+    status: source_checked
+    sources: [KannadaMaadi]
+    tokens:
+      - word: ellinda
+        gloss: from where
+      - word: bandiddīrā
+        gloss: have you come (respectful)
