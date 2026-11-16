@@ -1,0 +1,251 @@
+# Kannada · Level 1 · Unit 3: This and that; yes and no
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   Penn          ccat.sas.upenn.edu/plc/kannada/lesson2.html (Penn Language Center:
+#                 idu/adu, the -ā question, alla and illa)
+#   SWALPA        swalpa.pages.dev/03_social_interactions, /05_verbs_and_grammar
+#   Preply        preply.com/en/blog/basic-words-in-kannada-70-phrases
+#   Goethe        goethe-verlag.com/book2/EN/ENKN (lesson 93: nanage gottilla)
+#   KannadaGottilla  kannadagottilla.com/learn-kannada (gottilla, swalpa)
+
+language: kn
+level: 1
+unit: this-and-that
+
+lessons:
+  - slug: what-is-this
+    title: What is this?
+    sentences:
+      - id: what-is-this
+        roman: idu ēnu?
+        script: ಇದು ಏನು?
+        meaning: What is this?
+        why: >-
+          idu is "this" (near you), ēnu is "what". Point at anything in a shop
+          or kitchen and ask. Two words, no "is".
+        status: source_checked
+        sources: [SWALPA, Penn]
+        tokens:
+          - word: idu
+            gloss: this
+          - word: ēnu
+            gloss: what
+        variants:
+          - { relation: alternative, sentence: what-is-that }
+
+      - id: what-is-that
+        roman: adu ēnu?
+        script: ಅದು ಏನು?
+        meaning: What is that?
+        why: >-
+          Swap i for a: idu (this, here) becomes adu (that, over there). The
+          same switch works for people: ivaru (this person), avaru (that
+          person). i is near, a is far.
+        status: source_checked
+        sources: [Penn, SWALPA]
+        tokens:
+          - word: adu
+            gloss: that
+          - word: ēnu
+            gloss: what
+
+      - id: this-is-coffee
+        roman: idu kāfi
+        script: ಇದು ಕಾಫಿ
+        meaning: This is coffee
+        why: >-
+          "This coffee", like a label on a jar. Kannada needs no "is" when you
+          say what something is.
+        status: source_checked
+        sources: [Penn, SWALPA]
+        tokens:
+          - word: idu
+            gloss: this
+          - word: kāfi
+            gloss: coffee
+
+      - id: is-this-coffee
+        roman: idu kāfiyā?
+        script: ಇದು ಕಾಫಿಯಾ?
+        meaning: Is this coffee?
+        why: >-
+          Add a long ā to the end of the word you are asking about and the
+          sentence becomes a yes-or-no question. A y slips in to join two
+          vowels: kāfi + ā = kāfiyā. It works like a question mark you can
+          hear.
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: idu
+            gloss: this
+          - word: kāfiyā
+            gloss: coffee?
+            breakdown: kāfi (coffee) + ā (makes a yes-or-no question)
+
+      - id: yes
+        roman: haudu
+        script: ಹೌದು
+        meaning: Yes / That's right
+        why: >-
+          Yes, agreeing that something is so. You'll also hear haudā? ("is
+          that so?") as a reaction.
+        status: source_checked
+        sources: [Penn, Preply, Goethe]
+        tokens:
+          - word: haudu
+            gloss: yes, that's right
+
+      - id: this-is-not-coffee
+        roman: idu kāfi alla
+        script: ಇದು ಕಾಫಿ ಅಲ್ಲ
+        meaning: This is not coffee
+        why: >-
+          alla means "is not (that thing)". It corrects a label: wrong jar.
+          It goes at the end.
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: idu
+            gloss: this
+          - word: kāfi
+            gloss: coffee
+          - word: alla
+            gloss: is not
+        variants:
+          - { relation: alternative, sentence: no-its-tea }
+
+  - slug: who-and-knowing
+    title: Who is that? I don't know
+    sentences:
+      - id: who-is-this-person
+        roman: ivaru yāru?
+        script: ಇವರು ಯಾರು?
+        meaning: Who is this (person)?
+        why: >-
+          ivaru is "this person" said respectfully, yāru is "who". Respectful
+          is the safe default for any adult.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA]
+        tokens:
+          - word: ivaru
+            gloss: this person (respectful)
+          - word: yāru
+            gloss: who
+
+      - id: who-is-that-person
+        roman: avaru yāru?
+        script: ಅವರು ಯಾರು?
+        meaning: Who is that (person)?
+        why: >-
+          Near i, far a again: ivaru (this person) becomes avaru (that
+          person). avaru also means "he" or "she" said respectfully.
+        formality: respectful
+        status: source_checked
+        sources: [Penn, SWALPA]
+        tokens:
+          - word: avaru
+            gloss: that person, he or she (respectful)
+          - word: yāru
+            gloss: who
+
+      - id: no-there-isnt
+        roman: illa
+        script: ಇಲ್ಲ
+        meaning: No / There isn't
+        why: >-
+          Two words for "no". alla says "it's not that" (wrong label); illa
+          says "it isn't there" or "I didn't" (empty shelf). Is this tea? alla.
+          Is there tea? illa.
+        status: source_checked
+        sources: [Preply, Penn]
+        tokens:
+          - word: illa
+            gloss: no, there isn't
+
+      - id: i-dont-know
+        roman: nanage gottilla
+        script: ನನಗೆ ಗೊತ್ತಿಲ್ಲ
+        meaning: I don't know
+        why: >-
+          "To me, not known". Like bēku, knowing takes nanage (to me), not
+          nānu. gottu (known) + illa (not) joins into gottilla.
+        status: source_checked
+        sources: [Goethe, KannadaGottilla]
+        tokens:
+          - word: nanage
+            gloss: to me
+          - word: gottilla
+            gloss: not known
+            breakdown: gottu (known) + illa (not)
+        variants:
+          - { relation: alternative, sentence: i-know }
+
+      - id: i-know
+        roman: nanage gottu
+        script: ನನಗೆ ಗೊತ್ತು
+        meaning: I know
+        why: "The positive form: \"to me, known\". Drop the illa."
+        status: source_checked
+        sources: [Penn, Goethe]
+        tokens:
+          - word: nanage
+            gloss: to me
+          - word: gottu
+            gloss: known
+
+      - id: do-you-know-kannada
+        roman: kannaDa gottā?
+        script: ಕನ್ನಡ ಗೊತ್ತಾ?
+        meaning: Do you know Kannada?
+        why: >-
+          gottu + the question ā = gottā? You'll hear this a lot. The "you"
+          is understood, so it isn't said.
+        pronunciation: The D in kannaDa is made with the tongue curled back.
+        status: source_checked
+        sources: [Penn, KannadaGottilla]
+        tokens:
+          - word: kannaDa
+            gloss: Kannada
+          - word: gottā
+            gloss: known?
+            breakdown: gottu (known) + ā (question)
+
+      - id: i-know-a-little-kannada
+        roman: nanage kannaDa svalpa gottu
+        script: ನನಗೆ ಕನ್ನಡ ಸ್ವಲ್ಪ ಗೊತ್ತು
+        meaning: I know a little Kannada
+        why: >-
+          The best answer to kannaDa gottā? svalpa means "a little" (often
+          written swalpa). People usually smile and slow down for you.
+        status: source_checked
+        sources: [SWALPA, Penn, KannadaGottilla]
+        tokens:
+          - word: nanage
+            gloss: to me
+          - word: kannaDa
+            gloss: Kannada
+          - word: svalpa
+            gloss: a little
+          - word: gottu
+            gloss: known
+
+alternatives:
+  - id: no-its-tea
+    roman: alla, idu Tī
+    script: ಅಲ್ಲ, ಇದು ಟೀ
+    meaning: No, this is tea
+    why: >-
+      Answering "is this coffee?" when it isn't: alla, then the right label.
+    status: source_checked
+    sources: [Penn]
+    tokens:
+      - word: alla
+        gloss: no, it isn't
+      - word: idu
+        gloss: this
+      - word: Tī
+        gloss: tea

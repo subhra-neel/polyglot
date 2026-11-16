@@ -3,6 +3,32 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-16 — Level 1, Units 2 and 3
+
+### Built
+- Unit 2 "Who I am, who you are": What's your name? (name, "I'm …",
+  introducing a friend) and Where are you from? Where do you work? (from,
+  work, where are you right now). 11 sentences, 1 alternative.
+- Unit 3 "This and that; yes and no": What is this? (idu/adu, the -ā
+  question, haudu, alla) and Who is that? I don't know (ivaru/avaru, illa,
+  gottu/gottilla, "I know a little Kannada"). 13 sentences, 1 alternative.
+- Explanations use everyday pictures (a label on a jar for "no is"; wrong
+  label vs empty shelf for alla vs illa; near i, far a).
+- Sentence lab: new "I know … / I don't know …" pattern (Kannada, English,
+  Hindi). 5 patterns, 36 sentences.
+
+### Content decisions
+- New source: Penn Language Center Kannada lesson 2 (idu/adu, -ā question,
+  alla/illa), plus the Goethe-Verlag phrasebook for nanage gottilla.
+- Spoken forms used where books differ: bandiddīni not bandiddēne,
+  māDtīni not māDuttēne, kelsa not kelasa.
+- Several sentences are built from a source's frame with words the sources
+  attest (each file says which). Native check still needed before launch.
+
+### Tested
+- Content checker: every script matches its English-letter spelling.
+  111 unit tests; smoke test opens Unit 3.
+
 ## 2026-11-15 — Phase 3, milestone 1: AI tutor (text roleplay)
 
 ### Built
