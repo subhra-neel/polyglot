@@ -36,6 +36,7 @@ Later database updates follow the same pattern: each new file in
 | `0001_init.sql` | Tables, privacy rules, Level 1 units |
 | `0002_lessons.sql` | Lesson reading, completing, flagging |
 | `0003_revision.sql` | Revision schedule, progress, settings |
+| `0004_tutor.sql` | AI tutor scenes, conversations, recurring mistakes |
 
 Whenever lesson content changes, the changelog will say so: run
 `supabase/content.sql` again.
@@ -125,6 +126,7 @@ After adding or changing a variable, redeploy: **Deployments → ⋯ → Redeplo
 | Name | Value |
 | --- | --- |
 | `SARVAM_API_KEY` | Sarvam dashboard (dashboard.sarvam.ai) → API keys |
+| `SARVAM_CHAT_MODEL` | Optional. The Sarvam chat model for the tutor. Default `sarvam-105b-conversations`. The same `SARVAM_API_KEY` is used. |
 | `SARVAM_TTS_SPEAKER` | Optional. A Sarvam voice name, e.g. `kavya` or `rahul`. Default `shubh`. |
 
 Each sentence is generated the first time anyone plays it, then cached by the
@@ -149,6 +151,8 @@ These two are secret: no `NEXT_PUBLIC_` in front of them.
 | "Setup needed" on the sign-in page | Vercel does not have the two settings, or was not redeployed after adding them | Step 3 |
 | "The database is not set up yet" or "needs an update" on Learn | A SQL file has not been run | Steps 1 and 1b |
 | Unit 1 says "Coming soon" | `supabase/content.sql` has not been run | Step 1b |
+| Talk says "The tutor isn't set up yet" | No `SARVAM_API_KEY` in Vercel | Add the key and redeploy |
+| A scene opens with "The scene hasn't started" | The chat model didn't answer in time | Tap Start the conversation; check the Sarvam dashboard for credit |
 | Play and Slow are greyed out | No `SARVAM_API_KEY`, and the phone has no Kannada voice | Add the key (step 3), or install Kannada voice data on the phone |
 | Play says "The audio could not load" | Sarvam refused the request (wrong key, no credit) or the connection dropped | Vercel → Logs, search for `[audio]` |
 | Learn shows no units | The SQL ran only partly | Tell Claude; the tables need checking |
