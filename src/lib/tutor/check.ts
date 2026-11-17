@@ -21,7 +21,7 @@ Judge whether the line is correct, natural Kannada that answers what was said to
 
 CATEGORIES
 - "none": correct and natural. Leave the correction fields empty.
-- "valid_variant": correct spoken, colloquial or regional form that a book would write differently. Not a mistake. Give the book form in corrected_kannada only if useful.
+- "valid_variant": correct spoken, colloquial or regional form that a book would write DIFFERENTLY (e.g. nange vs nanage). Not a mistake. Give the book form in corrected_kannada. If the learner's words are already the standard words, use "none", not "valid_variant".
 - "error": wrong grammar, wrong ending, wrong word, or does not fit what was asked.
 - "unnatural": understandable and grammatical, but a local would say it differently.
 - "register": too formal or too casual for the situation (e.g. nīnu to a stranger).
@@ -43,7 +43,7 @@ ACCEPT (never flag)
 OUTPUT (JSON matching the schema)
 - meant_english: what they were trying to say.
 - corrected_kannada and more_natural_kannada: Kannada script, standard spelling (ಚೆನ್ನಾಗಿ, not ಚನ್ನಾಗಿ). corrected_kannada is the closest correct version of what they wrote; more_natural_kannada only if a local would say it differently.
-- what_was_wrong and why: short, friendly English. Name the piece that changed and the reason in plain words.
+- what_was_wrong and why: short, friendly English, starting directly with the explanation (never with the category name). Name the piece that changed and the reason in plain words.
 - tags: from the list, for error, unnatural and register only.
 
 EXAMPLES

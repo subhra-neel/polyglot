@@ -100,7 +100,7 @@ export async function sendMessage(conversationId: string, text: string): Promise
     // 2. The character replies, knowing what the learner meant.
     const turn = await nextTutorTurn(provider, conversation.scenario, context, history, check);
     const aside = turn.aside_english.trim() || null;
-    const correction = said ? (check ? { ...toStoredCorrection(check), aside } : aside ? { ...UNCHECKED, aside, checked: false } : null) : null;
+    const correction = said ? (check ? { ...toStoredCorrection(check, said), aside } : aside ? { ...UNCHECKED, aside, checked: false } : null) : null;
 
     let learner: ConversationMessage | null = null;
     if (said) {

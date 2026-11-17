@@ -109,18 +109,52 @@ export type StoredCorrection = {
 };
 
 const blankToNull = (s: string) => (s.trim() ? s.trim() : null);
+
+/** Drops a stray verdict word the model sometimes puts at the start ("none naanu is…"). */
+const tidy = (s: string) => s.replace(/^\s*(none|error|unnatural|register|valid_variant|unclear)\b[\s.:,-]*/i, "");
+
+/** Loose comparison of English-letter Kannada: no accents, case, doubled letters or punctuation. */
+export const looseRoman = (s: string) =>
+  s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z ]/g, "")
+    .replace(/([a-z])\1+/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
 const COUNTS_AS_MISTAKE = new Set(["error", "unnatural", "register"]);
 
-export function toStoredCorrection(c: LineCheck): StoredCorrection {
+/**
+ * Turns a check into what is stored and shown. `said` is the learner's line:
+ * a "valid variant" whose correction is just their own sentence back is a
+ * plain ✓ Correct, with nothing to explain.
+ */
+export function toStoredCorrection(c: LineCheck, said?: string): StoredCorrection {
   const corrected = blankToNull(c.corrected_kannada);
   const natural = blankToNull(c.more_natural_kannada);
+  const sameAsSaid =
+    said !== undefined && corrected !== null && looseRoman(toRoman(corrected)) === looseRoman(said);
+  if ((c.category === "valid_variant" && (sameAsSaid || !corrected)) || c.category === "none") {
+    return {
+      category: "none",
+      meant: blankToNull(c.meant_english),
+      corrected_script: null,
+      corrected_roman: null,
+      what_was_wrong: null,
+      why: null,
+      natural_script: null,
+      natural_roman: null,
+      tags: [],
+    };
+  }
   return {
     category: c.category,
     meant: blankToNull(c.meant_english),
     corrected_script: corrected,
     corrected_roman: corrected ? toRoman(corrected) : null,
-    what_was_wrong: blankToNull(c.what_was_wrong),
-    why: blankToNull(c.why),
+    what_was_wrong: blankToNull(tidy(c.what_was_wrong)),
+    why: blankToNull(tidy(c.why)),
     natural_script: natural,
     natural_roman: natural ? toRoman(natural) : null,
     tags: COUNTS_AS_MISTAKE.has(c.category) ? [...new Set(c.tags)] : [],
