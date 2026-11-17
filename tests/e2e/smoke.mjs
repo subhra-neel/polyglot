@@ -360,7 +360,8 @@ async function configured() {
     await page.waitForURL("**/today");
     await assertFitsScreen("today");
     await shot("05-today");
-    await page.getByRole("link", { name: "Talk to the tutor" }).click();
+    await page.getByRole("link", { name: "Talk to the tutor" }).filter({ visible: true }).waitFor();
+    await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Tutor" }).click();
     await page.waitForURL("**/talk");
     await shot("06-talk");
     await page.getByRole("link", { name: "Build" }).click();

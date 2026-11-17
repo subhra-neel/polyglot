@@ -15,6 +15,8 @@ Kannada MVP plan". This file records what has actually been built and tested.
   (innomme hēLi), svalpa nidhānavāgi mātāDi, kannaDa baralla; adara artha
   ēnu?, kannaDadalli … hēge hēLōdu?, nīvu inglish mātāDtīrā?. 8 sentences.
 - Level 1 now: 8 units, 16 lessons, 93 sentences shown (+ alternatives).
+- The tutor is easier to find: the mic button in the bottom bar is now
+  labelled "Tutor", and Today has an "AI tutor" card.
 - Picture used throughout Unit 7: the polite -i ending is "please" built
   into the verb (banni, hōgi, koDi, nillisi, hāki, hēLi).
 
