@@ -180,7 +180,8 @@ export async function startMockSupabase(port) {
     }
 
     // Stand-in for Sarvam's chat model, with fixed rules so tests know what to expect:
-    // the opening line greets; a sentence using "nānu" gets a case-ending correction.
+    // the opening line greets; a line using "nānu" gets a case-ending correction;
+    // "martara" is unclear, and the character asks again.
     if (url.pathname === "/v1/chat/completions" && request.method === "POST") {
       const body = await readJson(request);
       chatRequests.push({ key: request.headers["api-subscription-key"], ...body });
@@ -188,25 +189,36 @@ export async function startMockSupabase(port) {
         return send(403, { error: { message: "Invalid API key" } });
       }
       const last = body.messages.at(-1)?.content ?? "";
-      const opening = body.messages.filter((m) => m.role === "assistant").length === 0 && last.startsWith("(");
-      const none = { category: "none", corrected_kannada: "", what_was_wrong: "", why: "", more_natural_kannada: "", tags: [] };
-      const turn = opening
-        ? { reply_kannada: "ನಮಸ್ಕಾರ! ಏನು ಬೇಕು?", reply_english: "Hello! What would you like?", correction: none, aside_english: "" }
-        : /\bn(ā|aa|a)nu\b/i.test(last)
+      const schemaName = body.response_format?.json_schema?.name;
+      let out;
+      if (schemaName === "line_check") {
+        const said = (last.match(/^Learner: (.*)$/m) ?? [])[1] ?? "";
+        const blank = { corrected_kannada: "", what_was_wrong: "", why: "", more_natural_kannada: "", tags: [] };
+        out = /\bn(ā|aa|a)nu\b/i.test(said)
           ? {
-              reply_kannada: "ಸರಿ, ಕಾಫಿ ಕೊಡ್ತೀನಿ.",
-              reply_english: "Okay, I'll give you coffee.",
-              correction: {
-                category: "error",
-                corrected_kannada: "ನನಗೆ ಕಾಫಿ ಬೇಕು",
-                what_was_wrong: "nānu (I) should be nanage (to me).",
-                why: "bēku takes the person who wants in the 'to me' form.",
-                more_natural_kannada: "ಒಂದು ಕಾಫಿ ಕೊಡಿ",
-                tags: ["wrong_case_ending"],
-              },
-              aside_english: "",
+              meant_english: "I want coffee",
+              category: "error",
+              corrected_kannada: "ನನಗೆ ಕಾಫಿ ಬೇಕು",
+              what_was_wrong: "nānu (I) should be nanage (to me).",
+              why: "bēku takes the person who wants in the 'to me' form.",
+              more_natural_kannada: "ಒಂದು ಕಾಫಿ ಕೊಡಿ",
+              tags: ["wrong_case_ending"],
             }
-          : { reply_kannada: "ಸರಿ. ಇನ್ನೇನು ಬೇಕು?", reply_english: "Okay. What else?", correction: none, aside_english: "" };
+          : /martara/i.test(said)
+            ? { ...blank, meant_english: "Yes, I have eaten", category: "unclear", corrected_kannada: "ಹೌದು, ಊಟ ಆಯ್ತು", what_was_wrong: "I couldn't understand 'martara'." }
+            : { ...blank, meant_english: "(fine)", category: "none" };
+      } else {
+        const opening = body.messages.filter((m) => m.role === "assistant").length === 0 && last.startsWith("(");
+        const unclear = /UNCLEAR/.test(body.messages[0]?.content ?? "");
+        out = opening
+          ? { reply_kannada: "ನಮಸ್ಕಾರ! ಏನು ಬೇಕು?", reply_english: "Hello! What would you like?", aside_english: "" }
+          : /\bn(ā|aa|a)nu\b/i.test(last)
+            ? { reply_kannada: "ಸರಿ, ಕಾಫಿ ಕೊಡ್ತೀನಿ.", reply_english: "Okay, I'll give you coffee.", aside_english: "" }
+            : unclear
+              ? { reply_kannada: "ಕ್ಷಮಿಸಿ, ಇನ್ನೊಮ್ಮೆ ಹೇಳಿ.", reply_english: "Sorry, say that again.", aside_english: "" }
+              : { reply_kannada: "ಸರಿ. ಇನ್ನೇನು ಬೇಕು?", reply_english: "Okay. What else?", aside_english: "" };
+      }
+      const turn = out;
       return send(200, { id: randomUUID(), choices: [{ index: 0, message: { role: "assistant", content: JSON.stringify(turn) } }] });
     }
 

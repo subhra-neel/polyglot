@@ -10,17 +10,21 @@ const CATEGORY: Record<string, { label: string; tone: string } | undefined> = {
   error: { label: "Correction", tone: "text-danger" },
   unnatural: { label: "More natural", tone: "text-accent" },
   register: { label: "Formality", tone: "text-accent" },
-  valid_variant: { label: "Also correct", tone: "text-accent" },
+  valid_variant: { label: "✓ Correct · another way to say it", tone: "text-accent" },
+  unclear: { label: "Unclear: did you mean…?", tone: "text-danger" },
 };
 
 function Correction({ message }: { message: ConversationMessage }) {
   const [open, setOpen] = useState(false);
   const c = message.correction;
   const kind = c ? CATEGORY[c.category] : undefined;
-  if (!c || (!kind && !c.aside)) return null;
+  if (!c) return null;
+  const accepted = c.category === "none" && c.checked !== false;
+  if (!kind && !accepted && !c.aside) return null;
 
   return (
     <div className="mt-1.5 max-w-[85%] self-end text-sm">
+      {accepted ? <p className="font-medium text-accent">✓ Correct</p> : null}
       {kind ? (
         <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} className={`font-medium ${kind.tone}`}>
           {kind.label} {open ? "▴" : "▾"}
@@ -32,10 +36,16 @@ function Correction({ message }: { message: ConversationMessage }) {
             <dt className="text-xs uppercase tracking-wider text-muted">You said</dt>
             <dd>{message.roman}</dd>
           </div>
+          {c.category === "unclear" && c.meant ? (
+            <div>
+              <dt className="text-xs uppercase tracking-wider text-muted">Best guess</dt>
+              <dd>{c.meant}</dd>
+            </div>
+          ) : null}
           {c.corrected_roman ? (
             <div>
               <dt className="text-xs uppercase tracking-wider text-muted">
-                {c.category === "valid_variant" ? "Also said" : "Better"}
+                {c.category === "valid_variant" ? "Also said" : c.category === "unclear" ? "You could say" : "Better"}
               </dt>
               <dd className="font-medium">{c.corrected_roman}</dd>
             </div>
@@ -152,7 +162,7 @@ export function TutorChat({ conversationId, personaName, hint, initial, ended, s
   }
 
   const corrections = messages.filter(
-    (m) => m.role === "learner" && m.correction && ["error", "unnatural", "register"].includes(m.correction.category),
+    (m) => m.role === "learner" && m.correction && ["error", "unnatural", "register", "unclear"].includes(m.correction.category),
   );
 
   return (

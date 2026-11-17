@@ -18,7 +18,7 @@ export type ConversationMessage = {
   roman: string;
   script: string | null;
   english: string | null;
-  correction: (StoredCorrection & { aside?: string | null }) | null;
+  correction: (StoredCorrection & { aside?: string | null; checked?: boolean }) | null;
 };
 
 export type Conversation = {

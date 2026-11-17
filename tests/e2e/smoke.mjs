@@ -400,7 +400,7 @@ async function configured() {
     const opened = mock.chatRequests.at(-1);
     assert.equal(opened.key, "test-sarvam-key");
     assert.equal(opened.model, "sarvam-105b-conversations");
-    assert.equal(opened.response_format.json_schema.name, "tutor_turn");
+    assert.equal(opened.response_format.json_schema.name, "tutor_reply");
     assert.match(opened.messages[0].content, /Manju/);
     await assertFitsScreen("talk");
     step("starting a scene opens the chat with the tutor's first line");
@@ -409,6 +409,10 @@ async function configured() {
     await say.fill("nānu kāfi bēku");
     await page.getByRole("button", { name: "Send" }).filter({ visible: true }).click();
     await page.getByText("sari, kāfi koDtīni.").filter({ visible: true }).waitFor();
+    const checked = mock.chatRequests.at(-2);
+    assert.equal(checked.response_format.json_schema.name, "line_check");
+    assert.equal(checked.reasoning_effort, "medium");
+    assert.match(checked.messages.at(-1).content, /Tutor: ನಮಸ್ಕಾರ! ಏನು ಬೇಕು\?\nLearner: nānu kāfi bēku/);
     await page.getByRole("button", { name: /Correction/ }).filter({ visible: true }).click();
     await page.getByText("nanage kāfi bēku").filter({ visible: true }).first().waitFor();
     await page.getByText("bēku takes the person who wants").filter({ visible: true }).first().waitFor();
@@ -419,18 +423,27 @@ async function configured() {
     await page.getByRole("button", { name: "Send" }).filter({ visible: true }).click();
     await page.getByText("sari. innēnu bēku?").filter({ visible: true }).waitFor();
     assert.equal(await page.getByRole("button", { name: /Correction/ }).filter({ visible: true }).count(), 1);
-    step("a correct sentence gets no correction");
+    await page.getByText("✓ Correct").filter({ visible: true }).waitFor();
+    step("a correct sentence is marked ✓ Correct");
+
+    await say.fill("ūTa martara");
+    await page.getByRole("button", { name: "Send" }).filter({ visible: true }).click();
+    await page.getByText("kshamisi, innomme hēLi.").filter({ visible: true }).waitFor();
+    await page.getByRole("button", { name: /Unclear/ }).filter({ visible: true }).click();
+    await page.getByText("Yes, I have eaten").filter({ visible: true }).waitFor();
+    await page.getByText("haudu, ūTa āytu").filter({ visible: true }).first().waitFor();
+    step("an unclear line shows a best guess, and the character asks again");
 
     if (!process.env.SMOKE_NO_TTS) {
       const { rows } = await mock.db.query("select id from public.messages where role = 'tutor' order by id desc limit 1");
       const line = await page.request.get(`/api/audio/message/${rows[0].id}/slow`);
       assert.equal(line.status(), 200);
-      assert.equal(mock.speechRequests.at(-1).text, "ಸರಿ. ಇನ್ನೇನು ಬೇಕು?");
+      assert.equal(mock.speechRequests.at(-1).text, "ಕ್ಷಮಿಸಿ, ಇನ್ನೊಮ್ಮೆ ಹೇಳಿ.");
       step("the tutor's lines can be played aloud");
     }
 
     await page.reload();
-    await page.getByText("sari. innēnu bēku?").filter({ visible: true }).waitFor();
+    await page.getByText("kshamisi, innomme hēLi.").filter({ visible: true }).waitFor();
     await page.getByRole("button", { name: "Finish conversation" }).filter({ visible: true }).click();
     const summary = page.getByRole("region", { name: "Summary" });
     await summary.getByText("Conversation finished").waitFor();
@@ -440,6 +453,18 @@ async function configured() {
     await page.goto("/talk");
     await page.getByText("Recent conversations").filter({ visible: true }).waitFor();
     await page.getByText("1 corrections").filter({ visible: true }).waitFor();
+    await page.getByRole("link", { name: "Check the tutor's accuracy" }).filter({ visible: true }).waitFor();
+    await page.getByRole("link", { name: "Check the tutor's accuracy" }).filter({ visible: true }).click();
+    await page.waitForURL("**/talk/self-test");
+    const before = mock.chatRequests.length;
+    await page.getByRole("button", { name: "Run the test" }).click();
+    await page.getByText(/^\d+ of 14 right$/).waitFor({ timeout: 60_000 });
+    assert.equal(mock.chatRequests.length - before, 14);
+    await page.getByText("✓ “nange coffee beku”").waitFor();
+    await assertFitsScreen("self-test");
+    await shot("11-self-test");
+    step("the self-test runs 14 known lines through the checker and shows each verdict");
+    await page.goto("/talk");
     const neighbour = page.locator("form").filter({ hasText: "Meeting a new neighbour" }).filter({ visible: true });
     await neighbour.getByRole("button", { name: "Start" }).click();
     await page.waitForURL(/\/talk\/c\/[0-9a-f-]{36}$/);

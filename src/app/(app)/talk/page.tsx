@@ -57,6 +57,9 @@ async function Scenes({ searchParams }: { searchParams: Promise<{ error?: string
           </li>
         ))}
       </ul>
+      <Link href="/talk/self-test" className="mt-6 block text-center text-sm font-medium text-muted">
+        Check the tutor&apos;s accuracy
+      </Link>
       {recent.length ? (
         <section className="mt-8">
           <h2 className="text-xs font-medium uppercase tracking-wider text-muted">Recent conversations</h2>

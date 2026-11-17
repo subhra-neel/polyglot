@@ -3,6 +3,33 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-17 — Tutor: separate checking step, ✓ Correct, Unclear, self-test
+
+### Why
+- First real conversation (owner, lift scene): "namaskara chennagide" (should
+  be chennāgiddīni: -ide is "it", -īni is "I") and "uta martara" (not
+  Kannada) both passed with no correction; Lakshmi misspelled
+  chennāgiddīrā and ended the scene after three replies.
+
+### Built
+- Checking is now its own model call, before the character replies
+  (`src/lib/tutor/check.ts`): a teacher prompt with Level 1 rules (person
+  endings, nanage with bēku/gottu, alla vs illa, my/your), spoken forms to
+  accept, and worked examples including the owner's two lines. Medium
+  reasoning effort, low temperature.
+- New verdict "unclear": shows a best guess and a sentence to try; the
+  character asks again in the scene instead of moving on.
+- Every checked line now shows ✓ Correct when accepted.
+- Reply prompt: no goodbye before the goals are met and 6 learner replies;
+  standard spelling; never corrects (the checker does that).
+- Tutor self-test (Tutor → "Check the tutor's accuracy"): runs 14 known
+  lines (8 mistakes to catch, 6 spoken forms to accept) through the live
+  checker and shows each verdict. This is how the real Sarvam model is
+  measured, since this workspace cannot reach Sarvam.
+
+### Tested
+- 115 unit tests; smoke test covers ✓ Correct, Unclear and the self-test.
+
 ## 2026-11-17 — Level 1 complete: Units 6, 7 and 8
 
 ### Built
