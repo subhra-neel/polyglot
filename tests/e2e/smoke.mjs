@@ -102,11 +102,11 @@ async function configured() {
     await page.getByText("Greetings and politeness").waitFor();
     assert.equal(await page.getByRole("listitem").count(), 8);
     await page.getByText("Who I am, who you are").waitFor();
-    assert.equal(await page.getByText("0 of 2 lessons done").count(), 3);
-    assert.equal(await page.getByText("Coming soon").count(), 5);
+    assert.equal(await page.getByText("0 of 2 lessons done").count(), 5);
+    assert.equal(await page.getByText("Coming soon").count(), 3);
     await assertFitsScreen("learn");
     await shot("04-learn");
-    step("Learn lists the eight Level 1 units; Units 1 to 3 are open, the rest say coming soon");
+    step("Learn lists the eight Level 1 units; Units 1 to 5 are open, the rest say coming soon");
 
     await page.getByRole("link", { name: /Greetings and politeness/ }).click();
     await page.waitForURL("**/learn/greetings");

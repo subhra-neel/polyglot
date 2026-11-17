@@ -3,6 +3,26 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-17 — Level 1, Units 4 and 5
+
+### Built
+- Unit 4 "I want, I do not want": nanage … bēku, nimage ēnu bēku?, bēkā?,
+  bēDa, "no plastic bag". 8 sentences.
+- Unit 5 "Is there, there is not; where": nīru ideyā? / ide / illa,
+  Taim ideyā?, karenT hōgide, TāyleT ellide?, nimma mane ellide?, illide,
+  allide, illi nillisi. 10 sentences.
+- Pictures used in explanations: a parcel delivered "to me" (nanage), a
+  switch (bēku/bēDa, ide/illa), near i / far a / question e (illi, alli, elli).
+- Sentence lab: "Where is …? / It's here / It isn't here". 6 patterns,
+  48 sentences.
+
+### Sources
+- SWALPA survival and everyday-logistics chapters; Penn Language Center
+  Kannada lesson 3 (ide/illa, ellide?, illide/allide, the -ge "to" ending).
+
+### Tested
+- Content checker passes; unit tests; smoke test sees Units 1 to 5 open.
+
 ## 2026-11-16 — Level 1, Units 2 and 3
 
 ### Built

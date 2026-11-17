@@ -1,0 +1,160 @@
+# Kannada · Level 1 · Unit 4: I want, I do not want
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-survival  swalpa.pages.dev/02_survival_and_emergencies (bēku, bēDa,
+#                    nanage nīru bēku, help bēku, plastic bag bēDa, ūTa)
+#   SWALPA-social    swalpa.pages.dev/03_social_interactions (ēnu, coffee, tea)
+#   Penn             ccat.sas.upenn.edu/plc/kannada/lesson2.html (the -ā question),
+#                    lesson3.html (the "to" ending -ge: nimage)
+
+language: kn
+level: 1
+unit: i-want
+
+lessons:
+  - slug: i-want
+    title: I want …
+    sentences:
+      - id: i-want-water
+        roman: nanage nīru bēku
+        script: ನನಗೆ ನೀರು ಬೇಕು
+        meaning: I want water / I need water
+        why: >-
+          Kannada says "to me, water is needed". Picture a parcel: the thing
+          (nīru) is being delivered to me (nanage). So "I" takes the "to"
+          form, nanage, never nānu. bēku comes last and covers both "want"
+          and "need".
+        pronunciation: In quick speech nanage shrinks to nange.
+        status: source_checked
+        sources: [SWALPA-survival]
+        tokens:
+          - word: nanage
+            gloss: to me
+            breakdown: nānu (I) + ge (to)
+          - word: nīru
+            gloss: water
+          - word: bēku
+            gloss: is wanted, is needed
+
+      - id: i-need-help
+        roman: nanage help bēku
+        script: ನನಗೆ ಹೆಲ್ಪ್ ಬೇಕು
+        meaning: I need help
+        why: >-
+          Same frame, with the English word "help", which Bengaluru speakers
+          use as is. Swap the middle word and the sentence still works.
+        status: source_checked
+        sources: [SWALPA-survival]
+        tokens:
+          - word: nanage
+            gloss: to me
+          - word: help
+            gloss: help (English word)
+          - word: bēku
+            gloss: is needed
+
+      - id: what-do-you-want
+        roman: nimage ēnu bēku?
+        script: ನಿಮಗೆ ಏನು ಬೇಕು?
+        meaning: What would you like? / What do you need?
+        why: >-
+          What a shopkeeper or waiter asks you. nīvu (you) becomes nimage (to
+          you), exactly as nānu becomes nanage. Put ēnu (what) in the slot.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-survival, SWALPA-social, Penn]
+        tokens:
+          - word: nimage
+            gloss: to you (respectful)
+            breakdown: nīvu (you) + ge (to)
+          - word: ēnu
+            gloss: what
+          - word: bēku
+            gloss: is wanted
+
+      - id: i-want-tea
+        roman: nanage Tī bēku
+        script: ನನಗೆ ಟೀ ಬೇಕು
+        meaning: I'd like tea
+        why: >-
+          The answer to nimage ēnu bēku?: keep the frame, swap ēnu for what
+          you want. Questions and answers share the same shape.
+        status: source_checked
+        sources: [SWALPA-survival, SWALPA-social]
+        tokens:
+          - word: nanage
+            gloss: to me
+          - word: Tī
+            gloss: tea
+          - word: bēku
+            gloss: is wanted
+
+  - slug: dont-want
+    title: Do you want it? I don't want it
+    sentences:
+      - id: do-you-want-it
+        roman: bēkā?
+        script: ಬೇಕಾ?
+        meaning: Do you want it? / Do you need it?
+        why: >-
+          bēku + the question ā = bēkā? You'll hear it at every counter:
+          byāg bēkā? (want a bag?), bil bēkā? (want the bill?). The "you" is
+          understood.
+        status: source_checked
+        sources: [SWALPA-survival, Penn]
+        tokens:
+          - word: bēkā
+            gloss: is it wanted?
+            breakdown: bēku (wanted) + ā (question)
+
+      - id: dont-want
+        roman: bēDa
+        script: ಬೇಡ
+        meaning: No thanks / I don't want it
+        why: >-
+          The opposite of bēku, and a polite "no thanks" on its own. Think of
+          bēku and bēDa as a switch: same slot, on or off.
+        pronunciation: The D is made with the tongue curled back.
+        status: source_checked
+        sources: [SWALPA-survival]
+        tokens:
+          - word: bēDa
+            gloss: not wanted
+
+      - id: no-plastic-bag
+        roman: plāsTik byāg bēDa
+        script: ಪ್ಲಾಸ್ಟಿಕ್ ಬ್ಯಾಗ್ ಬೇಡ
+        meaning: No plastic bag, thanks
+        why: >-
+          English words come into Kannada with Kannada sounds: "bag" is said
+          byāg, "plastic" has a curled-back T. Nobody needs nanage here; at
+          the counter it's obvious who you mean.
+        status: source_checked
+        sources: [SWALPA-survival]
+        tokens:
+          - word: plāsTik
+            gloss: plastic (English word)
+          - word: byāg
+            gloss: bag (English word)
+          - word: bēDa
+            gloss: not wanted
+
+      - id: i-dont-want-a-meal
+        roman: nanage ūTa bēDa
+        script: ನನಗೆ ಊಟ ಬೇಡ
+        meaning: I don't want a meal (I'm not eating)
+        why: >-
+          The full frame with bēDa. Useful when a host keeps offering food:
+          say it with a smile, and add sāku (enough) once you learn it.
+        status: source_checked
+        sources: [SWALPA-survival]
+        tokens:
+          - word: nanage
+            gloss: to me
+          - word: ūTa
+            gloss: meal
+          - word: bēDa
+            gloss: not wanted
