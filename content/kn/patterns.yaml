@@ -8,7 +8,8 @@
 #   SWALPA-survival   swalpa.pages.dev/02_survival_and_emergencies
 #   SWALPA-logistics  swalpa.pages.dev/09_everyday_logistics_and_services
 #   SWALPA-social     swalpa.pages.dev/03_social_interactions
-#   Penn              ccat.sas.upenn.edu/plc/kannada/lesson2.html (language + gottu)
+#   Penn              ccat.sas.upenn.edu/plc/kannada/lesson2.html (language + gottu),
+#                     lesson3.html (X ellide?, illide, illi illa)
 #   Goethe            goethe-verlag.com/book2/EN/ENKN (nanage gottilla)
 
 language: kn
@@ -25,6 +26,8 @@ words:
   - { id: kannada, roman: kannaDa, script: ಕನ್ನಡ, gloss: "Kannada", sources: [Penn] }
   - { id: english, roman: inglish, script: ಇಂಗ್ಲಿಷ್, gloss: "English (the language)", sources: [Penn] }
   - { id: hindi, roman: hindi, script: ಹಿಂದಿ, gloss: "Hindi", sources: [Penn] }
+  - { id: toilet, roman: TāyleT, script: ಟಾಯ್ಲೆಟ್, gloss: "toilet (English word, used as is)", sources: [Penn] }
+  - { id: house, roman: mane, script: ಮನೆ, gloss: "house, home", sources: [SWALPA-logistics] }
   - { id: rent, roman: bāDige, script: ಬಾಡಿಗೆ, gloss: "rent", sources: [SWALPA-logistics] }
 
 patterns:
@@ -116,3 +119,22 @@ patterns:
       - { word: kannada, english: Kannada }
       - { word: english, english: English }
       - { word: hindi, english: Hindi }
+
+  - id: where
+    title: Where is …? It's here / It isn't here
+    template: "{word} {ending}"
+    template_script: "{word} {ending}"
+    explanation: >-
+      Name the thing, then ask ellide? (elli + ide, "where is"). The answers
+      use the same pieces: illide (illi + ide, "it's here") and illi illa
+      ("not here"). Near i, far a, question e: illi, alli, elli.
+    sources: [Penn]
+    endings:
+      - { id: question, label: Where is?, roman: ellide?, script: ಎಲ್ಲಿದೆ?, english: "Where is {word}?" }
+      - { id: statement, label: It's here, roman: illide, script: ಇಲ್ಲಿದೆ, english: "{word} is here" }
+      - { id: negative, label: Not here, roman: illi illa, script: ಇಲ್ಲಿ ಇಲ್ಲ, english: "{word} isn't here" }
+    words:
+      - { word: toilet, english: the toilet }
+      - { word: water, english: the water }
+      - { word: menu, english: the menu }
+      - { word: house, english: the house }

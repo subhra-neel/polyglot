@@ -1,0 +1,180 @@
+# Kannada · Level 1 · Unit 5: Is there, there is not; where
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-survival   swalpa.pages.dev/02_survival_and_emergencies (nīru illa)
+#   SWALPA-logistics  swalpa.pages.dev/09_everyday_logistics_and_services
+#                     (nīru ideyā?, Taim ideyā?, karenT hōgide, illi nillisi, mane)
+#   Penn              ccat.sas.upenn.edu/plc/kannada/lesson3.html (ide/illa,
+#                     ellide?, illide, allide, "X ellide?")
+
+language: kn
+level: 1
+unit: is-there
+
+lessons:
+  - slug: is-there
+    title: Is there …? There isn't
+    sentences:
+      - id: is-there-water
+        roman: nīru ideyā?
+        script: ನೀರು ಇದೆಯಾ?
+        meaning: Is there water? / Do you have water?
+        why: >-
+          ide means "there is", and the question ā turns it into ideyā?
+          (a y joins the two vowels). It also means "do you have …?": Kannada
+          asks whether the thing is there rather than who has it.
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - word: nīru
+            gloss: water
+          - word: ideyā
+            gloss: is there?
+            breakdown: ide (there is) + ā (question)
+
+      - id: there-is-water
+        roman: nīru ide
+        script: ನೀರು ಇದೆ
+        meaning: There is water / We have water
+        why: Drop the question ā and you have the answer. Thing first, ide last.
+        status: source_checked
+        sources: [Penn, SWALPA-logistics]
+        tokens:
+          - word: nīru
+            gloss: water
+          - word: ide
+            gloss: there is
+
+      - id: there-is-no-water
+        roman: nīru illa
+        script: ನೀರು ಇಲ್ಲ
+        meaning: There's no water
+        why: >-
+          ide and illa are a light switch: there is, there isn't. This is the
+          "empty shelf" illa from Unit 3, not alla (wrong label).
+        status: source_checked
+        sources: [SWALPA-survival, Penn]
+        tokens:
+          - word: nīru
+            gloss: water
+          - word: illa
+            gloss: there isn't
+
+      - id: are-you-free
+        roman: Taim ideyā?
+        script: ಟೈಮ್ ಇದೆಯಾ?
+        meaning: Are you free? (Do you have time?)
+        why: >-
+          Literally "is there time?". The English "time" with a Kannada
+          question ending, the everyday way to ask if someone can talk.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - word: Taim
+            gloss: time (English word)
+          - word: ideyā
+            gloss: is there?
+
+      - id: power-is-out
+        roman: karenT hōgide
+        script: ಕರೆಂಟ್ ಹೋಗಿದೆ
+        meaning: The power's gone (power cut)
+        why: >-
+          "Current has gone". Bengaluru says karenT (from English "current")
+          for electricity. hōgide is "has gone", from hōgu (go).
+        register: colloquial
+        region: Bengaluru
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - word: karenT
+            gloss: electricity (from English "current")
+          - word: hōgide
+            gloss: has gone
+            breakdown: hōgi (having gone) + ide (is)
+
+  - slug: where-is
+    title: Where is …? Here, there
+    sentences:
+      - id: where-is-the-toilet
+        roman: TāyleT ellide?
+        script: ಟಾಯ್ಲೆಟ್ ಎಲ್ಲಿದೆ?
+        meaning: Where is the toilet?
+        why: >-
+          elli (where) + ide (is) run together: ellide. The thing comes first,
+          the question last. Question words in Kannada tend to start with e:
+          elli (where), ēnu (what), eshTu (how much).
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: TāyleT
+            gloss: toilet (English word)
+          - word: ellide
+            gloss: where is
+            breakdown: elli (where) + ide (is)
+
+      - id: where-is-your-house
+        roman: nimma mane ellide?
+        script: ನಿಮ್ಮ ಮನೆ ಎಲ್ಲಿದೆ?
+        meaning: Where is your house? / Where do you live?
+        why: >-
+          The usual way to ask where someone lives: "your house is where?".
+          nimma is the respectful "your" from Unit 2.
+        formality: respectful
+        status: source_checked
+        sources: [Penn, SWALPA-logistics]
+        tokens:
+          - word: nimma
+            gloss: your (respectful)
+          - word: mane
+            gloss: house, home
+          - word: ellide
+            gloss: where is
+
+      - id: its-here
+        roman: illide
+        script: ಇಲ್ಲಿದೆ
+        meaning: It's here
+        why: >-
+          illi (here) + ide (is). Near i, far a, question e: illi (here),
+          alli (there), elli (where?). The same i / a pattern as idu and adu.
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: illide
+            gloss: it's here
+            breakdown: illi (here) + ide (is)
+        variants:
+          - { relation: alternative, sentence: its-there }
+
+      - id: its-there
+        roman: allide
+        script: ಅಲ್ಲಿದೆ
+        meaning: It's over there
+        why: alli (there) + ide (is). Point while you say it.
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: allide
+            gloss: it's there
+            breakdown: alli (there) + ide (is)
+
+      - id: stop-here
+        roman: illi nillisi
+        script: ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ
+        meaning: Stop here, please
+        why: >-
+          For an auto or cab. nillisi is the polite "stop (the vehicle)"; the
+          -i ending is the same polite request ending as koDi (please give).
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - word: illi
+            gloss: here
+          - word: nillisi
+            gloss: please stop (it)
