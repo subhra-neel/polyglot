@@ -1032,4 +1032,582 @@ insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_
 insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
   values ('f4200145-46b1-5cf0-9a16-e25aba126d91', 2, 'nillisi', null, 'please stop (it)', null, array[]::text[]);
 
+-- kn level 1, unit numbers-money
+do $$ begin if (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') is null then raise exception 'unit numbers-money (level 1, kn) is missing: run the migrations first'; end if; end $$;
+insert into public.lessons (unit_id, position, slug, title) values ((select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money'), 1, 'one-to-ten', 'One to ten')
+  on conflict (unit_id, slug) do update set position = excluded.position, title = excluded.title;
+insert into public.lessons (unit_id, position, slug, title) values ((select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money'), 2, 'how-much', 'How much is it?')
+  on conflict (unit_id, slug) do update set position = excluded.position, title = excluded.title;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('4a04ef67-b764-57ba-a58b-6f5c2a4158a3', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'one-to-ten'), 1,
+    'ondu', 'ಒಂದು', 'One (1)', 'Also the word for "a": ondu kāfi is "a coffee" (one coffee). Most numbers end in -u, like a little tail; it is lightly said.', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply · wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('294cf04d-31d1-5729-8ea9-08d6e3da2daf', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'one-to-ten'), 2,
+    'eraDu', 'ಎರಡು', 'Two (2)', 'eraDu kāfi, two coffees. The thing stays singular after a number.', 'The D is made with the tongue curled back.',
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply · wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('20a88e26-e4f9-51dc-8914-6cae8cbbbd5d', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'one-to-ten'), 3,
+    'mūru', 'ಮೂರು', 'Three (3)', 'Long ū, as in "moon".', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply · wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('71eb5c48-64d3-58cf-9bbc-978ee726449c', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'one-to-ten'), 4,
+    'nālku', 'ನಾಲ್ಕು', 'Four (4)', 'Long ā, then a quick l and ku.', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply · wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('2ea97647-6784-5ca9-a83a-6ea79e3da39c', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'one-to-ten'), 5,
+    'aidu', 'ಐದು', 'Five (5)', 'ai as in "eye". Many speakers say aidu, some aydu.', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply · wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('1324cd26-682f-5137-9e9a-9f8921785ac7', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'one-to-ten'), 6,
+    'āru', 'ಆರು', 'Six (6)', 'Long ā. Don''t mix it up with yāru (who).', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply · wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('ea18e901-bf0c-52d3-ae1c-925d3ae276c7', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'one-to-ten'), 7,
+    'ēLu', 'ಏಳು', 'Seven (7)', 'Long ē as in "they". You''ll often hear yēLu.', 'The L is made with the tongue curled back.',
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply · wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('e69d28f4-a1eb-5c59-bc3d-7d00ff46c218', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'one-to-ten'), 8,
+    'enTu', 'ಎಂಟು', 'Eight (8)', 'A short e and a hard, curled-back T.', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply · wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('7d81ed14-1eab-5ca3-a3a3-47e8f8f22404', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'one-to-ten'), 9,
+    'ombattu', 'ಒಂಬತ್ತು', 'Nine (9)', 'Hold the double tt for a beat.', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply · wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('12247a94-3cac-597d-8ae0-b22a530e8893', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'one-to-ten'), 10,
+    'hattu', 'ಹತ್ತು', 'Ten (10)', 'hattu also means "to climb (in)": auto hattu. Context tells you which. Double tt again.', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('6cd02337-5859-5227-84b8-aa1f476b53d4', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'how-much'), 1,
+    'idakke eshTu?', 'ಇದಕ್ಕೆ ಎಷ್ಟು?', 'How much is this?', '"For this, how much?". idu (this) + -kke (for) = idakke. Point at the thing and ask; the price tag in words.', null,
+    'neutral', 'neutral', null, 'source_checked', 'Preply')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('0725d162-5716-5048-becf-7e7a52f866ce', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'how-much'), 2,
+    'eshTu āgutte?', 'ಎಷ್ಟು ಆಗುತ್ತೆ?', 'How much will it come to?', 'For a total, a fare or a repair: "how much will it become?". āgutte is the spoken form of āguttade, "it becomes".', null,
+    'colloquial', 'neutral', null, 'source_checked', 'SWALPA-travel · SWALPA-logistics')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('adc110f0-87cf-57be-90a9-9797e17be55b', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'how-much'), 3,
+    'ippattu', 'ಇಪ್ಪತ್ತು', 'Twenty (20)', 'Prices are often said as just the number: "ippattu" means twenty rupees when you''re paying.', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('b8e6de1d-3437-55d0-896b-c28cec3cfb6e', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'how-much'), 4,
+    'aivattu', 'ಐವತ್ತು', 'Fifty (50)', 'aidu (five) is hidden in aivattu, like "five-ty".', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('776d0208-6d28-56d0-8cba-ababd3872d3d', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'how-much'), 5,
+    'nūru', 'ನೂರು', 'One hundred (100)', 'Rhymes with mūru (three). eraDu nūru is two hundred: number first, then nūru.', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('3d86da9a-a8e4-50d4-b3ec-26c4f3341394', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'how-much'), 6,
+    'sāvira', 'ಸಾವಿರ', 'One thousand (1,000)', 'Same pattern as nūru, so eraDu sāvira is two thousand.', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-numbers · Preply')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('cd656c12-2549-5495-b562-e1610fed4ca0', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'numbers-money') and le.slug = 'how-much'), 7,
+    'svalpa kammi māDi', 'ಸ್ವಲ್ಪ ಕಮ್ಮಿ ಮಾಡಿ', 'Please reduce it a little', 'The bargaining line: "a little less, please do". kammi (less) + māDi (please do). Say it with a smile at markets, not in shops with fixed prices.', null,
+    'neutral', 'neutral', null, 'source_checked', 'SWALPA-logistics')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+delete from public.sentence_tokens where sentence_id in ('4a04ef67-b764-57ba-a58b-6f5c2a4158a3', '294cf04d-31d1-5729-8ea9-08d6e3da2daf', '20a88e26-e4f9-51dc-8914-6cae8cbbbd5d', '71eb5c48-64d3-58cf-9bbc-978ee726449c', '2ea97647-6784-5ca9-a83a-6ea79e3da39c', '1324cd26-682f-5137-9e9a-9f8921785ac7', 'ea18e901-bf0c-52d3-ae1c-925d3ae276c7', 'e69d28f4-a1eb-5c59-bc3d-7d00ff46c218', '7d81ed14-1eab-5ca3-a3a3-47e8f8f22404', '12247a94-3cac-597d-8ae0-b22a530e8893', '6cd02337-5859-5227-84b8-aa1f476b53d4', '0725d162-5716-5048-becf-7e7a52f866ce', 'adc110f0-87cf-57be-90a9-9797e17be55b', 'b8e6de1d-3437-55d0-896b-c28cec3cfb6e', '776d0208-6d28-56d0-8cba-ababd3872d3d', '3d86da9a-a8e4-50d4-b3ec-26c4f3341394', 'cd656c12-2549-5495-b562-e1610fed4ca0');
+delete from public.sentence_variants where sentence_id in ('4a04ef67-b764-57ba-a58b-6f5c2a4158a3', '294cf04d-31d1-5729-8ea9-08d6e3da2daf', '20a88e26-e4f9-51dc-8914-6cae8cbbbd5d', '71eb5c48-64d3-58cf-9bbc-978ee726449c', '2ea97647-6784-5ca9-a83a-6ea79e3da39c', '1324cd26-682f-5137-9e9a-9f8921785ac7', 'ea18e901-bf0c-52d3-ae1c-925d3ae276c7', 'e69d28f4-a1eb-5c59-bc3d-7d00ff46c218', '7d81ed14-1eab-5ca3-a3a3-47e8f8f22404', '12247a94-3cac-597d-8ae0-b22a530e8893', '6cd02337-5859-5227-84b8-aa1f476b53d4', '0725d162-5716-5048-becf-7e7a52f866ce', 'adc110f0-87cf-57be-90a9-9797e17be55b', 'b8e6de1d-3437-55d0-896b-c28cec3cfb6e', '776d0208-6d28-56d0-8cba-ababd3872d3d', '3d86da9a-a8e4-50d4-b3ec-26c4f3341394', 'cd656c12-2549-5495-b562-e1610fed4ca0');
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('4a04ef67-b764-57ba-a58b-6f5c2a4158a3', 1, 'ondu', null, 'one, a', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('294cf04d-31d1-5729-8ea9-08d6e3da2daf', 1, 'eraDu', null, 'two', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('20a88e26-e4f9-51dc-8914-6cae8cbbbd5d', 1, 'mūru', null, 'three', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('71eb5c48-64d3-58cf-9bbc-978ee726449c', 1, 'nālku', null, 'four', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('2ea97647-6784-5ca9-a83a-6ea79e3da39c', 1, 'aidu', null, 'five', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('1324cd26-682f-5137-9e9a-9f8921785ac7', 1, 'āru', null, 'six', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('ea18e901-bf0c-52d3-ae1c-925d3ae276c7', 1, 'ēLu', null, 'seven', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('e69d28f4-a1eb-5c59-bc3d-7d00ff46c218', 1, 'enTu', null, 'eight', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('7d81ed14-1eab-5ca3-a3a3-47e8f8f22404', 1, 'ombattu', null, 'nine', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('12247a94-3cac-597d-8ae0-b22a530e8893', 1, 'hattu', null, 'ten', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('6cd02337-5859-5227-84b8-aa1f476b53d4', 1, 'idakke', null, 'for this', 'idu (this) + akke (for)', array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('6cd02337-5859-5227-84b8-aa1f476b53d4', 2, 'eshTu', null, 'how much', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('0725d162-5716-5048-becf-7e7a52f866ce', 1, 'eshTu', null, 'how much', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('0725d162-5716-5048-becf-7e7a52f866ce', 2, 'āgutte', null, 'it will be, it comes to', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('adc110f0-87cf-57be-90a9-9797e17be55b', 1, 'ippattu', null, 'twenty', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('b8e6de1d-3437-55d0-896b-c28cec3cfb6e', 1, 'aivattu', null, 'fifty', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('776d0208-6d28-56d0-8cba-ababd3872d3d', 1, 'nūru', null, 'hundred', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('3d86da9a-a8e4-50d4-b3ec-26c4f3341394', 1, 'sāvira', null, 'thousand', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('cd656c12-2549-5495-b562-e1610fed4ca0', 1, 'svalpa', null, 'a little', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('cd656c12-2549-5495-b562-e1610fed4ca0', 2, 'kammi', null, 'less', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('cd656c12-2549-5495-b562-e1610fed4ca0', 3, 'māDi', null, 'please do', null, array[]::text[]);
+
+-- kn level 1, unit polite-requests
+do $$ begin if (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') is null then raise exception 'unit polite-requests (level 1, kn) is missing: run the migrations first'; end if; end $$;
+insert into public.lessons (unit_id, position, slug, title) values ((select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests'), 1, 'come-go-stop', 'Come, go, stop')
+  on conflict (unit_id, slug) do update set position = excluded.position, title = excluded.title;
+insert into public.lessons (unit_id, position, slug, title) values ((select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests'), 2, 'give-wait-meter', 'Give, wait, put the meter on')
+  on conflict (unit_id, slug) do update set position = excluded.position, title = excluded.title;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('649f9578-f1c4-546a-ae45-09f8b93fd238', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'come-go-stop'), 1,
+    'banni', 'ಬನ್ನಿ', 'Come (please) / Welcome', 'The polite "come", and how you welcome a guest. Polite requests end in -i: banni, hōgi, koDi. Think of that -i as "please" built into the verb. The casual bā is only for friends and children.', null,
+    'neutral', 'respectful', null, 'source_checked', 'SWALPA-survival · Penn')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('1590dd60-9e28-5718-ab85-3d341ba1f65e', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'come-go-stop'), 2,
+    'illi banni', 'ಇಲ್ಲಿ ಬನ್ನಿ', 'Come here, please', 'illi (here) from Unit 5, then the polite banni.', null,
+    'neutral', 'respectful', null, 'source_checked', 'Penn')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('af47ce99-b11f-5e64-9aaf-f7537e08af8b', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'come-go-stop'), 3,
+    'oLagaDe banni', 'ಒಳಗಡೆ ಬನ್ನಿ', 'Come inside, please', 'What you say to a delivery person or a guest at the door. oLagaDe is "inside"; its opposite is horagaDe (outside).', null,
+    'neutral', 'respectful', null, 'source_checked', 'SWALPA-logistics')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('3f3848ce-df5b-580f-a919-84bba1da42ca', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'come-go-stop'), 4,
+    'nēra hōgi', 'ನೇರ ಹೋಗಿ', 'Go straight', 'For an auto or cab. nēra is straight, hōgi the polite "go". You know hōgi already from hōgi bartīni (bye).', null,
+    'neutral', 'respectful', null, 'source_checked', 'SWALPA-travel · Preply')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('06d32cae-2f1b-5d65-9a28-135d81182030', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'come-go-stop'), 5,
+    'nidhāna hōgi', 'ನಿಧಾನ ಹೋಗಿ', 'Go slowly, please', 'nidhāna means slow or careful. Useful when the driver is racing.', null,
+    'neutral', 'respectful', null, 'source_checked', 'SWALPA-travel')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('76558d3a-98fb-5e3b-a5c9-9cc54d68bb02', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'come-go-stop'), 6,
+    'alli nillisi', 'ಅಲ್ಲಿ ನಿಲ್ಲಿಸಿ', 'Stop there, please', 'Point ahead. illi nillisi (stop here) and alli nillisi (stop there): near i, far a.', null,
+    'neutral', 'respectful', null, 'source_checked', 'SWALPA-travel')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('f7315fd2-0ab8-528f-9788-94942fda1a72', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'give-wait-meter'), 1,
+    'nīru koDi', 'ನೀರು ಕೊಡಿ', 'Water, please (please give me water)', 'Thing first, then koDi (please give). No "me" needed: who else would it be for? Swap nīru for anything.', null,
+    'neutral', 'respectful', null, 'source_checked', 'Preply')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('2a06c6de-794a-51c7-bd2d-c1ed2e531d41', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'give-wait-meter'), 2,
+    'bil koDi', 'ಬಿಲ್ ಕೊಡಿ', 'The bill, please', 'Same frame with the English word "bill".', null,
+    'neutral', 'respectful', null, 'source_checked', 'SWALPA-survival')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('65966c23-48e2-5f64-95d0-ac941d7b38c5', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'give-wait-meter'), 3,
+    'mīTar hāki', 'ಮೀಟರ್ ಹಾಕಿ', 'Put the meter on, please', 'The first thing to say in an auto. hāki means "put (on)", the polite -i again.', null,
+    'neutral', 'respectful', 'Bengaluru', 'source_checked', 'SWALPA-travel')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('97f08df8-1ea0-59c1-a8a4-ef4cfa4631af', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'give-wait-meter'), 4,
+    'svalpa vēT māDi', 'ಸ್ವಲ್ಪ ವೇಟ್ ಮಾಡಿ', 'Please wait a moment', 'English verb + māDi (please do) is a common Bengaluru shortcut: vēT māDi (wait), adjast māDi (adjust), kāl māDi (call).', null,
+    'colloquial', 'neutral', null, 'source_checked', 'wikiHow · SWALPA-logistics')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('dd91cd3c-cc2e-520b-9f30-dd96d38f10ed', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'polite-requests') and le.slug = 'give-wait-meter'), 5,
+    'nāLe beLigge banni', 'ನಾಳೆ ಬೆಳಿಗ್ಗೆ ಬನ್ನಿ', 'Please come tomorrow morning', 'For a plumber or delivery. Time words come first, the verb last: nāLe (tomorrow), beLigge (in the morning), banni (come).', null,
+    'neutral', 'respectful', null, 'source_checked', 'SWALPA-logistics')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+delete from public.sentence_tokens where sentence_id in ('649f9578-f1c4-546a-ae45-09f8b93fd238', '1590dd60-9e28-5718-ab85-3d341ba1f65e', 'af47ce99-b11f-5e64-9aaf-f7537e08af8b', '3f3848ce-df5b-580f-a919-84bba1da42ca', '06d32cae-2f1b-5d65-9a28-135d81182030', '76558d3a-98fb-5e3b-a5c9-9cc54d68bb02', 'f7315fd2-0ab8-528f-9788-94942fda1a72', '2a06c6de-794a-51c7-bd2d-c1ed2e531d41', '65966c23-48e2-5f64-95d0-ac941d7b38c5', '97f08df8-1ea0-59c1-a8a4-ef4cfa4631af', 'dd91cd3c-cc2e-520b-9f30-dd96d38f10ed');
+delete from public.sentence_variants where sentence_id in ('649f9578-f1c4-546a-ae45-09f8b93fd238', '1590dd60-9e28-5718-ab85-3d341ba1f65e', 'af47ce99-b11f-5e64-9aaf-f7537e08af8b', '3f3848ce-df5b-580f-a919-84bba1da42ca', '06d32cae-2f1b-5d65-9a28-135d81182030', '76558d3a-98fb-5e3b-a5c9-9cc54d68bb02', 'f7315fd2-0ab8-528f-9788-94942fda1a72', '2a06c6de-794a-51c7-bd2d-c1ed2e531d41', '65966c23-48e2-5f64-95d0-ac941d7b38c5', '97f08df8-1ea0-59c1-a8a4-ef4cfa4631af', 'dd91cd3c-cc2e-520b-9f30-dd96d38f10ed');
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('649f9578-f1c4-546a-ae45-09f8b93fd238', 1, 'banni', null, 'come (polite)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('1590dd60-9e28-5718-ab85-3d341ba1f65e', 1, 'illi', null, 'here', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('1590dd60-9e28-5718-ab85-3d341ba1f65e', 2, 'banni', null, 'come (polite)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('af47ce99-b11f-5e64-9aaf-f7537e08af8b', 1, 'oLagaDe', null, 'inside', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('af47ce99-b11f-5e64-9aaf-f7537e08af8b', 2, 'banni', null, 'come (polite)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('3f3848ce-df5b-580f-a919-84bba1da42ca', 1, 'nēra', null, 'straight', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('3f3848ce-df5b-580f-a919-84bba1da42ca', 2, 'hōgi', null, 'go (polite)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('06d32cae-2f1b-5d65-9a28-135d81182030', 1, 'nidhāna', null, 'slow, careful', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('06d32cae-2f1b-5d65-9a28-135d81182030', 2, 'hōgi', null, 'go (polite)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('76558d3a-98fb-5e3b-a5c9-9cc54d68bb02', 1, 'alli', null, 'there', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('76558d3a-98fb-5e3b-a5c9-9cc54d68bb02', 2, 'nillisi', null, 'please stop (it)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('f7315fd2-0ab8-528f-9788-94942fda1a72', 1, 'nīru', null, 'water', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('f7315fd2-0ab8-528f-9788-94942fda1a72', 2, 'koDi', null, 'please give', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('2a06c6de-794a-51c7-bd2d-c1ed2e531d41', 1, 'bil', null, 'bill (English word)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('2a06c6de-794a-51c7-bd2d-c1ed2e531d41', 2, 'koDi', null, 'please give', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('65966c23-48e2-5f64-95d0-ac941d7b38c5', 1, 'mīTar', null, 'meter (English word)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('65966c23-48e2-5f64-95d0-ac941d7b38c5', 2, 'hāki', null, 'please put', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('97f08df8-1ea0-59c1-a8a4-ef4cfa4631af', 1, 'svalpa', null, 'a little', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('97f08df8-1ea0-59c1-a8a4-ef4cfa4631af', 2, 'vēT', null, 'wait (English word)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('97f08df8-1ea0-59c1-a8a4-ef4cfa4631af', 3, 'māDi', null, 'please do', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('dd91cd3c-cc2e-520b-9f30-dd96d38f10ed', 1, 'nāLe', null, 'tomorrow', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('dd91cd3c-cc2e-520b-9f30-dd96d38f10ed', 2, 'beLigge', null, 'in the morning', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('dd91cd3c-cc2e-520b-9f30-dd96d38f10ed', 3, 'banni', null, 'come (polite)', null, array[]::text[]);
+
+-- kn level 1, unit repair
+do $$ begin if (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair') is null then raise exception 'unit repair (level 1, kn) is missing: run the migrations first'; end if; end $$;
+insert into public.lessons (unit_id, position, slug, title) values ((select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair'), 1, 'didnt-understand', 'I didn''t understand')
+  on conflict (unit_id, slug) do update set position = excluded.position, title = excluded.title;
+insert into public.lessons (unit_id, position, slug, title) values ((select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair'), 2, 'asking-about-words', 'What does it mean? How do you say …?')
+  on conflict (unit_id, slug) do update set position = excluded.position, title = excluded.title;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('a68f0d38-1c6e-5720-a2f2-fc0a8f2e3686', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair') and le.slug = 'didnt-understand'), 1,
+    'nanage artha āgalilla', 'ನನಗೆ ಅರ್ಥ ಆಗಲಿಲ್ಲ', 'I didn''t understand', '"To me, the meaning didn''t happen". The nanage frame again, like bēku and gottu. The most useful sentence in this unit: it keeps a conversation going instead of ending it.', null,
+    'neutral', 'neutral', null, 'source_checked', 'KannadaMaadi · wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('7eabe725-2bd1-5daa-9e3b-55c962ed6c13', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair') and le.slug = 'didnt-understand'), 2,
+    'ēnu?', 'ಏನು?', 'Sorry, what? (Pardon?)', 'Said with a rising voice, it asks someone to repeat. Short and normal, not rude.', null,
+    'neutral', 'neutral', null, 'source_checked', 'Multibhashi')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('14d7dd19-236e-579d-9bbb-844d477df58e', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair') and le.slug = 'didnt-understand'), 3,
+    'matte hēLi', 'ಮತ್ತೆ ಹೇಳಿ', 'Please say that again', 'matte (again), from matte sigōNa, + hēLi (please say). The polite -i once more.', null,
+    'neutral', 'respectful', null, 'source_checked', 'Preply')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('0954aad9-806a-5e5d-a8ce-b70e2cec58be', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair') and le.slug = 'didnt-understand'), 4,
+    'svalpa nidhānavāgi mātāDi', 'ಸ್ವಲ್ಪ ನಿಧಾನವಾಗಿ ಮಾತಾಡಿ', 'Please speak a little slowly', 'nidhāna (slow) + -vāgi turns it into "slowly", the way "-ly" works in English. mātāDi is "please speak".', null,
+    'neutral', 'respectful', null, 'source_checked', 'wikiHow · Preply')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('090375e3-2962-5954-8c20-dc5ca25065c0', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair') and le.slug = 'didnt-understand'), 5,
+    'kannaDa baralla', 'ಕನ್ನಡ ಬರಲ್ಲ', 'I don''t speak Kannada (well)', 'Literally "Kannada doesn''t come (to me)". A language "comes" to you in Kannada. Follow it with nanage kannaDa svalpa gottu.', null,
+    'colloquial', 'neutral', null, 'source_checked', 'Multibhashi')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('cb54206f-b728-5479-862d-4e6087a0302c', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair') and le.slug = 'asking-about-words'), 1,
+    'adara artha ēnu?', 'ಅದರ ಅರ್ಥ ಏನು?', 'What does that mean?', '"Its meaning what?". adara is "its" (from adu, that). Use it the moment you hear a new word.', null,
+    'neutral', 'neutral', null, 'source_checked', 'KannadaMaadi')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('622b50ad-e3c3-53e9-8148-11b935d6a9f7', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair') and le.slug = 'asking-about-words'), 2,
+    'kannaDadalli vāTar hēge hēLōdu?', 'ಕನ್ನಡದಲ್ಲಿ ವಾಟರ್ ಹೇಗೆ ಹೇಳೋದು?', 'How do you say "water" in Kannada?', 'Your learning tool: say the English word in the middle and anyone can teach you. kannaDadalli is "in Kannada" (-alli, in), hēge is "how", hēLōdu "to say".', null,
+    'neutral', 'neutral', null, 'source_checked', 'wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('9c78d7fb-2f92-599e-97d4-13ee5f63d861', 'kn', (select le.id from public.lessons le where le.unit_id = (select u.id from public.units u join public.levels l on l.id = u.level_id
+       where l.language_code = 'kn' and l.number = 1 and u.slug = 'repair') and le.slug = 'asking-about-words'), 3,
+    'nīvu inglish mātāDtīrā?', 'ನೀವು ಇಂಗ್ಲಿಷ್ ಮಾತಾಡ್ತೀರಾ?', 'Do you speak English?', 'The fallback. mātāDtīri (you speak) + ā (question). Try Kannada first: people appreciate it, even if you switch after.', null,
+    'neutral', 'respectful', null, 'source_checked', 'Multibhashi')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+insert into public.sentences (id, language_code, lesson_id, position, text_roman, text_script, meaning_en, why_note,
+    pronunciation_note, register, formality, region, validation_status, source_ref)
+  values ('afc6f487-8a90-56b5-896b-fc977117c3fd', 'kn', null, null,
+    'innomme hēLi', 'ಇನ್ನೊಮ್ಮೆ ಹೇಳಿ', 'Please say it once more', 'innomme means "one more time". Same meaning as matte hēLi.', null,
+    'neutral', 'respectful', null, 'source_checked', 'wikiHow')
+  on conflict (id) do update set lesson_id = excluded.lesson_id, position = excluded.position,
+    text_roman = excluded.text_roman, text_script = excluded.text_script, meaning_en = excluded.meaning_en,
+    why_note = excluded.why_note, pronunciation_note = excluded.pronunciation_note, register = excluded.register,
+    formality = excluded.formality, region = excluded.region, validation_status = excluded.validation_status,
+    source_ref = excluded.source_ref;
+delete from public.sentence_tokens where sentence_id in ('a68f0d38-1c6e-5720-a2f2-fc0a8f2e3686', '7eabe725-2bd1-5daa-9e3b-55c962ed6c13', '14d7dd19-236e-579d-9bbb-844d477df58e', '0954aad9-806a-5e5d-a8ce-b70e2cec58be', '090375e3-2962-5954-8c20-dc5ca25065c0', 'cb54206f-b728-5479-862d-4e6087a0302c', '622b50ad-e3c3-53e9-8148-11b935d6a9f7', '9c78d7fb-2f92-599e-97d4-13ee5f63d861', 'afc6f487-8a90-56b5-896b-fc977117c3fd');
+delete from public.sentence_variants where sentence_id in ('a68f0d38-1c6e-5720-a2f2-fc0a8f2e3686', '7eabe725-2bd1-5daa-9e3b-55c962ed6c13', '14d7dd19-236e-579d-9bbb-844d477df58e', '0954aad9-806a-5e5d-a8ce-b70e2cec58be', '090375e3-2962-5954-8c20-dc5ca25065c0', 'cb54206f-b728-5479-862d-4e6087a0302c', '622b50ad-e3c3-53e9-8148-11b935d6a9f7', '9c78d7fb-2f92-599e-97d4-13ee5f63d861', 'afc6f487-8a90-56b5-896b-fc977117c3fd');
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('a68f0d38-1c6e-5720-a2f2-fc0a8f2e3686', 1, 'nanage', null, 'to me', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('a68f0d38-1c6e-5720-a2f2-fc0a8f2e3686', 2, 'artha', null, 'meaning', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('a68f0d38-1c6e-5720-a2f2-fc0a8f2e3686', 3, 'āgalilla', null, 'didn''t happen', 'āgu (happen) + alilla (didn''t)', array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('7eabe725-2bd1-5daa-9e3b-55c962ed6c13', 1, 'ēnu', null, 'what', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('14d7dd19-236e-579d-9bbb-844d477df58e', 1, 'matte', null, 'again', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('14d7dd19-236e-579d-9bbb-844d477df58e', 2, 'hēLi', null, 'please say', null, array[]::text[]);
+insert into public.sentence_variants (sentence_id, variant_sentence_id, relation)
+  values ('14d7dd19-236e-579d-9bbb-844d477df58e', 'afc6f487-8a90-56b5-896b-fc977117c3fd', 'alternative');
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('0954aad9-806a-5e5d-a8ce-b70e2cec58be', 1, 'svalpa', null, 'a little', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('0954aad9-806a-5e5d-a8ce-b70e2cec58be', 2, 'nidhānavāgi', null, 'slowly', 'nidhāna (slow) + vāgi (-ly)', array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('0954aad9-806a-5e5d-a8ce-b70e2cec58be', 3, 'mātāDi', null, 'please speak', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('090375e3-2962-5954-8c20-dc5ca25065c0', 1, 'kannaDa', null, 'Kannada', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('090375e3-2962-5954-8c20-dc5ca25065c0', 2, 'baralla', null, 'doesn''t come', 'baru (come) + alla (not)', array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('cb54206f-b728-5479-862d-4e6087a0302c', 1, 'adara', null, 'its, of that', 'adu (that) + ara (of)', array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('cb54206f-b728-5479-862d-4e6087a0302c', 2, 'artha', null, 'meaning', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('cb54206f-b728-5479-862d-4e6087a0302c', 3, 'ēnu', null, 'what', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('622b50ad-e3c3-53e9-8148-11b935d6a9f7', 1, 'kannaDadalli', null, 'in Kannada', 'kannaDa + alli (in)', array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('622b50ad-e3c3-53e9-8148-11b935d6a9f7', 2, 'vāTar', null, '"water" (the English word you''re asking about)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('622b50ad-e3c3-53e9-8148-11b935d6a9f7', 3, 'hēge', null, 'how', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('622b50ad-e3c3-53e9-8148-11b935d6a9f7', 4, 'hēLōdu', null, 'to say, saying', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('9c78d7fb-2f92-599e-97d4-13ee5f63d861', 1, 'nīvu', null, 'you (respectful)', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('9c78d7fb-2f92-599e-97d4-13ee5f63d861', 2, 'inglish', null, 'English', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('9c78d7fb-2f92-599e-97d4-13ee5f63d861', 3, 'mātāDtīrā', null, 'do you speak?', 'mātāDu (speak) + tīri (you) + ā (question)', array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('afc6f487-8a90-56b5-896b-fc977117c3fd', 1, 'innomme', null, 'once more', null, array[]::text[]);
+insert into public.sentence_tokens (sentence_id, position, surface_roman, lemma_roman, gloss_en, breakdown, grammar_tags)
+  values ('afc6f487-8a90-56b5-896b-fc977117c3fd', 2, 'hēLi', null, 'please say', null, array[]::text[]);
+
 commit;

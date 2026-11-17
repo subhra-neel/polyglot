@@ -1,0 +1,191 @@
+# Kannada · Level 1 · Unit 7: Come, go, give, stop: polite requests
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-travel     swalpa.pages.dev/08_travel_and_conflict (nēra hōgi, nidhāna hōgi,
+#                     alli nillisi, mīTar hāki)
+#   SWALPA-logistics  swalpa.pages.dev/09_everyday_logistics_and_services
+#                     (oLagaDe banni, nāLe beLigge banni)
+#   SWALPA-survival   swalpa.pages.dev/02_survival_and_emergencies (banni, bil koDi)
+#   Penn              ccat.sas.upenn.edu/plc/kannada/lesson3.html (illi baa / banni,
+#                     polite -i imperatives)
+#   Preply            preply.com/en/blog/basic-words-in-kannada-70-phrases (nīru koDi, nēra hōgi)
+#   wikiHow           wikihow.com/Speak-in-Kannada (wait māDi)
+
+language: kn
+level: 1
+unit: polite-requests
+
+lessons:
+  - slug: come-go-stop
+    title: Come, go, stop
+    sentences:
+      - id: come
+        roman: banni
+        script: ಬನ್ನಿ
+        meaning: Come (please) / Welcome
+        why: >-
+          The polite "come", and how you welcome a guest. Polite requests end
+          in -i: banni, hōgi, koDi. Think of that -i as "please" built into the
+          verb. The casual bā is only for friends and children.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-survival, Penn]
+        tokens:
+          - word: banni
+            gloss: come (polite)
+      - id: come-here
+        roman: illi banni
+        script: ಇಲ್ಲಿ ಬನ್ನಿ
+        meaning: Come here, please
+        why: illi (here) from Unit 5, then the polite banni.
+        formality: respectful
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: illi
+            gloss: here
+          - word: banni
+            gloss: come (polite)
+      - id: come-inside
+        roman: oLagaDe banni
+        script: ಒಳಗಡೆ ಬನ್ನಿ
+        meaning: Come inside, please
+        why: >-
+          What you say to a delivery person or a guest at the door. oLagaDe
+          is "inside"; its opposite is horagaDe (outside).
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - word: oLagaDe
+            gloss: inside
+          - word: banni
+            gloss: come (polite)
+      - id: go-straight
+        roman: nēra hōgi
+        script: ನೇರ ಹೋಗಿ
+        meaning: Go straight
+        why: >-
+          For an auto or cab. nēra is straight, hōgi the polite "go". You know
+          hōgi already from hōgi bartīni (bye).
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-travel, Preply]
+        tokens:
+          - word: nēra
+            gloss: straight
+          - word: hōgi
+            gloss: go (polite)
+      - id: go-slowly
+        roman: nidhāna hōgi
+        script: ನಿಧಾನ ಹೋಗಿ
+        meaning: Go slowly, please
+        why: nidhāna means slow or careful. Useful when the driver is racing.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-travel]
+        tokens:
+          - word: nidhāna
+            gloss: slow, careful
+          - word: hōgi
+            gloss: go (polite)
+      - id: stop-there
+        roman: alli nillisi
+        script: ಅಲ್ಲಿ ನಿಲ್ಲಿಸಿ
+        meaning: Stop there, please
+        why: >-
+          Point ahead. illi nillisi (stop here) and alli nillisi (stop there):
+          near i, far a.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-travel]
+        tokens:
+          - word: alli
+            gloss: there
+          - word: nillisi
+            gloss: please stop (it)
+
+  - slug: give-wait-meter
+    title: Give, wait, put the meter on
+    sentences:
+      - id: give-water
+        roman: nīru koDi
+        script: ನೀರು ಕೊಡಿ
+        meaning: Water, please (please give me water)
+        why: >-
+          Thing first, then koDi (please give). No "me" needed: who else would
+          it be for? Swap nīru for anything.
+        formality: respectful
+        status: source_checked
+        sources: [Preply]
+        tokens:
+          - word: nīru
+            gloss: water
+          - word: koDi
+            gloss: please give
+      - id: give-the-bill
+        roman: bil koDi
+        script: ಬಿಲ್ ಕೊಡಿ
+        meaning: The bill, please
+        why: Same frame with the English word "bill".
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-survival]
+        tokens:
+          - word: bil
+            gloss: bill (English word)
+          - word: koDi
+            gloss: please give
+      - id: put-the-meter-on
+        roman: mīTar hāki
+        script: ಮೀಟರ್ ಹಾಕಿ
+        meaning: Put the meter on, please
+        why: >-
+          The first thing to say in an auto. hāki means "put (on)", the polite
+          -i again.
+        formality: respectful
+        region: Bengaluru
+        status: source_checked
+        sources: [SWALPA-travel]
+        tokens:
+          - word: mīTar
+            gloss: meter (English word)
+          - word: hāki
+            gloss: please put
+      - id: wait-a-little
+        roman: svalpa vēT māDi
+        script: ಸ್ವಲ್ಪ ವೇಟ್ ಮಾಡಿ
+        meaning: Please wait a moment
+        why: >-
+          English verb + māDi (please do) is a common Bengaluru shortcut:
+          vēT māDi (wait), adjast māDi (adjust), kāl māDi (call).
+        register: colloquial
+        status: source_checked
+        sources: [wikiHow, SWALPA-logistics]
+        tokens:
+          - word: svalpa
+            gloss: a little
+          - word: vēT
+            gloss: wait (English word)
+          - word: māDi
+            gloss: please do
+      - id: come-tomorrow-morning
+        roman: nāLe beLigge banni
+        script: ನಾಳೆ ಬೆಳಿಗ್ಗೆ ಬನ್ನಿ
+        meaning: Please come tomorrow morning
+        why: >-
+          For a plumber or delivery. Time words come first, the verb last:
+          nāLe (tomorrow), beLigge (in the morning), banni (come).
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - word: nāLe
+            gloss: tomorrow
+          - word: beLigge
+            gloss: in the morning
+          - word: banni
+            gloss: come (polite)

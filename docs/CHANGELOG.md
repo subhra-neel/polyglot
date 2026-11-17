@@ -3,6 +3,28 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-17 — Level 1 complete: Units 6, 7 and 8
+
+### Built
+- Unit 6 "Numbers, money, how much": one to ten; idakke eshTu?,
+  eshTu āgutte?, 20 / 50 / 100 / 1000, svalpa kammi māDi. 17 sentences.
+- Unit 7 "Come, go, give, stop": banni, illi banni, oLagaDe banni, nēra
+  hōgi, nidhāna hōgi, alli nillisi; nīru koDi, bil koDi, mīTar hāki,
+  svalpa vēT māDi, nāLe beLigge banni. 11 sentences.
+- Unit 8 "I did not understand": nanage artha āgalilla, ēnu?, matte hēLi
+  (innomme hēLi), svalpa nidhānavāgi mātāDi, kannaDa baralla; adara artha
+  ēnu?, kannaDadalli … hēge hēLōdu?, nīvu inglish mātāDtīrā?. 8 sentences.
+- Level 1 now: 8 units, 16 lessons, 93 sentences shown (+ alternatives).
+- Picture used throughout Unit 7: the polite -i ending is "please" built
+  into the verb (banni, hōgi, koDi, nillisi, hāki, hēLi).
+
+### Sources
+- SWALPA time-and-numbers, travel-and-conflict, logistics chapters;
+  Preply; wikiHow "Speak in Kannada"; KannadaMaadi glossary; Multibhashi.
+
+### Tested
+- Content checker passes; unit tests; smoke test sees all eight units open.
+
 ## 2026-11-17 — Level 1, Units 4 and 5
 
 ### Built
