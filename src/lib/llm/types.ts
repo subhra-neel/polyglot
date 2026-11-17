@@ -7,6 +7,9 @@ export type ChatRequest = {
   /** JSON Schema the reply must follow. */
   schema: { name: string; schema: Record<string, unknown> };
   maxTokens?: number;
+  /** How hard the model should think. Checking needs more care than chatting. */
+  effort?: "low" | "medium" | "high";
+  temperature?: number;
 };
 
 export interface ChatProvider {

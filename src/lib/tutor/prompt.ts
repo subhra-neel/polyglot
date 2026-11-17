@@ -1,3 +1,5 @@
+import type { LineCheck } from "./turn";
+
 /**
  * The tutor's instructions. Changing these changes how every conversation
  * goes, so keep them short, concrete and tested (tests/tutor.test.ts).
@@ -18,7 +20,19 @@ const LEVEL_STYLE: Record<number, string> = {
   5: "The learner is advanced. Speak naturally and quickly, with idioms where natural.",
 };
 
-export function buildSystemPrompt(scenario: Scenario, learner: LearnerContext): string {
+export type TurnContext = { check: LineCheck | null; learnerTurns: number };
+
+const MIN_TURNS = 6;
+
+function aboutLastLine(check: LineCheck | null): string {
+  if (!check) return "";
+  if (check.category === "unclear") {
+    return `\nTHE LEARNER'S LAST LINE WAS UNCLEAR (best guess: "${check.meant_english}"). In character, say kindly that you didn't catch it and ask again more simply, so they can try once more. Do not move the scene on.\n`;
+  }
+  return `\nThe learner's last line meant: "${check.meant_english}". A separate teacher has already shown them any correction, so do not correct or comment on their Kannada yourself; just respond naturally to what they meant.\n`;
+}
+
+export function buildSystemPrompt(scenario: Scenario, learner: LearnerContext, turn: TurnContext = { check: null, learnerTurns: 0 }): string {
   const known = learner.known_sentences.length
     ? learner.known_sentences.slice(0, 40).map((s) => `- ${s}`).join("\n")
     : "- (none yet)";
@@ -43,25 +57,20 @@ ${known}
 
 MISTAKES THIS LEARNER OFTEN MAKES
 ${mistakes}
-If one of these happens again, correct it; otherwise do not mention past mistakes.
+Now and then, ask something that gives them a chance to practise these (for "wrong_case_ending", a question answered with nanage … bēku). Never mention past mistakes.
 
 THE LEARNER WRITES
 Kannada in English letters, spelled loosely (beku, bēku and beeku are the same word), or sometimes English.
+${aboutLastLine(turn.check)}
+KEEP THE SCENE GOING
+The learner has replied ${turn.learnerTurns} times. Do not say goodbye or end the scene until the goals are reached and the learner has replied at least ${MIN_TURNS} times. If the learner says goodbye before that, say goodbye back warmly in one short line.
+Every line ends with something easy for the learner to answer (a question, or an offer).
 
 YOUR REPLY (JSON matching the schema)
-- reply_kannada: your next line in character, in Kannada script only, no English letters unless an English word is normally used in Bengaluru Kannada (bus, coffee, bill).
+- reply_kannada: your next line in character, in Kannada script only, with standard spelling (ಚೆನ್ನಾಗಿ, not ಚನ್ನಾಗಿ). No English letters; English words normally used in Bengaluru Kannada (bus, coffee, bill) are written in Kannada script.
 - reply_english: its plain English translation.
 - aside_english: only if the learner asked something in English (e.g. "how do I say..."): a short helpful answer in English, giving the Kannada in English letters. Otherwise "".
-- correction: about the learner's LAST message only.
-  - category "none": nothing to correct. Leave the other fields "" and tags [].
-  - "error": grammatically wrong or the wrong word.
-  - "unnatural": correct but a local would not say it that way.
-  - "register": correct but too formal or too casual for this situation.
-  - "valid_variant": a correct colloquial or regional form. Never treat these as mistakes. Shortened spoken forms (nange for nanage, hōgtīni for hōguttēne) are valid.
-  - "english_used" tag when the learner wrote English instead of trying Kannada: give the Kannada they could have said.
-  - corrected_kannada and more_natural_kannada in Kannada script. what_was_wrong and why in one or two short, friendly English sentences.
-  - Do not invent grammar rules. If you are unsure whether something is wrong, use "none".
-- Keep the conversation going even when you correct: reply_kannada continues the scene.
 
-For the very first turn there is no learner message: open the scene in character with a greeting and a simple question, and use category "none".`;
+For the very first turn there is no learner message: open the scene in character with a greeting and a simple question.`;
+
 }

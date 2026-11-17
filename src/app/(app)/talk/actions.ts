@@ -12,7 +12,21 @@ import { isSlug, LANGUAGE } from "@/lib/lessons";
 import { getChatProvider } from "@/lib/llm";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { type HistoryItem, nextTutorTurn } from "@/lib/tutor/run";
-import { toRoman, toStoredCorrection } from "@/lib/tutor/turn";
+import { checkLearnerLine } from "@/lib/tutor/check";
+import { type LineCheck, type StoredCorrection, toRoman, toStoredCorrection } from "@/lib/tutor/turn";
+
+/** Shown when the check itself failed: an English aside can still be shown. */
+const UNCHECKED: StoredCorrection = {
+  category: "none",
+  meant: null,
+  corrected_roman: null,
+  corrected_script: null,
+  what_was_wrong: null,
+  why: null,
+  natural_roman: null,
+  natural_script: null,
+  tags: [],
+};
 
 const MAX_INPUT = 300;
 
@@ -68,8 +82,25 @@ export async function sendMessage(conversationId: string, text: string): Promise
       .map((m) => ({ role: m.role as "tutor" | "learner", text: m.role === "tutor" ? (m.script ?? m.roman) : m.roman }));
     if (said) history.push({ role: "learner", text: said });
 
-    const turn = await nextTutorTurn(provider, conversation.scenario, context, history);
-    const correction = said ? { ...toStoredCorrection(turn.correction), aside: turn.aside_english.trim() || null } : null;
+    // 1. Check the learner's line on its own (a failed check still lets the scene go on).
+    let check: LineCheck | null = null;
+    if (said) {
+      const tutorLine = [...conversation.messages].reverse().find((m) => m.role === "tutor");
+      check = await checkLearnerLine(provider, {
+        tutorLine: tutorLine?.script ?? tutorLine?.roman ?? null,
+        said,
+        scenario: conversation.scenario,
+        recurring: context.mistakes.map((m) => m.tag),
+      }).catch((err) => {
+        console.error("[tutor] check failed", err instanceof Error ? err.message : err);
+        return null;
+      });
+    }
+
+    // 2. The character replies, knowing what the learner meant.
+    const turn = await nextTutorTurn(provider, conversation.scenario, context, history, check);
+    const aside = turn.aside_english.trim() || null;
+    const correction = said ? (check ? { ...toStoredCorrection(check), aside } : aside ? { ...UNCHECKED, aside, checked: false } : null) : null;
 
     let learner: ConversationMessage | null = null;
     if (said) {

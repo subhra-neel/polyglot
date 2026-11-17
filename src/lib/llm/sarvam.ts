@@ -19,7 +19,7 @@ export class SarvamChat implements ChatProvider {
     this.name = `sarvam:${model}`;
   }
 
-  async complete({ system, messages, schema, maxTokens = 900 }: ChatRequest): Promise<string> {
+  async complete({ system, messages, schema, maxTokens = 900, effort = "low", temperature = 0.4 }: ChatRequest): Promise<string> {
     let response: Response;
     try {
       response = await this.fetchImpl(`${this.baseUrl}/v1/chat/completions`, {
@@ -28,9 +28,9 @@ export class SarvamChat implements ChatProvider {
         body: JSON.stringify({
           model: this.model,
           messages: [{ role: "system", content: system }, ...messages],
-          temperature: 0.4,
+          temperature,
           max_tokens: maxTokens,
-          reasoning_effort: "low",
+          reasoning_effort: effort,
           response_format: { type: "json_schema", json_schema: { name: schema.name, schema: schema.schema, strict: true } },
         }),
         signal: AbortSignal.timeout(45_000),
