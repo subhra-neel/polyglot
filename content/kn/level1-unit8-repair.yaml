@@ -1,0 +1,177 @@
+# Kannada · Level 1 · Unit 8: I did not understand: repairing a conversation
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   KannadaMaadi  learnkannada.onrender.com/glossary (artha āgalilla, adara artha ēnu?)
+#   wikiHow       wikihow.com/Speak-in-Kannada (nanage artha āgalilla, innomme hēLi,
+#                 svalpa nidhānavāgi mātāDi, kannaDadalli … hēge hēLōdu?)
+#   Preply        preply.com/en/blog/basic-words-in-kannada-70-phrases (matte hēLi)
+#   Multibhashi   multibhashi.com/blogs/6-basic-kannada-phrases-for-surviving-most-any-situation
+#                 (kannaDa baralla, ēnu?, inglish mātāDtīrā?)
+
+language: kn
+level: 1
+unit: repair
+
+lessons:
+  - slug: didnt-understand
+    title: I didn't understand
+    sentences:
+      - id: i-didnt-understand
+        roman: nanage artha āgalilla
+        script: ನನಗೆ ಅರ್ಥ ಆಗಲಿಲ್ಲ
+        meaning: I didn't understand
+        why: >-
+          "To me, the meaning didn't happen". The nanage frame again, like
+          bēku and gottu. The most useful sentence in this unit: it keeps a
+          conversation going instead of ending it.
+        status: source_checked
+        sources: [KannadaMaadi, wikiHow]
+        tokens:
+          - word: nanage
+            gloss: to me
+          - word: artha
+            gloss: meaning
+          - word: āgalilla
+            gloss: didn't happen
+            breakdown: āgu (happen) + alilla (didn't)
+      - id: what
+        roman: ēnu?
+        script: ಏನು?
+        meaning: Sorry, what? (Pardon?)
+        why: >-
+          Said with a rising voice, it asks someone to repeat. Short and
+          normal, not rude.
+        status: source_checked
+        sources: [Multibhashi]
+        tokens:
+          - word: ēnu
+            gloss: what
+      - id: say-again
+        roman: matte hēLi
+        script: ಮತ್ತೆ ಹೇಳಿ
+        meaning: Please say that again
+        why: >-
+          matte (again), from matte sigōNa, + hēLi (please say). The polite -i
+          once more.
+        formality: respectful
+        status: source_checked
+        sources: [Preply]
+        tokens:
+          - word: matte
+            gloss: again
+          - word: hēLi
+            gloss: please say
+        variants:
+          - { relation: alternative, sentence: say-once-more }
+      - id: speak-slowly
+        roman: svalpa nidhānavāgi mātāDi
+        script: ಸ್ವಲ್ಪ ನಿಧಾನವಾಗಿ ಮಾತಾಡಿ
+        meaning: Please speak a little slowly
+        why: >-
+          nidhāna (slow) + -vāgi turns it into "slowly", the way "-ly" works in
+          English. mātāDi is "please speak".
+        formality: respectful
+        status: source_checked
+        sources: [wikiHow, Preply]
+        tokens:
+          - word: svalpa
+            gloss: a little
+          - word: nidhānavāgi
+            gloss: slowly
+            breakdown: nidhāna (slow) + vāgi (-ly)
+          - word: mātāDi
+            gloss: please speak
+      - id: i-dont-speak-kannada
+        roman: kannaDa baralla
+        script: ಕನ್ನಡ ಬರಲ್ಲ
+        meaning: I don't speak Kannada (well)
+        why: >-
+          Literally "Kannada doesn't come (to me)". A language "comes" to you
+          in Kannada. Follow it with nanage kannaDa svalpa gottu.
+        register: colloquial
+        status: source_checked
+        sources: [Multibhashi]
+        tokens:
+          - word: kannaDa
+            gloss: Kannada
+          - word: baralla
+            gloss: doesn't come
+            breakdown: baru (come) + alla (not)
+
+  - slug: asking-about-words
+    title: What does it mean? How do you say …?
+    sentences:
+      - id: what-does-it-mean
+        roman: adara artha ēnu?
+        script: ಅದರ ಅರ್ಥ ಏನು?
+        meaning: What does that mean?
+        why: >-
+          "Its meaning what?". adara is "its" (from adu, that). Use it the
+          moment you hear a new word.
+        status: source_checked
+        sources: [KannadaMaadi]
+        tokens:
+          - word: adara
+            gloss: its, of that
+            breakdown: adu (that) + ara (of)
+          - word: artha
+            gloss: meaning
+          - word: ēnu
+            gloss: what
+      - id: how-do-you-say-water
+        roman: kannaDadalli vāTar hēge hēLōdu?
+        script: ಕನ್ನಡದಲ್ಲಿ ವಾಟರ್ ಹೇಗೆ ಹೇಳೋದು?
+        meaning: How do you say "water" in Kannada?
+        why: >-
+          Your learning tool: say the English word in the middle and anyone
+          can teach you. kannaDadalli is "in Kannada" (-alli, in), hēge is
+          "how", hēLōdu "to say".
+        status: source_checked
+        sources: [wikiHow]
+        tokens:
+          - word: kannaDadalli
+            gloss: in Kannada
+            breakdown: kannaDa + alli (in)
+          - word: vāTar
+            gloss: "\"water\" (the English word you're asking about)"
+          - word: hēge
+            gloss: how
+          - word: hēLōdu
+            gloss: to say, saying
+      - id: do-you-speak-english
+        roman: nīvu inglish mātāDtīrā?
+        script: ನೀವು ಇಂಗ್ಲಿಷ್ ಮಾತಾಡ್ತೀರಾ?
+        meaning: Do you speak English?
+        why: >-
+          The fallback. mātāDtīri (you speak) + ā (question). Try Kannada
+          first: people appreciate it, even if you switch after.
+        formality: respectful
+        status: source_checked
+        sources: [Multibhashi]
+        tokens:
+          - word: nīvu
+            gloss: you (respectful)
+          - word: inglish
+            gloss: English
+          - word: mātāDtīrā
+            gloss: do you speak?
+            breakdown: mātāDu (speak) + tīri (you) + ā (question)
+
+alternatives:
+  - id: say-once-more
+    roman: innomme hēLi
+    script: ಇನ್ನೊಮ್ಮೆ ಹೇಳಿ
+    meaning: Please say it once more
+    why: >-
+      innomme means "one more time". Same meaning as matte hēLi.
+    formality: respectful
+    status: source_checked
+    sources: [wikiHow]
+    tokens:
+      - word: innomme
+        gloss: once more
+      - word: hēLi
+        gloss: please say

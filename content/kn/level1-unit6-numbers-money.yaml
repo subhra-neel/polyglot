@@ -1,0 +1,221 @@
+# Kannada · Level 1 · Unit 6: Numbers, money, how much
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-numbers    swalpa.pages.dev/04_time_and_numbers (1–10, 20, 50, 100, 1000)
+#   SWALPA-travel     swalpa.pages.dev/08_travel_and_conflict (eshTu āgutte?)
+#   SWALPA-logistics  swalpa.pages.dev/09_everyday_logistics_and_services (svalpa kammi māDi)
+#   Preply            preply.com/en/blog/basic-words-in-kannada-70-phrases (numbers, idakke eshTu?)
+#   wikiHow           wikihow.com/Speak-in-Kannada (numbers 0–9)
+
+language: kn
+level: 1
+unit: numbers-money
+
+lessons:
+  - slug: one-to-ten
+    title: One to ten
+    sentences:
+      - id: one
+        roman: ondu
+        script: ಒಂದು
+        meaning: One (1)
+        why: >-
+          Also the word for "a": ondu kāfi is "a coffee" (one coffee). Most
+          numbers end in -u, like a little tail; it is lightly said.
+        status: source_checked
+        sources: [SWALPA-numbers, Preply, wikiHow]
+        tokens:
+          - word: ondu
+            gloss: one, a
+      - id: two
+        roman: eraDu
+        script: ಎರಡು
+        meaning: Two (2)
+        pronunciation: The D is made with the tongue curled back.
+        why: eraDu kāfi, two coffees. The thing stays singular after a number.
+        status: source_checked
+        sources: [SWALPA-numbers, Preply, wikiHow]
+        tokens:
+          - word: eraDu
+            gloss: two
+      - id: three
+        roman: mūru
+        script: ಮೂರು
+        meaning: Three (3)
+        why: Long ū, as in "moon".
+        status: source_checked
+        sources: [SWALPA-numbers, Preply, wikiHow]
+        tokens:
+          - word: mūru
+            gloss: three
+      - id: four
+        roman: nālku
+        script: ನಾಲ್ಕು
+        meaning: Four (4)
+        why: Long ā, then a quick l and ku.
+        status: source_checked
+        sources: [SWALPA-numbers, Preply, wikiHow]
+        tokens:
+          - word: nālku
+            gloss: four
+      - id: five
+        roman: aidu
+        script: ಐದು
+        meaning: Five (5)
+        why: ai as in "eye". Many speakers say aidu, some aydu.
+        status: source_checked
+        sources: [SWALPA-numbers, Preply, wikiHow]
+        tokens:
+          - word: aidu
+            gloss: five
+      - id: six
+        roman: āru
+        script: ಆರು
+        meaning: Six (6)
+        why: Long ā. Don't mix it up with yāru (who).
+        status: source_checked
+        sources: [SWALPA-numbers, Preply, wikiHow]
+        tokens:
+          - word: āru
+            gloss: six
+      - id: seven
+        roman: ēLu
+        script: ಏಳು
+        meaning: Seven (7)
+        pronunciation: The L is made with the tongue curled back.
+        why: Long ē as in "they". You'll often hear yēLu.
+        status: source_checked
+        sources: [SWALPA-numbers, Preply, wikiHow]
+        tokens:
+          - word: ēLu
+            gloss: seven
+      - id: eight
+        roman: enTu
+        script: ಎಂಟು
+        meaning: Eight (8)
+        why: A short e and a hard, curled-back T.
+        status: source_checked
+        sources: [SWALPA-numbers, Preply, wikiHow]
+        tokens:
+          - word: enTu
+            gloss: eight
+      - id: nine
+        roman: ombattu
+        script: ಒಂಬತ್ತು
+        meaning: Nine (9)
+        why: Hold the double tt for a beat.
+        status: source_checked
+        sources: [SWALPA-numbers, Preply, wikiHow]
+        tokens:
+          - word: ombattu
+            gloss: nine
+      - id: ten
+        roman: hattu
+        script: ಹತ್ತು
+        meaning: Ten (10)
+        why: >-
+          hattu also means "to climb (in)": auto hattu. Context tells you
+          which. Double tt again.
+        status: source_checked
+        sources: [SWALPA-numbers, Preply]
+        tokens:
+          - word: hattu
+            gloss: ten
+
+  - slug: how-much
+    title: How much is it?
+    sentences:
+      - id: how-much-is-this
+        roman: idakke eshTu?
+        script: ಇದಕ್ಕೆ ಎಷ್ಟು?
+        meaning: How much is this?
+        why: >-
+          "For this, how much?". idu (this) + -kke (for) = idakke. Point at the
+          thing and ask; the price tag in words.
+        status: source_checked
+        sources: [Preply]
+        tokens:
+          - word: idakke
+            gloss: for this
+            breakdown: idu (this) + akke (for)
+          - word: eshTu
+            gloss: how much
+      - id: how-much-will-it-be
+        roman: eshTu āgutte?
+        script: ಎಷ್ಟು ಆಗುತ್ತೆ?
+        meaning: How much will it come to?
+        why: >-
+          For a total, a fare or a repair: "how much will it become?". āgutte
+          is the spoken form of āguttade, "it becomes".
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-travel, SWALPA-logistics]
+        tokens:
+          - word: eshTu
+            gloss: how much
+          - word: āgutte
+            gloss: it will be, it comes to
+      - id: twenty
+        roman: ippattu
+        script: ಇಪ್ಪತ್ತು
+        meaning: Twenty (20)
+        why: >-
+          Prices are often said as just the number: "ippattu" means twenty
+          rupees when you're paying.
+        status: source_checked
+        sources: [SWALPA-numbers]
+        tokens:
+          - word: ippattu
+            gloss: twenty
+      - id: fifty
+        roman: aivattu
+        script: ಐವತ್ತು
+        meaning: Fifty (50)
+        why: aidu (five) is hidden in aivattu, like "five-ty".
+        status: source_checked
+        sources: [SWALPA-numbers]
+        tokens:
+          - word: aivattu
+            gloss: fifty
+      - id: hundred
+        roman: nūru
+        script: ನೂರು
+        meaning: One hundred (100)
+        why: >-
+          Rhymes with mūru (three). eraDu nūru is two hundred: number first,
+          then nūru.
+        status: source_checked
+        sources: [SWALPA-numbers, Preply]
+        tokens:
+          - word: nūru
+            gloss: hundred
+      - id: thousand
+        roman: sāvira
+        script: ಸಾವಿರ
+        meaning: One thousand (1,000)
+        why: Same pattern as nūru, so eraDu sāvira is two thousand.
+        status: source_checked
+        sources: [SWALPA-numbers, Preply]
+        tokens:
+          - word: sāvira
+            gloss: thousand
+      - id: reduce-a-little
+        roman: svalpa kammi māDi
+        script: ಸ್ವಲ್ಪ ಕಮ್ಮಿ ಮಾಡಿ
+        meaning: Please reduce it a little
+        why: >-
+          The bargaining line: "a little less, please do". kammi (less) +
+          māDi (please do). Say it with a smile at markets, not in shops with
+          fixed prices.
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - word: svalpa
+            gloss: a little
+          - word: kammi
+            gloss: less
+          - word: māDi
+            gloss: please do

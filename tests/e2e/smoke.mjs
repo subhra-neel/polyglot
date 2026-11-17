@@ -102,11 +102,11 @@ async function configured() {
     await page.getByText("Greetings and politeness").waitFor();
     assert.equal(await page.getByRole("listitem").count(), 8);
     await page.getByText("Who I am, who you are").waitFor();
-    assert.equal(await page.getByText("0 of 2 lessons done").count(), 5);
-    assert.equal(await page.getByText("Coming soon").count(), 3);
+    assert.equal(await page.getByText("0 of 2 lessons done").count(), 8);
+    assert.equal(await page.getByText("Coming soon").count(), 0);
     await assertFitsScreen("learn");
     await shot("04-learn");
-    step("Learn lists the eight Level 1 units; Units 1 to 5 are open, the rest say coming soon");
+    step("Learn lists the eight Level 1 units; all eight are open");
 
     await page.getByRole("link", { name: /Greetings and politeness/ }).click();
     await page.waitForURL("**/learn/greetings");
@@ -360,7 +360,8 @@ async function configured() {
     await page.waitForURL("**/today");
     await assertFitsScreen("today");
     await shot("05-today");
-    await page.getByRole("link", { name: "Talk to the tutor" }).click();
+    await page.getByRole("link", { name: "Talk to the tutor" }).filter({ visible: true }).waitFor();
+    await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Tutor" }).click();
     await page.waitForURL("**/talk");
     await shot("06-talk");
     await page.getByRole("link", { name: "Build" }).click();

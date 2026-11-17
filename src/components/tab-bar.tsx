@@ -115,19 +115,23 @@ function TabBarView({ pathname }: { pathname: string }) {
         <SideTab tab={SIDE_TABS[0]} active={isActive(pathname, SIDE_TABS[0].href)} />
         <SideTab tab={SIDE_TABS[1]} active={isActive(pathname, SIDE_TABS[1].href)} />
 
-        <div className="flex flex-1 items-center justify-center">
+        <div className="flex flex-1 flex-col items-center justify-end pb-2.5">
           <Link
             href="/talk"
-            aria-label="Talk to the tutor"
             aria-current={talkActive ? "page" : undefined}
-            className={`-mt-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent text-accent-ink shadow-lg ring-4 ${
-              talkActive ? "ring-accent-soft" : "ring-paper"
-            }`}
+            className="-mt-7 flex flex-col items-center gap-0.5"
           >
-            <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden="true" {...stroke}>
-              <rect x="9" y="3" width="6" height="11" rx="3" />
-              <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" />
-            </svg>
+            <span
+              className={`flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-ink shadow-lg ring-4 ${
+                talkActive ? "ring-accent-soft" : "ring-paper"
+              }`}
+            >
+              <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden="true" {...stroke}>
+                <rect x="9" y="3" width="6" height="11" rx="3" />
+                <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" />
+              </svg>
+            </span>
+            <span className={`text-xs font-medium ${talkActive ? "text-accent" : "text-muted"}`}>Tutor</span>
           </Link>
         </div>
 

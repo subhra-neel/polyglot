@@ -83,15 +83,31 @@ function TodayCards({ progress }: { progress: Progress }) {
     </Card>
   );
 
+  const tutorCard = (
+    <Card>
+      <p className="text-xs font-medium uppercase tracking-wider text-muted">AI tutor</p>
+      <p className="mt-2 text-xl font-medium tracking-tight">Practise a real conversation</p>
+      <p className="mt-1 leading-relaxed text-muted">
+        Chat with a tea-stall owner, an auto driver or a new neighbour. Type Kannada in English letters; mistakes are
+        corrected gently.
+      </p>
+      <Link href="/talk" className={secondary}>
+        Talk to the tutor
+      </Link>
+    </Card>
+  );
+
   return reviseFirst ? (
     <>
       {reviseCard}
       {lessonCard}
+      {tutorCard}
     </>
   ) : (
     <>
       {lessonCard}
       {progress.sentences_started > 0 ? reviseCard : null}
+      {tutorCard}
     </>
   );
 }
