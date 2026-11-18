@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { endConversation, sendMessage } from "@/app/(app)/talk/actions";
 import type { ConversationMessage } from "@/lib/conversations";
 import { SpeakButtons } from "./speak-buttons";
+import { VoiceInput } from "./voice-input";
 
 const CATEGORY: Record<string, { label: string; tone: string } | undefined> = {
   error: { label: "Correction", tone: "text-danger" },
@@ -227,12 +228,14 @@ export function TutorChat({ conversationId, personaName, hint, initial, ended, s
         </section>
       ) : (
         <form
-          className="sticky bottom-20 mt-6 flex gap-2 bg-paper pb-2 pt-2"
+          className="sticky bottom-20 mt-8 flex gap-2 bg-paper pb-2 pt-2"
           onSubmit={(e) => {
             e.preventDefault();
             if (draft.trim()) send(draft);
           }}
         >
+          <div className="relative flex min-w-0 flex-1 gap-2">
+          <VoiceInput disabled={pending} onText={(t) => setDraft((d) => (d.trim() ? `${d.trim()} ${t}` : t))} />
           <label className="sr-only" htmlFor="say">
             Your reply in Kannada (English letters are fine)
           </label>
@@ -247,6 +250,7 @@ export function TutorChat({ conversationId, personaName, hint, initial, ended, s
             disabled={pending}
             className="h-12 min-w-0 flex-1 rounded-full border border-line bg-surface px-4 text-base"
           />
+          </div>
           <button
             type="submit"
             disabled={pending || !draft.trim()}

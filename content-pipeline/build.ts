@@ -83,8 +83,8 @@ export function checkUnit(file: string, data: unknown): { unit?: UnitFile; probl
 export function loadContentDir(dir: string): { units: UnitFile[]; problems: Problem[] } {
   const units: UnitFile[] = [];
   const problems: Problem[] = [];
-  // patterns.yaml is the sentence lab, checked separately (patterns.ts).
-  for (const name of readdirSync(dir).filter((f) => f.endsWith(".yaml") && f !== "patterns.yaml").sort()) {
+  // patterns.yaml (sentence lab) and scenes.yaml (tutor scenes) are checked separately.
+  for (const name of readdirSync(dir).filter((f) => f.endsWith(".yaml") && f !== "patterns.yaml" && f !== "scenes.yaml").sort()) {
     const path = join(dir, name);
     let data: unknown;
     try {

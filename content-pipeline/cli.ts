@@ -7,6 +7,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadContentDir, unitsToSql } from "./build.ts";
 import { loadPatterns } from "./patterns.ts";
+import { loadScenes, scenesToSql } from "./scenes.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const command = process.argv[2];
@@ -45,6 +46,17 @@ for (const language of languages) {
   }
 }
 
+const sceneFiles = [];
+for (const language of languages) {
+  const { file, problems } = loadScenes(join(root, "content", language, "scenes.yaml"));
+  for (const p of problems) console.error(`✗ content/${language}/scenes.yaml · ${p}`);
+  if (problems.length || !file) failed = true;
+  else {
+    sceneFiles.push(file);
+    console.log(`✓ ${language} tutor scenes: ${file.scenes.length}`);
+  }
+}
+
 if (failed) {
   console.error("\nContent has problems. Nothing was written.");
   process.exit(1);
@@ -53,7 +65,7 @@ if (failed) {
 if (command === "build") {
   const out = join(root, "supabase", "content.sql");
   mkdirSync(dirname(out), { recursive: true });
-  writeFileSync(out, unitsToSql(allUnits));
+  writeFileSync(out, unitsToSql(allUnits) + "\n" + sceneFiles.map(scenesToSql).join("\n"));
   console.log(`\nWrote ${out.replace(root + "/", "")}`);
   for (const { language, file } of patternFiles) {
     const target = join(root, "src", "content", `${language}-patterns.json`);

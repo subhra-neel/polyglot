@@ -21,6 +21,7 @@ const codes = new Map(); // one-time ?code= values -> recovery
 const tokenHashes = new Map(); // one-time ?token_hash= values -> user email
 const speechRequests = []; // calls to the stand-in Sarvam voice service
 const chatRequests = []; // calls to the stand-in Sarvam chat model
+const sttRequests = []; // calls to the stand-in Sarvam speech-to-text
 
 /** Bytes the stand-in voice "speaks": readable, so tests can check what was asked for. */
 export const fakeAudio = (text, pace) => Buffer.from(`audio|${text}|${pace}`);
@@ -179,6 +180,27 @@ export async function startMockSupabase(port) {
       return send(200, { request_id: randomUUID(), audios: [fakeAudio(body.text, body.pace).toString("base64")] });
     }
 
+    // Stand-in for Sarvam speech-to-text: always "hears" a learner asking for coffee.
+    if (url.pathname === "/speech-to-text" && request.method === "POST") {
+      const raw = await new Promise((resolve) => {
+        const parts = [];
+        request.on("data", (c) => parts.push(c));
+        request.on("end", () => resolve(Buffer.concat(parts)));
+      });
+      const text = raw.toString("latin1");
+      const field = (name) => (text.match(new RegExp(`name="${name}"\\r\\n\\r\\n([^\\r]*)`)) ?? [])[1] ?? null;
+      sttRequests.push({
+        key: request.headers["api-subscription-key"],
+        model: field("model"),
+        mode: field("mode"),
+        language: field("language_code"),
+        hasFile: /name="file"; filename="speech\.(webm|m4a|ogg|wav)"/.test(text),
+        bytes: raw.length,
+      });
+      if (request.headers["api-subscription-key"] !== "test-sarvam-key") return send(403, { error: { message: "Invalid API key" } });
+      return send(200, { request_id: randomUUID(), transcript: "ನನಗೆ coffee ಬೇಕು", language_code: "kn-IN" });
+    }
+
     // Stand-in for Sarvam's chat model, with fixed rules so tests know what to expect:
     // the opening line greets; a line using "nānu" gets a case-ending correction;
     // "martara" is unclear, and the character asks again.
@@ -272,6 +294,7 @@ export async function startMockSupabase(port) {
     recoveries,
     speechRequests,
     chatRequests,
+    sttRequests,
     /** The link in the default email template: Supabase redirects with ?code=. */
     codeLinkFor(recovery) {
       const code = randomUUID();

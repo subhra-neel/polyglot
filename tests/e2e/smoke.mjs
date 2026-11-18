@@ -28,8 +28,10 @@ const BASE = process.env.SMOKE_BASE_URL ?? "http://127.0.0.1:3100";
 const SHOTS = process.env.SMOKE_SHOTS;
 const MOCK_PORT = 54399;
 
-const browser = await chromium.launch();
-const context = await browser.newContext({ ...devices["Pixel 7"], baseURL: BASE });
+const browser = await chromium.launch({
+  args: ["--use-fake-ui-for-media-stream", "--use-fake-device-for-media-stream"],
+});
+const context = await browser.newContext({ ...devices["Pixel 7"], baseURL: BASE, permissions: ["microphone"] });
 const page = await context.newPage();
 
 const errors = [];
@@ -442,6 +444,29 @@ async function configured() {
       step("the tutor's lines can be played aloud");
     }
 
+    await page.getByRole("button", { name: "Speak your reply" }).filter({ visible: true }).click();
+    await page.getByText("Listening… tap ■ when you're done").filter({ visible: true }).waitFor();
+    await page.waitForTimeout(1200);
+    await page.getByRole("button", { name: "Stop and use what I said" }).filter({ visible: true }).click();
+    await page.waitForFunction(() => document.querySelector("#say")?.value === "nanage coffee bēku");
+    const heard = mock.sttRequests.at(-1);
+    assert.deepEqual(
+      { key: heard.key, model: heard.model, mode: heard.mode, language: heard.language, hasFile: heard.hasFile },
+      { key: "test-sarvam-key", model: "saaras:v3", mode: "codemix", language: "kn-IN", hasFile: true },
+    );
+    assert.ok(heard.bytes > 1000, "a real recording was sent");
+    await shot("12-voice-input");
+    await page.getByRole("button", { name: "Send" }).filter({ visible: true }).click();
+    await page.getByText("✓ Correct").filter({ visible: true }).nth(1).waitFor();
+    await page.getByText("sari. innēnu bēku?").filter({ visible: true }).nth(1).waitFor();
+    step("speaking a reply records it, writes it into the box in English letters, and it can be sent");
+
+    const signedOut = await fetch(`${BASE}/api/stt`, { method: "POST", headers: { "content-type": "audio/webm" }, body: "x" });
+    assert.equal(signedOut.status, 401);
+    const notAudio = await page.request.post("/api/stt", { headers: { "content-type": "text/plain" }, data: "hello" });
+    assert.equal(notAudio.status(), 415);
+    step("voice input refuses visitors who aren't signed in, and anything that isn't audio");
+
     await page.reload();
     await page.getByText("kshamisi, innomme hēLi.").filter({ visible: true }).waitFor();
     await page.getByRole("button", { name: "Finish conversation" }).filter({ visible: true }).click();
@@ -452,7 +477,7 @@ async function configured() {
 
     await page.goto("/talk");
     await page.getByText("Recent conversations").filter({ visible: true }).waitFor();
-    await page.getByText("1 corrections").filter({ visible: true }).waitFor();
+    await page.getByText(/ 1 corrections$/).filter({ visible: true }).waitFor();
     await page.getByRole("link", { name: "Check the tutor's accuracy" }).filter({ visible: true }).waitFor();
     await page.getByRole("link", { name: "Check the tutor's accuracy" }).filter({ visible: true }).click();
     await page.waitForURL("**/talk/self-test");
