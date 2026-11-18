@@ -25,9 +25,18 @@ afterAll(async () => {
 describe("tutor conversations", () => {
   let id: string;
 
-  it("lists three Level 1 scenarios", async () => {
-    const list = await call<{ slug: string }[]>(A, "public.get_scenarios('kn')");
-    expect(list.map((s) => s.slug)).toEqual(["new-neighbour", "tea-stall", "auto-ride"]);
+  it("lists the scenes from content/kn/scenes.yaml in order, with their Try phrases", async () => {
+    const list = await call<{ slug: string; opening_hint: string }[]>(A, "public.get_scenarios('kn')");
+    expect(list.map((s) => s.slug)).toEqual([
+      "new-neighbour",
+      "tea-stall",
+      "auto-ride",
+      "vegetable-market",
+      "guiding-the-auto",
+      "darshini",
+      "plumber-call",
+    ]);
+    expect(list[3].opening_hint).toBe("Try: idakke eshTu? · svalpa kammi māDi · plāsTik byāg bēDa");
   });
 
   it("starts a conversation and stores messages in order", async () => {

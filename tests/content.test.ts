@@ -8,6 +8,7 @@ import { join } from "node:path";
 import type { PGlite } from "@electric-sql/pglite";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { checkUnit, loadContentDir, sentenceUuid, stableUuid, unitsToSql } from "../content-pipeline/build.ts";
+import { loadScenes, scenesToSql } from "../content-pipeline/scenes";
 import { normaliseRoman, romanise } from "../content-pipeline/romanise.ts";
 import { ROOT, asUser, createTestDb } from "./helpers/db.mjs";
 
@@ -109,7 +110,8 @@ describe("Kannada content files", () => {
   });
 
   it("match the committed supabase/content.sql (run `npm run content:build`)", () => {
-    expect(readFileSync(join(ROOT, "supabase", "content.sql"), "utf8")).toBe(unitsToSql(units));
+    const { file: scenes } = loadScenes(join(ROOT, "content", "kn", "scenes.yaml"));
+    expect(readFileSync(join(ROOT, "supabase", "content.sql"), "utf8")).toBe(unitsToSql(units) + "\n" + scenesToSql(scenes!));
   });
 });
 
@@ -217,5 +219,12 @@ describe("loaded into the database", () => {
     await expect(call(null, "public.complete_lesson('greetings', $1)", [lesson1.slug])).rejects.toThrow(
       /permission denied/,
     );
+  });
+});
+
+describe("tutor scenes", () => {
+  it("check each Try phrase against its Kannada script", () => {
+    const { problems } = loadScenes(join(ROOT, "content", "kn", "scenes.yaml"));
+    expect(problems).toEqual([]);
   });
 });

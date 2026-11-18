@@ -126,6 +126,7 @@ After adding or changing a variable, redeploy: **Deployments → ⋯ → Redeplo
 | Name | Value |
 | --- | --- |
 | `SARVAM_API_KEY` | Sarvam dashboard (dashboard.sarvam.ai) → API keys |
+| `SARVAM_STT_MODEL` / `SARVAM_STT_MODE` | Optional. Voice input. Defaults `saaras:v3` / `codemix`. Same `SARVAM_API_KEY`. |
 | `SARVAM_CHAT_MODEL` | Optional. The Sarvam chat model for the tutor. Default `sarvam-105b-conversations`. The same `SARVAM_API_KEY` is used. |
 | `SARVAM_TTS_SPEAKER` | Optional. A Sarvam voice name, e.g. `kavya` or `rahul`. Default `shubh`. |
 

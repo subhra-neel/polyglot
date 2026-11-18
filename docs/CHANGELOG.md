@@ -3,6 +3,30 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-18 — Four new tutor scenes; voice input
+
+### Built
+- Tutor scenes now live in `content/kn/scenes.yaml` and are written into
+  `supabase/content.sql` (no separate migration). Each "Try" phrase with a
+  script is checked letter for letter.
+- New scenes using Units 4–8: Bargaining at the vegetable market
+  (Shivamma), Guiding the auto home (Suresh), Ordering at a darshini
+  (Prakash), Calling the plumber (Venkatesh, phone call that needs
+  "matte hēLi" / "svalpa nidhānavāgi mātāDi"). 7 scenes in all.
+- Voice input in the tutor: tap the mic beside the reply box, speak, tap ■.
+  Sarvam speech-to-text (`saaras:v3`, mode `codemix`, `kn-IN`) turns it into
+  text; Kannada is shown in the app's English letters, English words stay
+  English, and the learner can edit before sending. Max 25 s. Records
+  WebM/Opus on Android, MP4/AAC on iPhone. `/api/stt` is signed-in only.
+  Optional env: `SARVAM_STT_MODEL`, `SARVAM_STT_MODE`.
+
+### Tested
+- 118 unit tests; smoke test records from a fake microphone, checks the
+  request (model, mode, language, file) and the text in the box, and that
+  /api/stt refuses visitors and non-audio.
+- NOT tested against real Sarvam speech-to-text (this workspace cannot
+  reach it): check on a phone.
+
 ## 2026-11-17 — Tutor self-test on live Sarvam: 14 of 14
 
 - Owner ran the self-test on production: all 8 mistakes caught (including
