@@ -3,6 +3,28 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-18 — Say it (listen and repeat); chat layout fix
+
+### Built
+- "Say it" on every lesson sentence: the learner records themselves, Sarvam
+  speech-to-text (mode `transcribe`, so loanwords come back in Kannada too)
+  writes down what it heard, and each word of the sentence is marked heard
+  (green) or missed (red, dotted). Verdicts: Clear / Nearly / Not quite.
+  Matching (`src/lib/speech-match.ts`) ignores accents, aspiration and
+  doubled letters, allows about one sound in four to differ in long words,
+  and requires an exact match for short words (alla/illa, bēku/bēDa).
+  Labelled honestly as a rough guide, not a pronunciation score.
+- Recording shared by the tutor's mic and Say it (`src/lib/use-recorder.ts`);
+  `/api/stt?for=practice` selects transcribe mode.
+- Chat: the reply area now sits flush on the tab bar with its own
+  background, and "Finish conversation" moved inside it (fixes the gap
+  where messages showed through).
+
+### Tested
+- 7 new unit tests for word matching (125 total); smoke test records with a
+  fake microphone on a lesson card and checks the verdict and mode.
+- NOT tested against real Sarvam speech-to-text.
+
 ## 2026-11-18 — Four new tutor scenes; voice input
 
 ### Built

@@ -30,7 +30,13 @@ export async function POST(request: NextRequest) {
   if (audio.byteLength > MAX_BYTES) return json({ error: "Keep it under 30 seconds." }, 413);
 
   try {
-    const transcript = await provider.transcribe(new Blob([audio], { type: type.split(";")[0] }), "kn-IN");
+    // Practice compares with a Kannada sentence, so loanwords should come back in Kannada too.
+    const practice = request.nextUrl.searchParams.get("for") === "practice";
+    const transcript = await provider.transcribe(
+      new Blob([audio], { type: type.split(";")[0] }),
+      "kn-IN",
+      practice ? "transcribe" : undefined,
+    );
     const text = toRoman(transcript);
     return json({ text, script: transcript });
   } catch (err) {

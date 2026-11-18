@@ -180,7 +180,7 @@ export async function startMockSupabase(port) {
       return send(200, { request_id: randomUUID(), audios: [fakeAudio(body.text, body.pace).toString("base64")] });
     }
 
-    // Stand-in for Sarvam speech-to-text: always "hears" a learner asking for coffee.
+    // Stand-in for Sarvam speech-to-text.
     if (url.pathname === "/speech-to-text" && request.method === "POST") {
       const raw = await new Promise((resolve) => {
         const parts = [];
@@ -198,7 +198,9 @@ export async function startMockSupabase(port) {
         bytes: raw.length,
       });
       if (request.headers["api-subscription-key"] !== "test-sarvam-key") return send(403, { error: { message: "Invalid API key" } });
-      return send(200, { request_id: randomUUID(), transcript: "ನನಗೆ coffee ಬೇಕು", language_code: "kn-IN" });
+      // Practice (mode transcribe) "hears" the first Unit 1 sentence; replies hear a coffee order.
+      const transcript = field("mode") === "transcribe" ? "ನಮಸ್ಕಾರ" : "ನನಗೆ coffee ಬೇಕು";
+      return send(200, { request_id: randomUUID(), transcript, language_code: "kn-IN" });
     }
 
     // Stand-in for Sarvam's chat model, with fixed rules so tests know what to expect:

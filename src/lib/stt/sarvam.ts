@@ -16,7 +16,8 @@ export class SttError extends Error {
 
 export interface SttProvider {
   readonly name: string;
-  transcribe(audio: Blob, languageCode: string): Promise<string>;
+  /** `mode` overrides the default (e.g. "transcribe" for all-Kannada output). */
+  transcribe(audio: Blob, languageCode: string, mode?: string): Promise<string>;
 }
 
 export class SarvamStt implements SttProvider {
@@ -34,13 +35,13 @@ export class SarvamStt implements SttProvider {
     this.name = `sarvam:${model}:${mode}`;
   }
 
-  async transcribe(audio: Blob, languageCode: string): Promise<string> {
+  async transcribe(audio: Blob, languageCode: string, mode = this.mode): Promise<string> {
     const form = new FormData();
     const ext = audio.type.includes("mp4") ? "m4a" : audio.type.includes("ogg") ? "ogg" : audio.type.includes("wav") ? "wav" : "webm";
     form.append("file", audio, `speech.${ext}`);
     form.append("model", this.model);
     form.append("language_code", languageCode);
-    if (this.mode) form.append("mode", this.mode);
+    if (mode) form.append("mode", mode);
 
     let response: Response;
     try {
