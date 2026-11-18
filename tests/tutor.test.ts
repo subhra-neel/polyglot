@@ -92,6 +92,21 @@ describe("corrections", () => {
     });
   });
 
+  it("shows a 'valid variant' that just repeats the learner's own words as plain ✓ Correct", () => {
+    const same = toStoredCorrection(
+      check({ category: "valid_variant", corrected_kannada: "ನನ್ನ ಹೆಸರು ರವಿ", why: "nanna is the spoken short form of nanna." }),
+      "nanna hesaru ravi",
+    );
+    expect(same).toMatchObject({ category: "none", corrected_roman: null, why: null });
+    const different = toStoredCorrection(check({ category: "valid_variant", corrected_kannada: "ನನಗೆ ಕಾಫಿ ಬೇಕು" }), "nange coffee beku");
+    expect(different).toMatchObject({ category: "valid_variant", corrected_roman: "nanage kāfi bēku" });
+  });
+
+  it("drops a stray verdict word at the start of an explanation", () => {
+    const c = toStoredCorrection(check({ category: "error", corrected_kannada: "ನನಗೆ ಗೊತ್ತು", why: "none naanu is wrong here." }), "naanu gottu");
+    expect(c.why).toBe("naanu is wrong here.");
+  });
+
   it("never records a mistake for a valid spoken form or an unclear line", () => {
     expect(toStoredCorrection(check({ category: "valid_variant", tags: ["spelling"] })).tags).toEqual([]);
     expect(toStoredCorrection(check({ category: "unclear", tags: ["other"] })).tags).toEqual([]);

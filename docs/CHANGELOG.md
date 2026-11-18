@@ -3,6 +3,16 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-17 — Tutor self-test on live Sarvam: 14 of 14
+
+- Owner ran the self-test on production: all 8 mistakes caught (including
+  the owner's own two) and all 6 spoken forms accepted. Decision: keep
+  Sarvam `sarvam-105b-conversations` for checking and replies.
+- Tidy-up: a "valid variant" whose correction is just the learner's own
+  words is shown as plain ✓ Correct; stray verdict words at the start of an
+  explanation are dropped; checker told to use "none" when the learner
+  already used the standard words.
+
 ## 2026-11-17 — Tutor: separate checking step, ✓ Correct, Unclear, self-test
 
 ### Why
