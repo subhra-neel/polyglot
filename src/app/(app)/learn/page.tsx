@@ -51,28 +51,49 @@ function UnitRow({ unit }: { unit: UnitSummary }) {
   );
 }
 
+/** What each level lets you do (matches the levels seeded in 0001_init.sql). */
+const LEVELS: Record<number, { title: string; canDo: string }> = {
+  1: { title: "Level 1 · Absolute beginner", canDo: "Greet, introduce yourself, ask for things, ask where and how much." },
+  2: { title: "Level 2 · Basic communication", canDo: "Describe your day, family and plans; talk about yesterday." },
+  3: { title: "Level 3 · Conversational", canDo: "Shop, bargain, give and follow directions, explain a simple problem." },
+  4: { title: "Level 4 · Intermediate", canDo: "Handle work, phone calls, complaints and a clinic visit; give opinions." },
+  5: { title: "Level 5 · Advanced", canDo: "Converse spontaneously, joke, disagree politely, follow films and news." },
+};
+
 async function UnitList() {
   await getCurrentUser();
-  let units: UnitSummary[];
+  let levels: { level: number; units: UnitSummary[] }[];
   try {
-    units = await getUnits();
+    const all = await Promise.all([1, 2, 3, 4, 5].map(async (level) => ({ level, units: await getUnits(level) })));
+    // Level 1 always shows; later levels appear once they have lessons.
+    levels = all.filter((l) => l.level === 1 || l.units.some((u) => u.lesson_count > 0));
   } catch (error) {
     if (error instanceof ContentUnavailableError) return <SetupNotice detail={error.message} />;
     throw error;
   }
 
   return (
-    <ol className="space-y-3">
-      {units.map((unit) => (
-        <UnitRow key={unit.slug} unit={unit} />
+    <div className="space-y-10">
+      {levels.map(({ level, units }) => (
+        <section key={level} aria-labelledby={`level-${level}`}>
+          <h2 id={`level-${level}`} className="text-lg font-semibold tracking-tight">
+            {LEVELS[level].title}
+          </h2>
+          <p className="mt-1 text-sm leading-relaxed text-muted">{LEVELS[level].canDo}</p>
+          <ol className="mt-4 space-y-3">
+            {units.map((unit) => (
+              <UnitRow key={unit.slug} unit={unit} />
+            ))}
+          </ol>
+        </section>
       ))}
-    </ol>
+    </div>
   );
 }
 
 export default function LearnPage() {
   return (
-    <Screen title="Learn" lead="Level 1 · Greet, introduce yourself, ask for things, ask where and how much.">
+    <Screen title="Learn" lead="Spoken Bengaluru Kannada, one unit at a time. Each level builds on the one before.">
       <Suspense fallback={<ListSkeleton />}>
         <UnitList />
       </Suspense>

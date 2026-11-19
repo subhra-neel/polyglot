@@ -1,0 +1,196 @@
+# Kannada · Level 2 · Unit 1: Now, later, tomorrow: my day
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-verbs    swalpa.pages.dev/05_verbs_and_grammar (present/future endings
+#                   -tīni, -tīra, -tāre…; "nānu īga hōgtīni"; "nāLe māDtīni")
+#   SWALPA-time     swalpa.pages.dev/04_time_and_numbers (samaya eshTu?, gaNTe,
+#                   beLigge, ivattu raje ide, īga banni, āmēle banni, nāDiddu)
+#   Penn            ccat.sas.upenn.edu/plc/kannada/lesson3.html (the "to" ending -ge
+#                   with places: manege)
+
+language: kn
+level: 2
+unit: my-day
+unit_title: "Now, later, tomorrow: my day"
+unit_position: 1
+
+lessons:
+  - slug: time-words
+    title: What time is it? Now, later
+    sentences:
+      - id: what-time-is-it
+        roman: samaya eshTu?
+        script: ಸಮಯ ಎಷ್ಟು?
+        meaning: What time is it?
+        why: >-
+          "Time how much?". The eshTu (how much) from Level 1 also asks the
+          time. Many people simply say "Taim eshTu?" with the English word.
+        status: source_checked
+        sources: [SWALPA-time]
+        tokens:
+          - word: samaya
+            gloss: time
+          - word: eshTu
+            gloss: how much
+      - id: eight-in-the-morning
+        roman: beLigge enTu ganTe
+        script: ಬೆಳಿಗ್ಗೆ ಎಂಟು ಗಂಟೆ
+        meaning: Eight in the morning (8 a.m.)
+        why: >-
+          Part of the day first, then the number, then ganTe (o'clock or
+          hour). Kannada builds time like an address: big to small.
+        status: source_checked
+        sources: [SWALPA-time]
+        tokens:
+          - word: beLigge
+            gloss: in the morning
+          - word: enTu
+            gloss: eight
+          - word: ganTe
+            gloss: o'clock, hour
+      - id: half-an-hour
+        roman: ardha ganTe
+        script: ಅರ್ಧ ಗಂಟೆ
+        meaning: Half an hour
+        why: ardha (half) + ganTe. ondu ganTe is "one hour" or "one o'clock"; context tells you which.
+        status: source_checked
+        sources: [SWALPA-time]
+        tokens:
+          - word: ardha
+            gloss: half
+          - word: ganTe
+            gloss: hour
+      - id: come-now
+        roman: īga banni
+        script: ಈಗ ಬನ್ನಿ
+        meaning: Come now, please
+        why: >-
+          īga is "now". Notice the i again: īga (now, near in time), āga
+          (then), yāvāga (when?). Near i, far a works for time too.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-time]
+        tokens:
+          - word: īga
+            gloss: now
+          - word: banni
+            gloss: come (polite)
+      - id: come-later
+        roman: āmēle banni
+        script: ಆಮೇಲೆ ಬನ್ನಿ
+        meaning: Come later, please
+        why: āmēle means "later" or "afterwards". A soft way to say "not now".
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-time]
+        tokens:
+          - word: āmēle
+            gloss: later
+          - word: banni
+            gloss: come (polite)
+      - id: today-is-a-holiday
+        roman: ivattu raje ide
+        script: ಇವತ್ತು ರಜೆ ಇದೆ
+        meaning: Today is a holiday
+        why: >-
+          "Today, holiday there is". ide (there is) from Level 1 also says
+          what the day holds. ivattu (today), ninne (yesterday), nāLe
+          (tomorrow), nāDiddu (day after tomorrow).
+        status: source_checked
+        sources: [SWALPA-time]
+        tokens:
+          - word: ivattu
+            gloss: today
+          - word: raje
+            gloss: holiday, day off
+          - word: ide
+            gloss: there is
+
+  - slug: what-i-do
+    title: "I go, I'll do it: one form for now and next"
+    sentences:
+      - id: im-going-now
+        roman: nānu īga hōgtīni
+        script: ನಾನು ಈಗ ಹೋಗ್ತೀನಿ
+        meaning: I'm going now / I'll go now
+        why: >-
+          hōgtīni = hōgu (go) + tīni (I). In spoken Kannada this one form
+          covers "I go", "I'm going" and "I'll go": think of it as one tool
+          that points at now or next. The time word does the rest.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-verbs]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: īga
+            gloss: now
+          - word: hōgtīni
+            gloss: I go, I'll go
+            breakdown: hōgu (go) + tīni (I)
+      - id: ill-do-it-tomorrow
+        roman: nāLe māDtīni
+        script: ನಾಳೆ ಮಾಡ್ತೀನಿ
+        meaning: I'll do it tomorrow
+        why: >-
+          Same ending, -tīni, and nāLe (tomorrow) makes it future. No nānu
+          needed: -tīni already says "I".
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-verbs]
+        tokens:
+          - word: nāLe
+            gloss: tomorrow
+          - word: māDtīni
+            gloss: I'll do
+            breakdown: māDu (do) + tīni (I)
+      - id: i-go-to-the-office
+        roman: nānu āfīsige hōgtīni
+        script: ನಾನು ಆಫೀಸಿಗೆ ಹೋಗ್ತೀನಿ
+        meaning: I go to the office / I'll go to the office
+        why: >-
+          -ge means "to" a place, the same -ge as in nanage (to me). The
+          English "office" takes it as āfīsige. Place + ge, then the verb.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-verbs, Penn]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: āfīsige
+            gloss: to the office
+            breakdown: āfīsu (office) + ige (to)
+          - word: hōgtīni
+            gloss: I go
+      - id: i-go-home
+        roman: nānu manege hōgtīni
+        script: ನಾನು ಮನೆಗೆ ಹೋಗ್ತೀನಿ
+        meaning: I'm going home
+        why: mane (home) + ge (to). Swap the place, keep the rest.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-verbs, Penn]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: manege
+            gloss: to home
+            breakdown: mane (home) + ge (to)
+          - word: hōgtīni
+            gloss: I go
+      - id: come-day-after-tomorrow
+        roman: nāDiddu banni
+        script: ನಾಡಿದ್ದು ಬನ್ನಿ
+        meaning: Please come the day after tomorrow
+        why: nāDiddu is one word for "the day after tomorrow". Handy for plumbers and deliveries.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-time]
+        tokens:
+          - word: nāDiddu
+            gloss: the day after tomorrow
+          - word: banni
+            gloss: come (polite)

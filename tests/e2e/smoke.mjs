@@ -102,13 +102,16 @@ async function configured() {
     step("creating an account signs in and returns to /learn");
 
     await page.getByText("Greetings and politeness").waitFor();
-    assert.equal(await page.getByRole("listitem").count(), 8);
+    assert.equal(await page.getByRole("listitem").count(), 12);
     await page.getByText("Who I am, who you are").waitFor();
-    assert.equal(await page.getByText("0 of 2 lessons done").count(), 8);
+    assert.equal(await page.getByText("0 of 2 lessons done").count(), 11);
+    assert.equal(await page.getByText("0 of 1 lessons done").count(), 1);
     assert.equal(await page.getByText("Coming soon").count(), 0);
+    await page.getByRole("heading", { name: "Level 2 · Basic communication" }).waitFor();
+    await page.getByText("Yesterday: what I did").waitFor();
     await assertFitsScreen("learn");
     await shot("04-learn");
-    step("Learn lists the eight Level 1 units; all eight are open");
+    step("Learn lists the eight Level 1 units; all eight are open, and Level 2 follows");
 
     await page.getByRole("link", { name: /Greetings and politeness/ }).click();
     await page.waitForURL("**/learn/greetings");
@@ -402,6 +405,13 @@ async function configured() {
     await assertFitsScreen("unit 3 lesson");
     await shot("10-unit3-lesson");
     step("Unit 3 opens: 'What is this?' starts with idu ēnu?");
+
+    await page.goto("/learn/yesterday");
+    await page.getByRole("link", { name: /I went, I came, I did/ }).filter({ visible: true }).click();
+    await page.waitForURL("**/learn/yesterday/i-went-i-came");
+    await page.locator("article:visible").first().getByText("nānu ninne manege hōde").waitFor();
+    await assertFitsScreen("level 2 lesson");
+    step("Level 2 opens: 'Yesterday' starts with nānu ninne manege hōde");
 
     // AI tutor: the stand-in chat model opens the scene, corrects "nānu", and remembers it.
     await page.goto("/talk");

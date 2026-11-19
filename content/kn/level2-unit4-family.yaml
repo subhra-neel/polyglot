@@ -1,0 +1,167 @@
+# Kannada · Level 2 · Unit 4: My family
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   Preply-family   preply.com/en/blog/family-members-in-kannada (amma, appa, aNNa,
+#                   tamma, akka, tangi, ajja, ajji; "nanna appa …")
+#   Sublearn        sublearn.com/learn/kn/grammar/introductions ("ivaru nanna …")
+#   SWALPA-verbs    swalpa.pages.dev/05_verbs_and_grammar (respectful -āre ending)
+
+language: kn
+level: 2
+unit: family
+unit_title: My family
+unit_position: 4
+
+lessons:
+  - slug: this-is-my-mother
+    title: This is my mother
+    sentences:
+      - id: this-is-my-mother
+        roman: ivaru nanna amma
+        script: ಇವರು ನನ್ನ ಅಮ್ಮ
+        meaning: This is my mother
+        why: >-
+          The introduction frame from Level 1: ivaru (this person,
+          respectful) + nanna (my) + who. Always ivaru, not idu, for family.
+        formality: respectful
+        status: source_checked
+        sources: [Sublearn, Preply-family]
+        tokens:
+          - word: ivaru
+            gloss: this person (respectful)
+          - word: nanna
+            gloss: my
+          - word: amma
+            gloss: mother
+      - id: my-father
+        roman: nanna appa
+        script: ನನ್ನ ಅಪ್ಪ
+        meaning: My father
+        why: amma and appa, easy to remember as a pair.
+        status: source_checked
+        sources: [Preply-family]
+        tokens:
+          - word: nanna
+            gloss: my
+          - word: appa
+            gloss: father
+      - id: that-is-my-elder-brother
+        roman: avaru nanna aNNa
+        script: ಅವರು ನನ್ನ ಅಣ್ಣ
+        meaning: That is my elder brother
+        why: >-
+          Kannada has separate words for older and younger siblings. aNNa is
+          an older brother; strangers also call a man aNNa as a friendly
+          "brother", e.g. an auto driver.
+        pronunciation: The NN is made with the tongue curled back.
+        formality: respectful
+        status: source_checked
+        sources: [Preply-family, Sublearn]
+        tokens:
+          - word: avaru
+            gloss: that person (respectful)
+          - word: nanna
+            gloss: my
+          - word: aNNa
+            gloss: elder brother
+      - id: my-younger-brother
+        roman: nanna tamma
+        script: ನನ್ನ ತಮ್ಮ
+        meaning: My younger brother
+        why: Older brother aNNa, younger brother tamma.
+        status: source_checked
+        sources: [Preply-family]
+        tokens:
+          - word: nanna
+            gloss: my
+          - word: tamma
+            gloss: younger brother
+      - id: my-elder-sister
+        roman: nanna akka
+        script: ನನ್ನ ಅಕ್ಕ
+        meaning: My elder sister
+        why: akka is also a friendly, respectful way to address a woman a bit older than you, like a shopkeeper.
+        status: source_checked
+        sources: [Preply-family]
+        tokens:
+          - word: nanna
+            gloss: my
+          - word: akka
+            gloss: elder sister
+      - id: my-younger-sister
+        roman: nanna tangi
+        script: ನನ್ನ ತಂಗಿ
+        meaning: My younger sister
+        why: Older sister akka, younger sister tangi. Four words, two pairs.
+        status: source_checked
+        sources: [Preply-family]
+        tokens:
+          - word: nanna
+            gloss: my
+          - word: tangi
+            gloss: younger sister
+
+  - slug: how-are-your-parents
+    title: How are your parents?
+    sentences:
+      - id: how-are-your-parents
+        roman: nimma appa amma hēgiddāre?
+        script: ನಿಮ್ಮ ಅಪ್ಪ ಅಮ್ಮ ಹೇಗಿದ್ದಾರೆ?
+        meaning: How are your parents?
+        why: >-
+          hēgiddīri (how are you) changes its ending for "they": -āre.
+          hēgiddāre? asks after anyone you speak of respectfully. A very
+          common, warm question.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-verbs, Preply-family]
+        tokens:
+          - word: nimma
+            gloss: your (respectful)
+          - word: appa amma
+            gloss: father and mother, parents
+          - word: hēgiddāre
+            gloss: how are they
+            breakdown: hēge (how) + iddāre (they are)
+      - id: they-are-fine
+        roman: avaru chennāgiddāre
+        script: ಅವರು ಚೆನ್ನಾಗಿದ್ದಾರೆ
+        meaning: They're fine
+        why: >-
+          chennāgiddīni (I'm fine) with the "they" ending: chennāgiddāre. Same
+          stem, new ending: the ending always tells you who.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-verbs]
+        tokens:
+          - word: avaru
+            gloss: they
+          - word: chennāgiddāre
+            gloss: they are fine
+            breakdown: chennāgi (well) + iddāre (they are)
+      - id: grandfather
+        roman: ajja
+        script: ಅಜ್ಜ
+        meaning: Grandfather
+        why: ajja and ajji, grandfather and grandmother. Just one letter apart.
+        status: source_checked
+        sources: [Preply-family]
+        tokens:
+          - word: ajja
+            gloss: grandfather
+        variants:
+          - { relation: alternative, sentence: grandmother }
+alternatives:
+  - id: grandmother
+    roman: ajji
+    script: ಅಜ್ಜಿ
+    meaning: Grandmother
+    why: ajji, the female pair of ajja.
+    status: source_checked
+    sources: [Preply-family]
+    tokens:
+      - word: ajji
+        gloss: grandmother

@@ -1,0 +1,102 @@
+# Kannada · Level 2 · Unit 3: What I like
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   Penn  ccat.sas.upenn.edu/plc/kannada/lesson5.html ("nimage kaafi iSTavaa?",
+#         "havdu, kaafi iSTa", "nanage Tii iSTa illa", "nanage haalu tumba iSTa",
+#         "kaafi beekaa?")
+
+language: kn
+level: 2
+unit: likes
+unit_title: What I like
+unit_position: 3
+
+lessons:
+  - slug: do-you-like
+    title: Do you like it?
+    sentences:
+      - id: do-you-like-coffee
+        roman: nimage kāfi ishTavā?
+        script: ನಿಮಗೆ ಕಾಫಿ ಇಷ್ಟವಾ?
+        meaning: Do you like coffee?
+        why: >-
+          Same frame as bēku: "to you, coffee is liked?". The person who likes
+          takes nimage / nanage (to you / to me). ishTa + ā (question), with
+          a v to join the vowels: ishTavā?
+        formality: respectful
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: nimage
+            gloss: to you (respectful)
+          - word: kāfi
+            gloss: coffee
+          - word: ishTavā
+            gloss: is it liked?
+            breakdown: ishTa (liked) + ā (question)
+      - id: yes-i-like-coffee
+        roman: haudu, kāfi ishTa
+        script: ಹೌದು, ಕಾಫಿ ಇಷ್ಟ
+        meaning: Yes, I like coffee
+        why: "The answer drops nanage: it's clear who you mean. Thing + ishTa."
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: haudu
+            gloss: yes
+          - word: kāfi
+            gloss: coffee
+          - word: ishTa
+            gloss: liked
+      - id: i-dont-like-tea
+        roman: nanage Tī ishTa illa
+        script: ನನಗೆ ಟೀ ಇಷ್ಟ ಇಲ್ಲ
+        meaning: I don't like tea
+        why: >-
+          ishTa illa, "liking isn't there". The empty-shelf illa from Level 1
+          again: the liking is missing.
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: nanage
+            gloss: to me
+          - word: Tī
+            gloss: tea
+          - word: ishTa
+            gloss: liked
+          - word: illa
+            gloss: isn't (there)
+      - id: i-really-like-milk
+        roman: nanage hālu tumbā ishTa
+        script: ನನಗೆ ಹಾಲು ತುಂಬಾ ಇಷ್ಟ
+        meaning: I really like milk
+        why: tumbā (very) goes just before the word it boosts, as in tumbā dhanyavādagaLu.
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: nanage
+            gloss: to me
+          - word: hālu
+            gloss: milk
+          - word: tumbā
+            gloss: very, a lot
+          - word: ishTa
+            gloss: liked
+      - id: what-do-you-like
+        roman: nimage ēnu ishTa?
+        script: ನಿಮಗೆ ಏನು ಇಷ್ಟ?
+        meaning: What do you like?
+        why: Put ēnu (what) in the thing slot. The same move as nimage ēnu bēku?
+        formality: respectful
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: nimage
+            gloss: to you (respectful)
+          - word: ēnu
+            gloss: what
+          - word: ishTa
+            gloss: liked
