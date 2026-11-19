@@ -49,3 +49,38 @@ async function rpc<T>(name: string, args: Record<string, unknown> = {}): Promise
 export const getProgress = () => rpc<Progress>("get_progress", { p_language: LANGUAGE });
 export const getReviewQueue = (limit = 20) => rpc<QueueCard[]>("get_review_queue", { p_limit: limit });
 export const getReviewCard = (id: number) => rpc<QueueCard | null>("get_review_card", { p_card_id: id });
+
+export type WeakSpots = {
+  units: {
+    slug: string;
+    title: string;
+    level: number;
+    last_score: number;
+    last_total: number;
+    last_pct: number;
+    best_pct: number;
+    attempts: number;
+  }[];
+  mistakes: { tag: string; occurrences: number; example: { said?: string; corrected?: string | null } | null }[];
+};
+
+/** Empty (rather than an error) until 0005_unit_checks.sql has been run, so Me still works. */
+export const getWeakSpots = () =>
+  rpc<WeakSpots>("get_weak_spots", { p_language: LANGUAGE }).catch((error: Error) => {
+    console.error("[weak spots]", error.message);
+    return { units: [], mistakes: [] } satisfies WeakSpots;
+  });
+
+/** Plain-English names for the tutor's mistake tags. */
+export const MISTAKE_LABELS: Record<string, string> = {
+  wrong_case_ending: "Word endings like nanage (to me) vs nānu (I)",
+  wrong_verb_form: "Verb forms",
+  wrong_person_ending: "Who-endings on verbs (-īni I, -īri you, -ide it)",
+  wrong_word: "Choosing the right word",
+  word_order: "Word order (verb last)",
+  register_mismatch: "Respectful vs casual (nīvu / nīnu)",
+  missing_word: "Missing words",
+  spelling: "Spelling",
+  english_used: "Using English words",
+  other: "Other",
+};

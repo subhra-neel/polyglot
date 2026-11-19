@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { saveUnitCheck } from "@/app/(app)/learn/[unit]/check/actions";
 import { type Question, typedMatches } from "@/lib/unit-check";
 import { SpeakButtons } from "./speak-buttons";
 
@@ -13,7 +14,7 @@ const PROMPT: Record<Question["kind"], string> = {
   translate: "Say it in Kannada",
 };
 
-type Result = { right: boolean; answer: string };
+type Result = { right: boolean; answer: string; sentenceId?: string };
 
 function Explain({ result, why, extra }: { result: Result; why: string | null; extra?: string }) {
   return (
@@ -161,12 +162,27 @@ function Typed({
   );
 }
 
-export function UnitCheck({ questions, unitHref }: { questions: Question[]; unitHref: string }) {
+export function UnitCheck({ questions, unitSlug }: { questions: Question[]; unitSlug: string }) {
   const router = useRouter();
+  const unitHref = `/learn/${unitSlug}`;
   const [index, setIndex] = useState(0);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState(0);
-  const [missed, setMissed] = useState<string[]>([]);
+  const [missed, setMissed] = useState<{ id: string; roman: string }[]>([]);
+  const [saved, setSaved] = useState<{ backToRevision: number } | "failed" | null>(null);
+  const finished = questions.length > 0 && index >= questions.length;
+
+  // Save once, when the last question is done.
+  useEffect(() => {
+    if (!finished || saved !== null) return;
+    let live = true;
+    saveUnitCheck(unitSlug, score, questions.length, missed.map((m) => m.id)).then((r) => {
+      if (live) setSaved(r.ok ? { backToRevision: r.backToRevision } : "failed");
+    });
+    return () => {
+      live = false;
+    };
+  }, [finished, saved, unitSlug, score, questions.length, missed]);
 
   if (questions.length === 0) return <p className="text-muted">This unit doesn&apos;t have enough sentences for a check yet.</p>;
 
@@ -189,19 +205,29 @@ export function UnitCheck({ questions, unitHref }: { questions: Question[]; unit
             <p className="mt-4 text-xs font-medium uppercase tracking-wider text-muted">To practise</p>
             <ul className="mt-2 space-y-1">
               {missed.map((m) => (
-                <li key={m} className="font-medium" lang="kn-Latn">
-                  {m}
+                <li key={m.id} className="font-medium" lang="kn-Latn">
+                  {m.roman}
                 </li>
               ))}
             </ul>
           </>
         ) : null}
+        <p className="mt-4 text-sm text-muted" role="status">
+          {saved === null
+            ? "Saving…"
+            : saved === "failed"
+              ? "Couldn't save this result. Your answers still count for practice."
+              : saved.backToRevision > 0
+                ? `Saved. ${saved.backToRevision} missed ${saved.backToRevision === 1 ? "sentence is" : "sentences are"} back in your revision for today.`
+                : "Saved."}
+        </p>
         <button
           type="button"
           onClick={() => {
             setIndex(0);
             setScore(0);
             setMissed([]);
+            setSaved(null);
             setAnswered(false);
             router.refresh();
           }}
@@ -220,7 +246,7 @@ export function UnitCheck({ questions, unitHref }: { questions: Question[]; unit
   const onDone = (r: Result) => {
     setAnswered(true);
     if (r.right) setScore((s) => s + 1);
-    else setMissed((m) => [...m, r.answer]);
+    else setMissed((m) => [...m, { id: q.sentenceId, roman: r.answer }]);
   };
 
   return (
