@@ -6,7 +6,8 @@ import { SetupNotice } from "@/components/setup-notice";
 import { signOut } from "@/app/sign-in/actions";
 import { getCurrentUser } from "@/lib/auth";
 import { ContentUnavailableError } from "@/lib/lessons";
-import { getProgress } from "@/lib/progress";
+import Link from "next/link";
+import { getProgress, getWeakSpots, MISTAKE_LABELS, type WeakSpots } from "@/lib/progress";
 
 export const metadata: Metadata = { title: "Me" };
 
@@ -22,8 +23,9 @@ function Stat({ value, label }: { value: string | number; label: string }) {
 async function MeContent() {
   const user = await getCurrentUser();
   let progress;
+  let spots: WeakSpots;
   try {
-    progress = await getProgress();
+    [progress, spots] = await Promise.all([getProgress(), getWeakSpots()]);
   } catch (error) {
     if (error instanceof ContentUnavailableError) return <SetupNotice detail={error.message} />;
     throw error;
@@ -48,6 +50,61 @@ async function MeContent() {
             ? ` ${progress.flags_open} ${progress.flags_open === 1 ? "sentence" : "sentences"} you flagged await re-checking.`
             : ""}
         </p>
+      </Card>
+
+      <Card>
+        <h2 className="text-xs font-medium uppercase tracking-wider text-muted">Weak spots</h2>
+        {spots.units.length === 0 && spots.mistakes.length === 0 ? (
+          <p className="mt-3 leading-relaxed text-muted">
+            Take a Unit check (at the end of each unit in Learn) or talk to the tutor, and the areas to work on will
+            show here.
+          </p>
+        ) : null}
+        {spots.units.length ? (
+          <>
+            <p className="mt-3 text-sm text-muted">Unit checks, weakest first</p>
+            <ul className="mt-2 space-y-2">
+              {spots.units.map((u) => (
+                <li key={u.slug}>
+                  <Link
+                    href={`/learn/${u.slug}/check`}
+                    className="flex items-center justify-between gap-3 rounded-xl border border-line p-3"
+                  >
+                    <span className="min-w-0">
+                      <span className="block font-medium leading-snug">{u.title}</span>
+                      <span className="block text-sm text-muted">
+                        Level {u.level} · best {u.best_pct}% · {u.attempts} {u.attempts === 1 ? "try" : "tries"}
+                      </span>
+                    </span>
+                    <span
+                      className={`shrink-0 text-lg font-semibold ${u.last_pct >= 80 ? "text-accent" : u.last_pct < 50 ? "text-danger" : ""}`}
+                    >
+                      {u.last_score}/{u.last_total}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : null}
+        {spots.mistakes.length ? (
+          <>
+            <p className="mt-5 text-sm text-muted">Mistakes the tutor keeps seeing</p>
+            <ul className="mt-2 space-y-2">
+              {spots.mistakes.map((m) => (
+                <li key={m.tag} className="rounded-xl bg-accent-soft p-3 text-sm leading-relaxed">
+                  <span className="font-medium">{MISTAKE_LABELS[m.tag] ?? m.tag}</span>
+                  <span className="text-muted"> · {m.occurrences}×</span>
+                  {m.example?.said ? (
+                    <span className="block text-muted">
+                      e.g. “{m.example.said}”{m.example.corrected ? ` → ${m.example.corrected}` : ""}
+                    </span>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : null}
       </Card>
 
       <Card>

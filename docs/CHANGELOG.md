@@ -3,6 +3,25 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-19 — Unit check scores saved; Weak spots on Me
+
+### Built
+- `0005_unit_checks.sql`: table `unit_checks` (row-level security, own rows
+  only); `record_unit_check` saves a result and puts each missed sentence
+  of that unit back into revision, due now; `get_weak_spots` returns each
+  checked unit's latest and best score (weakest first) and the tutor's
+  five most frequent mistake tags.
+- The unit check saves itself when finished and says how many missed
+  sentences went back to revision.
+- Me: new "Weak spots" card: unit checks weakest first (tap to retake) and
+  "Mistakes the tutor keeps seeing" in plain English with an example.
+- Me keeps working (Weak spots empty) if the migration hasn't been run.
+
+### Tested
+- 5 database tests (save, missed → revision, other units' sentences
+  ignored, bad scores refused, summary order, privacy); 139 unit tests;
+  smoke test saves a check and sees it on Me.
+
 ## 2026-11-19 — Unit check (assessment)
 
 ### Built

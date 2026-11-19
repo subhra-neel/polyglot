@@ -439,7 +439,15 @@ async function configured() {
     await page.getByText(new RegExp(`^\\d+ of ${total}$`)).waitFor();
     await page.getByRole("button", { name: "New check" }).waitFor();
     assert.ok(kinds.size >= 3, `the check mixes question kinds (${[...kinds].join(", ")})`);
-    step("a unit check mixes word order, listening, gaps and translation, and ends with a score");
+    await page.getByText(/^Saved\./).waitFor();
+    step("a unit check mixes word order, listening, gaps and translation, ends with a score, and is saved");
+
+    await page.goto("/me");
+    const weak = page.getByRole("link", { name: /I want, I do not want/ }).filter({ visible: true });
+    await weak.waitFor();
+    assert.match(await weak.textContent(), /\d+\/\d+/);
+    await assertFitsScreen("me with weak spots");
+    step("Me lists the checked unit under Weak spots with its score");
 
     // AI tutor: the stand-in chat model opens the scene, corrects "nānu", and remembers it.
     await page.goto("/talk");

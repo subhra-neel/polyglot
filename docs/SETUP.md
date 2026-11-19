@@ -37,6 +37,7 @@ Later database updates follow the same pattern: each new file in
 | `0002_lessons.sql` | Lesson reading, completing, flagging |
 | `0003_revision.sql` | Revision schedule, progress, settings |
 | `0004_tutor.sql` | AI tutor scenes, conversations, recurring mistakes |
+| `0005_unit_checks.sql` | Unit check scores; weak spots on Me |
 
 Whenever lesson content changes, the changelog will say so: run
 `supabase/content.sql` again.

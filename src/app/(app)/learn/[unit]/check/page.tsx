@@ -54,7 +54,7 @@ async function Check({ params }: { params: Promise<{ unit: string }> }) {
         </p>
       </header>
       <div className="mt-6">
-        <UnitCheck questions={questions} unitHref={`/learn/${unitSlug}`} />
+        <UnitCheck questions={questions} unitSlug={unitSlug} />
       </div>
     </>
   );
