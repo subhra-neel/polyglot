@@ -65,6 +65,9 @@ export const unitFileSchema = z
     language: z.enum(["kn", "ta", "te"]),
     level: z.number().int().min(1).max(5),
     unit: slug,
+    // Units can be created from content (Level 2 onwards); Level 1 units were seeded by migration.
+    unit_title: z.string().min(1).optional(),
+    unit_position: z.number().int().min(1).max(20).optional(),
     lessons: z.array(lessonSchema).min(1),
     // Sentences that are not cards themselves: alternative ways of saying a card.
     alternatives: z.array(sentenceSchema).default([]),

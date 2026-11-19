@@ -1,0 +1,187 @@
+# Kannada · Level 2 · Unit 2: Yesterday: what I did
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   Sublearn-past   sublearn.com/learn/kn/grammar/simple-past-conjugation and
+#                   /narrating-past-events (short spoken forms māDide, hōde,
+#                   bande; "ninne nānu sinimā nōDide"; "ninne ēnu māDide?";
+#                   "haudu, bande"; hōgalilla, baralilla)
+#   Hogu-blog       learnkannadawithme.blogspot.com/2013/08/past-tense-with-root-verb-hogu-go.html
+#                   ("nānu hōde", "nīvu hōdri", "nānu hōgidde")
+#   SWALPA-verbs    swalpa.pages.dev/05_verbs_and_grammar ("avaru ninne bandru",
+#                   "nānu baralilla", "nānu bande")
+#   KannadaMaadi    learnkannada.onrender.com/glossary/i-had-gone-i-went (hōgidde)
+
+language: kn
+level: 2
+unit: yesterday
+unit_title: "Yesterday: what I did"
+unit_position: 2
+
+lessons:
+  - slug: i-went-i-came
+    title: I went, I came, I did
+    sentences:
+      - id: i-went-home-yesterday
+        roman: nānu ninne manege hōde
+        script: ನಾನು ನಿನ್ನೆ ಮನೆಗೆ ಹೋದೆ
+        meaning: I went home yesterday
+        why: >-
+          The past "I" ending is -e: hōde (I went), bande (I came), māDide (I
+          did). Think of -tīni as an arrow pointing forward and -e as a
+          full stop: done.
+        status: source_checked
+        sources: [Sublearn-past, Hogu-blog]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: ninne
+            gloss: yesterday
+          - word: manege
+            gloss: to home
+          - word: hōde
+            gloss: I went
+            breakdown: hōgu (go), past, I
+      - id: yes-i-came
+        roman: haudu, bande
+        script: ಹೌದು, ಬಂದೆ
+        meaning: Yes, I came
+        why: >-
+          bande = baru (come), past, I. The verb changes shape in the past
+          (bar → band), like "come" → "came" in English.
+        status: source_checked
+        sources: [Sublearn-past, SWALPA-verbs]
+        tokens:
+          - word: haudu
+            gloss: yes
+          - word: bande
+            gloss: I came
+            breakdown: baru (come), past, I
+      - id: i-had-a-meal
+        roman: nānu ūTa māDide
+        script: ನಾನು ಊಟ ಮಾಡಿದೆ
+        meaning: I had my meal (I ate)
+        why: >-
+          "I did meal". māDide = māDu (do) + ide (past, I). Many daily actions
+          are "thing + māDu": ūTa māDu (eat a meal), kelsa māDu (work).
+          Casual answer: ūTa āytu.
+        status: source_checked
+        sources: [Sublearn-past]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: ūTa
+            gloss: meal
+          - word: māDide
+            gloss: I did
+            breakdown: māDu (do) + ide (past, I)
+      - id: i-watched-a-film
+        roman: ninne nānu sinimā nōDide
+        script: ನಿನ್ನೆ ನಾನು ಸಿನಿಮಾ ನೋಡಿದೆ
+        meaning: Yesterday I watched a film
+        why: "nōDu (see, watch) → nōDide (I saw). Time word first is natural: \"Yesterday, I, film, watched\"."
+        status: source_checked
+        sources: [Sublearn-past]
+        tokens:
+          - word: ninne
+            gloss: yesterday
+          - word: nānu
+            gloss: I
+          - word: sinimā
+            gloss: film
+          - word: nōDide
+            gloss: I watched, I saw
+            breakdown: nōDu (see) + ide (past, I)
+      - id: i-had-gone-to-mysuru
+        roman: nānu maisūrige hōgidde
+        script: ನಾನು ಮೈಸೂರಿಗೆ ಹೋಗಿದ್ದೆ
+        meaning: I went to Mysuru (I had gone to Mysuru)
+        why: >-
+          hōgidde is "I had gone", and in speech it's the usual way to say
+          you went somewhere and came back. maisūru + ige (to).
+        register: colloquial
+        status: source_checked
+        sources: [KannadaMaadi, Hogu-blog]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: maisūrige
+            gloss: to Mysuru
+            breakdown: maisūru + ige (to)
+          - word: hōgidde
+            gloss: I had gone, I went
+      - id: they-came-yesterday
+        roman: avaru ninne bandru
+        script: ಅವರು ನಿನ್ನೆ ಬಂದ್ರು
+        meaning: They came yesterday / He or she came yesterday (respectful)
+        why: >-
+          -ru is the "they" or respectful "he/she" ending in the past: bandru.
+          Books write bandaru.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-verbs]
+        tokens:
+          - word: avaru
+            gloss: they, he or she (respectful)
+          - word: ninne
+            gloss: yesterday
+          - word: bandru
+            gloss: came (they)
+
+  - slug: what-did-you-do
+    title: What did you do? I didn't go
+    sentences:
+      - id: what-did-you-do-yesterday
+        roman: ninne ēnu māDidri?
+        script: ನಿನ್ನೆ ಏನು ಮಾಡಿದ್ರಿ?
+        meaning: What did you do yesterday?
+        why: >-
+          The past "you" (respectful) ends in -ri: māDidri. Ask with -ri,
+          answer with -e: ēnu māDidri? → sinimā nōDide.
+        register: colloquial
+        formality: respectful
+        status: source_checked
+        sources: [Sublearn-past, Hogu-blog]
+        tokens:
+          - word: ninne
+            gloss: yesterday
+          - word: ēnu
+            gloss: what
+          - word: māDidri
+            gloss: did you do (respectful)
+            breakdown: māDu (do), past, you (respectful)
+      - id: i-didnt-come
+        roman: nānu baralilla
+        script: ನಾನು ಬರಲಿಲ್ಲ
+        meaning: I didn't come
+        why: >-
+          The past negative is simpler than the positive: verb + alilla, the
+          same for everyone. baru → baralilla, hōgu → hōgalilla. One switch
+          for "didn't".
+        status: source_checked
+        sources: [SWALPA-verbs, Sublearn-past]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: baralilla
+            gloss: didn't come
+            breakdown: baru (come) + alilla (didn't)
+      - id: we-didnt-go-there
+        roman: nāvu alli hōgalilla
+        script: ನಾವು ಅಲ್ಲಿ ಹೋಗಲಿಲ್ಲ
+        meaning: We didn't go there
+        why: >-
+          nāvu is "we". Same -alilla ending as for "I": the negative doesn't
+          change with the person, so there is nothing to remember.
+        status: source_checked
+        sources: [Sublearn-past]
+        tokens:
+          - word: nāvu
+            gloss: we
+          - word: alli
+            gloss: there
+          - word: hōgalilla
+            gloss: didn't go
+            breakdown: hōgu (go) + alilla (didn't)

@@ -65,7 +65,7 @@ async function rpc<T>(name: string, args: Record<string, unknown>): Promise<T> {
   return data as T;
 }
 
-export const getUnits = () => rpc<UnitSummary[]>("get_units", { p_language: LANGUAGE, p_level: 1 });
+export const getUnits = (level = 1) => rpc<UnitSummary[]>("get_units", { p_language: LANGUAGE, p_level: level });
 
 export const getUnit = (unitSlug: string) =>
   rpc<Unit | null>("get_unit", { p_unit_slug: unitSlug, p_language: LANGUAGE });

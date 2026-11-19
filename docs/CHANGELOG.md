@@ -3,6 +3,37 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-19 — Level 2 begins: Units 1–4
+
+### Built
+- Content files can now create their own unit (`unit_title`,
+  `unit_position`), so new levels arrive through `content.sql` with no
+  migration. Unit slugs are checked to be unique across levels.
+- Learn shows each level as a section with what it lets you do; later
+  levels appear once they have lessons.
+- Level 2 Unit 1 "Now, later, tomorrow: my day": samaya eshTu?, beLigge enTu
+  ganTe, īga / āmēle banni, ivattu raje ide; the -tīni form for now and next
+  (nānu īga hōgtīni, nāLe māDtīni, nānu āfīsige / manege hōgtīni). 11.
+- Unit 2 "Yesterday: what I did": past -e (hōde, bande, māDide, nōDide),
+  hōgidde, avaru ninne bandru; ninne ēnu māDidri?; the one-size negative
+  -alilla (baralilla, hōgalilla). 9.
+- Unit 3 "What I like": nimage kāfi ishTavā?, haudu kāfi ishTa, nanage Tī
+  ishTa illa, nanage hālu tumbā ishTa, nimage ēnu ishTa? 5.
+- Unit 4 "My family": amma, appa, aNNa, tamma, akka, tangi, ajja/ajji;
+  ivaru nanna amma; nimma appa amma hēgiddāre? avaru chennāgiddāre. 9.
+- Analogies: -tīni as an arrow forward vs past -e as a full stop; -alilla as
+  one switch for "didn't"; time built big to small like an address.
+
+### Sources
+- SWALPA verbs and time chapters; Sublearn past-tense pages; a Kannada blog
+  on hōgu past forms; KannadaMaadi glossary (hōgidde); Penn lesson 5
+  (ishTa); Preply family words.
+
+### Tested
+- Content checker: all 34 Level 2 sentences match their script. Unit test:
+  content.sql creates the Level 2 units in order. Smoke test opens a
+  Level 2 lesson.
+
 ## 2026-11-18 — Say it (listen and repeat); chat layout fix
 
 ### Built

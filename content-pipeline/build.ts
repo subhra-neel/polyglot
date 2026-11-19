@@ -97,6 +97,18 @@ export function loadContentDir(dir: string): { units: UnitFile[]; problems: Prob
     problems.push(...result.problems);
     if (result.unit) units.push(result.unit);
   }
+  // Lessons are found by unit slug alone (/learn/<unit>), so slugs must be unique across levels.
+  const seen = new Map<string, number>();
+  for (const unit of units) {
+    const key = `${unit.language}/${unit.unit}`;
+    if (seen.has(key)) {
+      problems.push({ file: unit.unit, where: "unit", message: `unit slug "${unit.unit}" is used in levels ${seen.get(key)} and ${unit.level}` });
+    }
+    seen.set(key, unit.level);
+    if (unit.level > 1 && !(unit.unit_title && unit.unit_position)) {
+      problems.push({ file: unit.unit, where: "unit", message: "units after Level 1 need unit_title and unit_position" });
+    }
+  }
   return { units, problems };
 }
 
@@ -131,6 +143,14 @@ export function unitsToSql(units: UnitFile[]): string {
       `(select le.id from public.lessons le where le.unit_id = ${unitRef} and le.slug = ${q(slug)})`;
 
     out.push(`-- ${lang} level ${unit.level}, unit ${unit.unit}`);
+    if (unit.unit_title && unit.unit_position) {
+      out.push(
+        `insert into public.units (level_id, position, slug, title)
+  select l.id, ${unit.unit_position}, ${q(unit.unit)}, ${q(unit.unit_title)} from public.levels l
+   where l.language_code = ${q(lang)} and l.number = ${unit.level}
+  on conflict (level_id, slug) do update set title = excluded.title, position = excluded.position;`,
+      );
+    }
     out.push(
       `do $$ begin if ${unitRef} is null then raise exception 'unit ${unit.unit} (level ${unit.level}, ${lang}) is missing: run the migrations first'; end if; end $$;`,
     );
