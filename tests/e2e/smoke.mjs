@@ -413,6 +413,34 @@ async function configured() {
     await assertFitsScreen("level 2 lesson");
     step("Level 2 opens: 'Yesterday' starts with nānu ninne manege hōde");
 
+    await page.goto("/learn/i-want");
+    await page.getByRole("link", { name: /Unit check/ }).filter({ visible: true }).click();
+    await page.waitForURL("**/learn/i-want/check");
+    const total = Number((await page.getByText(/^\d+ quick questions/).textContent()).match(/^(\d+)/)[1]);
+    assert.ok(total >= 6, `a unit check has at least 6 questions (got ${total})`);
+    const kinds = new Set();
+    for (let n = 0; n < total; n++) {
+      const label = await page.getByText(new RegExp(`^${n + 1} of ${total} · `)).textContent();
+      kinds.add(label.split(" · ")[1]);
+      if (await page.getByRole("button", { name: "Clear" }).isVisible()) {
+        const chips = page.locator("section button.rounded-full.border:not([disabled])");
+        while ((await chips.count()) > 0) await chips.first().click();
+        await page.getByRole("button", { name: "Check" }).click();
+      } else if (await page.locator("#typed").isVisible()) {
+        await page.locator("#typed").fill("nanage");
+        await page.getByRole("button", { name: "Check" }).click();
+      } else {
+        await page.locator("section ul button").first().click();
+      }
+      await page.getByText(/^(✓ Right|Not quite)$/).waitFor();
+      if (n === 0) await shot("14-unit-check");
+      await page.getByRole("button", { name: n + 1 === total ? "See result" : "Next" }).click();
+    }
+    await page.getByText(new RegExp(`^\\d+ of ${total}$`)).waitFor();
+    await page.getByRole("button", { name: "New check" }).waitFor();
+    assert.ok(kinds.size >= 3, `the check mixes question kinds (${[...kinds].join(", ")})`);
+    step("a unit check mixes word order, listening, gaps and translation, and ends with a score");
+
     // AI tutor: the stand-in chat model opens the scene, corrects "nānu", and remembers it.
     await page.goto("/talk");
     const teaStall = page.locator("form").filter({ hasText: "At a tea stall" }).filter({ visible: true });
