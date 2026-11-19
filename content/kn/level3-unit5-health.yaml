@@ -1,0 +1,111 @@
+# Kannada · Level 3 · Unit 5: I have a fever: feeling unwell
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   Multibhashi-health  multibhashi.com/blogs/kannada-communication-medical-professionals-bangalore
+#                       (nanage jvara ide, nanage talenōvu ide, nanage chennāgilla,
+#                       hattirada āspatre elli?, hattirada aushadha angaDi elli?,
+#                       nanage ī aushadhi bēku)
+#   Preply-medical      preply.com/en/blog/kannada-medical-terminology (hoTTe, nōvu, jvara)
+
+language: kn
+level: 3
+unit: health
+unit_title: "I have a fever: feeling unwell"
+unit_position: 5
+
+lessons:
+  - slug: im-not-well
+    title: I'm not well
+    sentences:
+      - id: im-not-well
+        roman: nanage chennāgilla
+        script: ನನಗೆ ಚೆನ್ನಾಗಿಲ್ಲ
+        meaning: I don't feel well
+        why: >-
+          "To me, not good". How you feel takes nanage, like bēku and ishTa:
+          the feeling comes to you.
+        status: source_checked
+        sources: [Multibhashi-health]
+        tokens:
+          - { word: "nanage", gloss: "to me" }
+          - { word: "chennāgilla", gloss: "not good", breakdown: "chennāgi (well) + illa (not)" }
+      - id: i-have-a-fever
+        roman: nanage jvara ide
+        script: ನನಗೆ ಜ್ವರ ಇದೆ
+        meaning: I have a fever
+        why: >-
+          Kannada has no verb "have": "to me, fever is there". Every
+          symptom works this way: nanage … ide.
+        status: source_checked
+        sources: [Multibhashi-health, Preply-medical]
+        tokens:
+          - { word: "nanage", gloss: "to me" }
+          - { word: "jvara", gloss: "fever" }
+          - { word: "ide", gloss: "is there" }
+      - id: i-have-a-headache
+        roman: nanage talenōvu ide
+        script: ನನಗೆ ತಲೆನೋವು ಇದೆ
+        meaning: I have a headache
+        why: tale (head) + nōvu (pain). Put any body part before nōvu.
+        status: source_checked
+        sources: [Multibhashi-health]
+        tokens:
+          - { word: "nanage", gloss: "to me" }
+          - { word: "talenōvu", gloss: "headache", breakdown: "tale (head) + nōvu (pain)" }
+          - { word: "ide", gloss: "is there" }
+      - id: i-have-a-stomach-ache
+        roman: nanage hoTTe nōvu ide
+        script: ನನಗೆ ಹೊಟ್ಟೆ ನೋವು ಇದೆ
+        meaning: I have a stomach ache
+        why: hoTTe (stomach) + nōvu (pain), in the same nanage … ide frame.
+        status: source_checked
+        sources: [Preply-medical, Multibhashi-health]
+        tokens:
+          - { word: "nanage", gloss: "to me" }
+          - { word: "hoTTe", gloss: "stomach" }
+          - { word: "nōvu", gloss: "pain" }
+          - { word: "ide", gloss: "is there" }
+
+  - slug: hospital-pharmacy
+    title: Hospital and pharmacy
+    sentences:
+      - id: nearest-hospital
+        roman: hattirada āspatre ellide?
+        script: ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆ ಎಲ್ಲಿದೆ?
+        meaning: Where is the nearest hospital?
+        why: The hattirada … ellide? frame from Level 2, with āspatre (hospital).
+        status: source_checked
+        sources: [Multibhashi-health]
+        tokens:
+          - { word: "hattirada", gloss: "nearest" }
+          - { word: "āspatre", gloss: "hospital" }
+          - { word: "ellide", gloss: "where is" }
+      - id: nearest-pharmacy
+        roman: hattirada aushadha angaDi ellide?
+        script: ಹತ್ತಿರದ ಔಷಧ ಅಂಗಡಿ ಎಲ್ಲಿದೆ?
+        meaning: Where is the nearest pharmacy?
+        why: aushadha (medicine) + angaDi (shop). Many people simply say "meDikal shāp".
+        status: source_checked
+        sources: [Multibhashi-health]
+        tokens:
+          - { word: "hattirada", gloss: "nearest" }
+          - { word: "aushadha", gloss: "medicine" }
+          - { word: "angaDi", gloss: "shop" }
+          - { word: "ellide", gloss: "where is" }
+      - id: i-need-this-medicine
+        roman: nanage ī aushadhi bēku
+        script: ನನಗೆ ಈ ಔಷಧಿ ಬೇಕು
+        meaning: I need this medicine
+        why: >-
+          ī means "this" before a noun (idu stands alone). Show the strip or
+          the prescription and say it.
+        status: source_checked
+        sources: [Multibhashi-health]
+        tokens:
+          - { word: "nanage", gloss: "to me" }
+          - { word: "ī", gloss: "this (before a noun)" }
+          - { word: "aushadhi", gloss: "medicine" }
+          - { word: "bēku", gloss: "needed" }

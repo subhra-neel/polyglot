@@ -1,0 +1,116 @@
+# Kannada · Level 3 · Unit 2: Too much! Bargaining
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   NewsKarnataka  newskarnataka.com/bengaluru/learn-these-kannada-phrases-to-bargain-better-in-bengaluru
+#                  (tumbā jāsti āytu, fainal prais eshTu?, svalpa kammige koDtīrā?,
+#                  kammi māDidre tagōtīni, eraDu tagōtīni kammi māDi, āmēle bartīni,
+#                  sari nānu hōgtīni)
+#   SWALPA-adj     swalpa.pages.dev/06_adjectives ("tumbā jāsti āytu")
+
+language: kn
+level: 3
+unit: bargaining
+unit_title: "Too much! Bargaining"
+unit_position: 2
+
+lessons:
+  - slug: thats-too-much
+    title: That's too much
+    sentences:
+      - id: thats-too-much
+        roman: tumbā jāsti āytu
+        script: ತುಂಬಾ ಜಾಸ್ತಿ ಆಯ್ತು
+        meaning: That's too much (too expensive)
+        why: >-
+          "It has become too much". jāsti means more or too much; āytu (it
+          became) from Level 1's ūTa āytā. Say it with a smile, then make an
+          offer.
+        status: source_checked
+        sources: [NewsKarnataka, SWALPA-adj]
+        tokens:
+          - { word: "tumbā", gloss: "very" }
+          - { word: "jāsti", gloss: "too much, more" }
+          - { word: "āytu", gloss: "it became" }
+      - id: whats-the-final-price
+        roman: fainal prais eshTu?
+        script: ಫೈನಲ್ ಪ್ರೈಸ್ ಎಷ್ಟು?
+        meaning: What's your final price?
+        why: Bengaluru uses the English "final price" with Kannada eshTu? (how much).
+        register: colloquial
+        status: source_checked
+        sources: [NewsKarnataka]
+        tokens:
+          - { word: "fainal", gloss: "final (English word)" }
+          - { word: "prais", gloss: "price (English word)" }
+          - { word: "eshTu", gloss: "how much" }
+      - id: will-you-give-it-cheaper
+        roman: svalpa kammige koDtīrā?
+        script: ಸ್ವಲ್ಪ ಕಮ್ಮಿಗೆ ಕೊಡ್ತೀರಾ?
+        meaning: Will you give it a bit cheaper?
+        why: >-
+          kammige is "for less". koDtīrā? is "will you give?": koDu (give) +
+          tīri (you) + ā (question). Softer than ordering kammi māDi.
+        formality: respectful
+        status: source_checked
+        sources: [NewsKarnataka]
+        tokens:
+          - { word: "svalpa", gloss: "a little" }
+          - { word: "kammige", gloss: "for less", breakdown: "kammi (less) + ge (for)" }
+          - { word: "koDtīrā", gloss: "will you give?", breakdown: "koDu (give) + tīri (you) + ā (question)" }
+
+  - slug: make-a-deal
+    title: Make a deal, or walk away
+    sentences:
+      - id: if-you-reduce-it-ill-take-it
+        roman: kammi māDidre tagōtīni
+        script: ಕಮ್ಮಿ ಮಾಡಿದ್ರೆ ತಗೋತೀನಿ
+        meaning: If you reduce it, I'll take it
+        why: >-
+          -dre means "if": māDidre, "if you do". tagōtīni is "I'll take".
+          Condition first, promise second, just like English.
+        register: colloquial
+        status: source_checked
+        sources: [NewsKarnataka]
+        tokens:
+          - { word: "kammi", gloss: "less" }
+          - { word: "māDidre", gloss: "if (you) do", breakdown: "māDu (do) + idre (if)" }
+          - { word: "tagōtīni", gloss: "I'll take" }
+      - id: ill-take-two
+        roman: eraDu tagōtīni, kammi māDi
+        script: ಎರಡು ತಗೋತೀನಿ, ಕಮ್ಮಿ ಮಾಡಿ
+        meaning: I'll take two, so make it less
+        why: Buying more for a better price is normal and friendly.
+        register: colloquial
+        status: source_checked
+        sources: [NewsKarnataka]
+        tokens:
+          - { word: "eraDu", gloss: "two" }
+          - { word: "tagōtīni", gloss: "I'll take" }
+          - { word: "kammi", gloss: "less" }
+          - { word: "māDi", gloss: "please do" }
+      - id: ill-come-back-later
+        roman: āmēle bartīni
+        script: ಆಮೇಲೆ ಬರ್ತೀನಿ
+        meaning: I'll come back later
+        why: >-
+          The polite exit, often the move that brings the price down. āmēle
+          (later) + bartīni (I'll come).
+        status: source_checked
+        sources: [NewsKarnataka]
+        tokens:
+          - { word: "āmēle", gloss: "later" }
+          - { word: "bartīni", gloss: "I'll come" }
+      - id: okay-im-leaving
+        roman: sari, nānu hōgtīni
+        script: ಸರಿ, ನಾನು ಹೋಗ್ತೀನಿ
+        meaning: Okay, I'm off then
+        why: Said calmly when you are ready to walk away. Often the seller calls you back.
+        status: source_checked
+        sources: [NewsKarnataka]
+        tokens:
+          - { word: "sari", gloss: "okay" }
+          - { word: "nānu", gloss: "I" }
+          - { word: "hōgtīni", gloss: "I'm going" }

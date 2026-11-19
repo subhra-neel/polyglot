@@ -3,6 +3,40 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-19 — Level 3 (6 units) and two Level 3 scenes
+
+### Built
+- Unit 1 "Big, new, hot, tasty": doDDa / chikka / haLe mane, idu
+  chennāgide; bisi anna, kāfi tumbā sihi ide, mosaru huLi āgide, ūTa tumbā
+  ruchi āgittu, ūTa svalpa khāra bēku. 9.
+- Unit 2 "Too much! Bargaining": tumbā jāsti āytu, fainal prais eshTu?,
+  svalpa kammige koDtīrā?, kammi māDidre tagōtīni, eraDu tagōtīni kammi
+  māDi, āmēle bartīni, sari nānu hōgtīni. 7.
+- Unit 3 "At the market": kilōge eshTu?, ardha kilō koDi, idu fresh
+  āgideyā?, sāku, eshTu āytu?, chēnj koDtīrā? 6.
+- Unit 4 "Eating out": ondu masāle dōse ondu kāfi, pārsal māDi, sakkare
+  bēDa, svalpa spaisi kammi māDi. 4.
+- Unit 5 "Feeling unwell": nanage chennāgilla / jvara ide / talenōvu ide /
+  hoTTe nōvu ide; hattirada āspatre / aushadha angaDi ellide?; nanage ī
+  aushadhi bēku. 7.
+- Unit 6 "Problems at home": fyān kelsa māDtilla, paip līk āgtide, nīru
+  bartilla, karenT illa, sariyāgi māDi; mane khāli ideyā?, bāDige eshTu?,
+  illi sahi māDi. 8.
+- Scenes: "At the pharmacy" (Girish) and "Looking at a flat to rent"
+  (Manjunath), tagged Level 3.
+- Phone-call unit left out: no reliable source found. A Multibhashi
+  shopping-vocabulary page was rejected as unreliable (wrong meanings).
+
+### Sources
+- SWALPA adjectives, repairs, survival and home chapters; NewsKarnataka
+  bargaining phrases; KannadaMaadi market/café/auto blog; Indiranagar
+  survival guide (darshini); Multibhashi medical phrases; Preply medical
+  terms.
+
+### Tested
+- Content checker (all 41 Level 3 sentences match their script); 140 unit
+  tests; smoke test sees Level 3 on Learn.
+
 ## 2026-11-19 — Unit check scores saved; Weak spots on Me
 
 ### Built

@@ -1,0 +1,93 @@
+# Kannada · Level 3 · Unit 3: Per kilo, half a kilo: at the market
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   KM-blog  learnkannada.onrender.com/blog/essential-kannada-phrases-autorickshaw-market-cafe
+#            (kilōge eshTu?, ardha kilō koDi, ondu kilō, idu fresh āgide?, sāku,
+#            eshTu āytu?, chēnj koDtīrā?)
+
+language: kn
+level: 3
+unit: market
+unit_title: "Per kilo, half a kilo: at the market"
+unit_position: 3
+
+lessons:
+  - slug: per-kilo
+    title: How much per kilo?
+    sentences:
+      - id: how-much-per-kilo
+        roman: kilōge eshTu?
+        script: ಕಿಲೋಗೆ ಎಷ್ಟು?
+        meaning: How much per kilo?
+        why: >-
+          kilō + ge (for) + eshTu (how much): "for a kilo, how much?". The
+          -ge ending is the same as in nanage and manege.
+        status: source_checked
+        sources: [KM-blog]
+        tokens:
+          - { word: "kilōge", gloss: "per kilo", breakdown: "kilō + ge (for)" }
+          - { word: "eshTu", gloss: "how much" }
+      - id: give-me-half-a-kilo
+        roman: ardha kilō koDi
+        script: ಅರ್ಧ ಕಿಲೋ ಕೊಡಿ
+        meaning: Give me half a kilo, please
+        why: ardha (half) from "ardha ganTe". Quantity + koDi (please give).
+        formality: respectful
+        status: source_checked
+        sources: [KM-blog]
+        tokens:
+          - { word: "ardha", gloss: "half" }
+          - { word: "kilō", gloss: "kilo" }
+          - { word: "koDi", gloss: "please give" }
+      - id: is-this-fresh
+        roman: idu fresh āgideyā?
+        script: ಇದು ಫ್ರೆಶ್ ಆಗಿದೆಯಾ?
+        meaning: Is this fresh?
+        why: The English "fresh" + āgide (has become) + ā (question).
+        register: colloquial
+        status: source_checked
+        sources: [KM-blog]
+        tokens:
+          - { word: "idu", gloss: "this" }
+          - { word: "fresh", gloss: "fresh (English word)" }
+          - { word: "āgideyā", gloss: "is it?", breakdown: "āgide (has become) + ā (question)" }
+
+  - slug: paying
+    title: Enough. What's the total?
+    sentences:
+      - id: enough
+        roman: sāku
+        script: ಸಾಕು
+        meaning: Enough / That's enough
+        why: >-
+          To stop more being added: in the bag, on your plate, in your cup. A
+          very useful word with hosts who keep serving.
+        status: source_checked
+        sources: [KM-blog]
+        tokens:
+          - { word: "sāku", gloss: "enough" }
+      - id: whats-the-total
+        roman: eshTu āytu?
+        script: ಎಷ್ಟು ಆಯ್ತು?
+        meaning: How much did it come to? (What's the total?)
+        why: "\"How much has it become?\" The past āytu, because the total is already done."
+        status: source_checked
+        sources: [KM-blog]
+        tokens:
+          - { word: "eshTu", gloss: "how much" }
+          - { word: "āytu", gloss: "it became" }
+      - id: do-you-have-change
+        roman: chēnj koDtīrā?
+        script: ಚೇಂಜ್ ಕೊಡ್ತೀರಾ?
+        meaning: Can you give change?
+        why: The English "change" with koDtīrā? (will you give?) from bargaining.
+        register: colloquial
+        formality: respectful
+        status: source_checked
+        sources: [KM-blog]
+        tokens:
+          - { word: "chēnj", gloss: "change (English word)" }
+          - { word: "koDtīrā", gloss: "will you give?" }

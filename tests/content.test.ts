@@ -151,6 +151,18 @@ describe("loaded into the database", () => {
     expect(list[1].title).toBe("Yesterday: what I did");
   });
 
+  it("creates Level 3 units from content", async () => {
+    const list = await call<{ slug: string; lesson_count: number }[]>(LEARNER, "public.get_units('kn', 3::smallint)");
+    expect(list.map((u) => [u.slug, u.lesson_count])).toEqual([
+      ["describing", 2],
+      ["bargaining", 2],
+      ["market", 2],
+      ["eating-out", 2],
+      ["health", 2],
+      ["home-problems", 2],
+    ]);
+  });
+
   it("lists all eight Level 1 units with their lessons", async () => {
     const list = await call<{ slug: string; lesson_count: number }[]>(LEARNER, "public.get_units('kn', 1::smallint)");
     expect(list).toHaveLength(8);

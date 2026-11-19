@@ -1,0 +1,122 @@
+# Kannada · Level 3 · Unit 6: Not working, leaking: problems at home
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-repairs    swalpa.pages.dev/09_everyday_logistics_and_services
+#                     (kelsa māDtilla, paip līk āgtide, sariyāgi māDi, bāDige eshTu?)
+#   SWALPA-survival   swalpa.pages.dev/02_survival_and_emergencies (nīru bartilla,
+#                     karenT illa)
+#   SWALPA-home       swalpa.pages.dev/10_household_and_logistics (mane khāli ideyā?,
+#                     illi sahi māDi)
+
+language: kn
+level: 3
+unit: home-problems
+unit_title: "Not working, leaking: problems at home"
+unit_position: 6
+
+lessons:
+  - slug: its-not-working
+    title: It's not working
+    sentences:
+      - id: the-fan-isnt-working
+        roman: fyān kelsa māDtilla
+        script: ಫ್ಯಾನ್ ಕೆಲ್ಸ ಮಾಡ್ತಿಲ್ಲ
+        meaning: The fan isn't working
+        why: >-
+          "The fan isn't doing work". kelsa māDtilla works for anything broken:
+          swap in TV, lait, gīsar.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-repairs]
+        tokens:
+          - { word: "fyān", gloss: "fan (English word)" }
+          - { word: "kelsa", gloss: "work" }
+          - { word: "māDtilla", gloss: "isn't doing" }
+      - id: the-pipe-is-leaking
+        roman: paip līk āgtide
+        script: ಪೈಪ್ ಲೀಕ್ ಆಗ್ತಿದೆ
+        meaning: The pipe is leaking
+        why: >-
+          English word + āgtide ("is happening"): līk āgtide. A whole family of
+          problems uses this shape.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-repairs]
+        tokens:
+          - { word: "paip", gloss: "pipe (English word)" }
+          - { word: "līk", gloss: "leak (English word)" }
+          - { word: "āgtide", gloss: "is happening" }
+      - id: water-isnt-coming
+        roman: nīru bartilla
+        script: ನೀರು ಬರ್ತಿಲ್ಲ
+        meaning: Water isn't coming (no water in the taps)
+        why: bartilla is "isn't coming". The -tilla ending means "isn't …-ing" right now.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-survival]
+        tokens:
+          - { word: "nīru", gloss: "water" }
+          - { word: "bartilla", gloss: "isn't coming" }
+      - id: no-power
+        roman: karenT illa
+        script: ಕರೆಂಟ್ ಇಲ್ಲ
+        meaning: There's no power
+        why: "The empty-shelf illa: the current isn't there. karenT hōgide (it's gone) also works."
+        status: source_checked
+        sources: [SWALPA-survival]
+        tokens:
+          - { word: "karenT", gloss: "electricity" }
+          - { word: "illa", gloss: "there isn't" }
+      - id: do-it-properly
+        roman: sariyāgi māDi
+        script: ಸರಿಯಾಗಿ ಮಾಡಿ
+        meaning: Please do it properly
+        why: >-
+          sari (right) + yāgi (-ly) = "properly", like nidhānavāgi (slowly).
+          A polite way to ask for good work.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-repairs]
+        tokens:
+          - { word: "sariyāgi", gloss: "properly", breakdown: "sari (right) + āgi (-ly)" }
+          - { word: "māDi", gloss: "please do" }
+
+  - slug: renting
+    title: Renting a flat
+    sentences:
+      - id: is-the-house-free
+        roman: mane khāli ideyā?
+        script: ಮನೆ ಖಾಲಿ ಇದೆಯಾ?
+        meaning: Is the house available (empty)?
+        why: khāli means empty, free. Asking a broker or owner about a To-Let board.
+        status: source_checked
+        sources: [SWALPA-home]
+        tokens:
+          - { word: "mane", gloss: "house" }
+          - { word: "khāli", gloss: "empty, vacant" }
+          - { word: "ideyā", gloss: "is it?" }
+      - id: how-much-is-the-rent
+        roman: bāDige eshTu?
+        script: ಬಾಡಿಗೆ ಎಷ್ಟು?
+        meaning: How much is the rent?
+        why: bāDige (rent) + eshTu. Also used for hire, like an auto's charge.
+        status: source_checked
+        sources: [SWALPA-repairs, SWALPA-home]
+        tokens:
+          - { word: "bāDige", gloss: "rent" }
+          - { word: "eshTu", gloss: "how much" }
+      - id: sign-here
+        roman: illi sahi māDi
+        script: ಇಲ್ಲಿ ಸಹಿ ಮಾಡಿ
+        meaning: Please sign here
+        why: You'll hear this rather than say it. sahi (signature) + māDi.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-home]
+        tokens:
+          - { word: "illi", gloss: "here" }
+          - { word: "sahi", gloss: "signature" }
+          - { word: "māDi", gloss: "please do" }
