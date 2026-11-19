@@ -35,6 +35,8 @@ describe("tutor conversations", () => {
       "guiding-the-auto",
       "darshini",
       "plumber-call",
+      "catching-up",
+      "neighbour-family",
     ]);
     expect(list[3].opening_hint).toBe("Try: idakke eshTu? · svalpa kammi māDi · plāsTik byāg bēDa");
   });

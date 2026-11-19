@@ -9,6 +9,7 @@ export type ScenarioSummary = {
   setting: string;
   goals: string;
   opening_hint: string;
+  min_level: number;
   conversations: number;
 };
 

@@ -3,6 +3,31 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-19 — Level 2 Units 5–7; two Level 2 tutor scenes
+
+### Built
+- Unit 5 "Languages: I can speak a little": nanage svalpa svalpa kannaDa
+  barutte, haudu svalpa svalpa barutte, nānu kannaDa kalitā iddīni,
+  inglish gottide, illa kannaDa ashTu gottilla. 5.
+- Unit 6 "Left, right, near, far": balagaDe / eDagaDe hōgi, svalpa munde
+  nillisi, hinde banni, bēga hōgi, hattira ide, tumbā dūra, hattirada polīs
+  sTēshan ellide?, munde dāri illa. 9.
+- Unit 7 "I have to; please don't": nānu hōgabēku, nānu āfīsige hōgabēku,
+  nānu ōdabēku, dayaviTTu hōgabēDi, illi pārk māDabēDi. 5.
+- Tutor scenes: "Catching up with a friend" (Kavya, Monday morning, past
+  tense) and "Lakshmi asks about your family" (family, likes). Scenes
+  with min_level > 1 show a "Level 2" tag.
+- Level 2 now 7 units, 53 sentences. "The weekend" unit deferred: no good
+  source found yet for weekend phrases.
+
+### Sources
+- Multibhashi conversations; wikiHow "Speak in Kannada"; Penn lesson 4
+  (gottide); SWALPA travel chapter (directions); Brainscape "want / don't
+  want" deck (verb + bēku / bēDi); KannadaMaadi glossary (hōgu + bēku).
+
+### Tested
+- Content checker; 126 unit tests; smoke test sees all Level 2 units.
+
 ## 2026-11-19 — Level 2 begins: Units 1–4
 
 ### Built

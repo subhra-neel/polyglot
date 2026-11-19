@@ -43,7 +43,14 @@ async function Scenes({ searchParams }: { searchParams: Promise<{ error?: string
           <li key={s.slug}>
             <form action={startConversation} className="rounded-2xl border border-line bg-surface p-5">
               <input type="hidden" name="scenario" value={s.slug} />
-              <p className="text-lg font-medium">{s.title}</p>
+              <p className="text-lg font-medium">
+                {s.title}
+                {s.min_level > 1 ? (
+                  <span className="ml-2 rounded-full bg-accent-soft px-2 py-0.5 align-middle text-xs font-medium text-accent">
+                    Level {s.min_level}
+                  </span>
+                ) : null}
+              </p>
               <p className="mt-1 leading-relaxed text-muted">{s.setting}</p>
               <p className="mt-2 text-sm text-muted">Goal: {s.goals}</p>
               <button

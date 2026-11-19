@@ -1,0 +1,103 @@
+# Kannada · Level 2 · Unit 7: I have to, don't do it
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   Brainscape  brainscape.com/flashcards/make-sentences-with-want-and-don-t-want-16349761
+#               ("nānu hōgabēku", "nānu office ge hōgabēku", "nānu ōdabēku",
+#               "dayaviTTu hōgabēDi", "illi park māDabēDi", "nimage Tī bēkā?")
+#   KannadaMaadi  learnkannada.onrender.com/glossary/would-have-had-to-go
+#                 (hōgu + bēku = must go)
+
+language: kn
+level: 2
+unit: have-to
+unit_title: "I have to; please don't"
+unit_position: 7
+
+lessons:
+  - slug: i-have-to
+    title: I have to go
+    sentences:
+      - id: i-have-to-go
+        roman: nānu hōgabēku
+        script: ನಾನು ಹೋಗಬೇಕು
+        meaning: I have to go
+        why: >-
+          The verb + bēku = "have to". The bēku you know (wanted) joined to a
+          verb: hōga + bēku. Quick speech squeezes it to hōgbēku. A polite
+          way to leave a conversation.
+        status: source_checked
+        sources: [Brainscape, KannadaMaadi]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: hōgabēku
+            gloss: have to go
+            breakdown: hōga (go) + bēku (must)
+      - id: i-have-to-go-to-the-office
+        roman: nānu āfīsige hōgabēku
+        script: ನಾನು ಆಫೀಸಿಗೆ ಹೋಗಬೇಕು
+        meaning: I have to go to the office
+        why: Place + ge (to), then hōgabēku. Swap the place for manege (home).
+        status: source_checked
+        sources: [Brainscape]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: āfīsige
+            gloss: to the office
+          - word: hōgabēku
+            gloss: have to go
+      - id: i-have-to-study
+        roman: nānu ōdabēku
+        script: ನಾನು ಓದಬೇಕು
+        meaning: I have to study / read
+        why: ōdu (read, study) + bēku. Any verb works the same way.
+        status: source_checked
+        sources: [Brainscape]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: ōdabēku
+            gloss: have to study
+            breakdown: ōda (read) + bēku (must)
+
+  - slug: please-dont
+    title: Please don't
+    sentences:
+      - id: please-dont-go
+        roman: dayaviTTu hōgabēDi
+        script: ದಯವಿಟ್ಟು ಹೋಗಬೇಡಿ
+        meaning: Please don't go
+        why: >-
+          Swap bēku (must) for bēDi (please don't) and the sentence flips.
+          bēDi is the polite form; bēDa is casual, for friends and children.
+        formality: respectful
+        status: source_checked
+        sources: [Brainscape]
+        tokens:
+          - word: dayaviTTu
+            gloss: please
+          - word: hōgabēDi
+            gloss: please don't go
+            breakdown: hōga (go) + bēDi (don't, polite)
+      - id: dont-park-here
+        roman: illi pārk māDabēDi
+        script: ಇಲ್ಲಿ ಪಾರ್ಕ್ ಮಾಡಬೇಡಿ
+        meaning: Please don't park here
+        why: >-
+          English verb + māDu, the Bengaluru shortcut from Level 1 (vēT
+          māDi), now with bēDi: pārk māDabēDi.
+        formality: respectful
+        status: source_checked
+        sources: [Brainscape]
+        tokens:
+          - word: illi
+            gloss: here
+          - word: pārk
+            gloss: park (English word)
+          - word: māDabēDi
+            gloss: please don't do
+            breakdown: māDa (do) + bēDi (don't, polite)

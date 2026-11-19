@@ -1,0 +1,159 @@
+# Kannada · Level 2 · Unit 6: Left, right, near, far: directions
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-travel  swalpa.pages.dev/08_travel_and_conflict (balagaDe, eDagaDe,
+#                  munde, hinde banni, hattira ide, tumbā dūra, svalpa munde
+#                  nillisi, munde dāri illa, bēga hōgi)
+#   wikiHow        wikihow.com/Speak-in-Kannada ("balagade hogi", "yedagade hogi",
+#                  "hathiradha police station yelli idhe?")
+
+language: kn
+level: 2
+unit: directions
+unit_title: "Left, right, near, far: directions"
+unit_position: 6
+
+lessons:
+  - slug: left-right
+    title: Turn left, go right
+    sentences:
+      - id: go-right
+        roman: balagaDe hōgi
+        script: ಬಲಗಡೆ ಹೋಗಿ
+        meaning: Go right
+        why: >-
+          bala is right, eDa is left, and -gaDe means "side". Picture the
+          words as "right-side, go". To remember: bala sounds like "bat",
+          the hand most people bat with.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-travel, wikiHow]
+        tokens:
+          - word: balagaDe
+            gloss: to the right
+            breakdown: bala (right) + gaDe (side)
+          - word: hōgi
+            gloss: go (polite)
+        variants:
+          - { relation: alternative, sentence: go-left }
+      - id: go-left
+        roman: eDagaDe hōgi
+        script: ಎಡಗಡೆ ಹೋಗಿ
+        meaning: Go left
+        why: eDa (left) + gaDe (side). Often said yeDagaDe.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-travel, wikiHow]
+        tokens:
+          - word: eDagaDe
+            gloss: to the left
+            breakdown: eDa (left) + gaDe (side)
+          - word: hōgi
+            gloss: go (polite)
+      - id: stop-a-little-ahead
+        roman: svalpa munde nillisi
+        script: ಸ್ವಲ್ಪ ಮುಂದೆ ನಿಲ್ಲಿಸಿ
+        meaning: Stop a little further ahead, please
+        why: >-
+          munde is "ahead", hinde is "behind". Add svalpa (a little) to fine-
+          tune where the auto stops.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-travel]
+        tokens:
+          - word: svalpa
+            gloss: a little
+          - word: munde
+            gloss: ahead, forward
+          - word: nillisi
+            gloss: please stop (it)
+      - id: come-back
+        roman: hinde banni
+        script: ಹಿಂದೆ ಬನ್ನಿ
+        meaning: Come back / Reverse a bit
+        why: hinde (behind, back) + banni (come). For a driver who has gone past your gate.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-travel]
+        tokens:
+          - word: hinde
+            gloss: back, behind
+          - word: banni
+            gloss: come (polite)
+      - id: go-quickly
+        roman: bēga hōgi
+        script: ಬೇಗ ಹೋಗಿ
+        meaning: Go fast, please
+        why: bēga means "quickly". Its opposite from Level 1 is nidhāna (slowly).
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-travel]
+        tokens:
+          - word: bēga
+            gloss: quickly
+          - word: hōgi
+            gloss: go (polite)
+
+  - slug: near-far
+    title: Is it near? It's far
+    sentences:
+      - id: its-near
+        roman: hattira ide
+        script: ಹತ್ತಿರ ಇದೆ
+        meaning: It's near
+        why: "hattira (near) + ide (is). The ide you know, with a place word: it's near."
+        status: source_checked
+        sources: [SWALPA-travel]
+        tokens:
+          - word: hattira
+            gloss: near
+          - word: ide
+            gloss: is
+      - id: very-far
+        roman: tumbā dūra
+        script: ತುಂಬಾ ದೂರ
+        meaning: Very far
+        why: dūra (far) with tumbā (very). Ask "dūra ideyā?" (is it far?) with the question ā.
+        status: source_checked
+        sources: [SWALPA-travel]
+        tokens:
+          - word: tumbā
+            gloss: very
+          - word: dūra
+            gloss: far
+      - id: nearest-police-station
+        roman: hattirada polīs sTēshan ellide?
+        script: ಹತ್ತಿರದ ಪೊಲೀಸ್ ಸ್ಟೇಷನ್ ಎಲ್ಲಿದೆ?
+        meaning: Where is the nearest police station?
+        why: >-
+          hattira + ada makes "nearby" a describing word: hattirada, "the
+          near one". Then the place, then ellide? from Level 1.
+        status: source_checked
+        sources: [wikiHow]
+        tokens:
+          - word: hattirada
+            gloss: nearest, nearby
+            breakdown: hattira (near) + ada (the … one)
+          - word: polīs
+            gloss: police (English word)
+          - word: sTēshan
+            gloss: station (English word)
+          - word: ellide
+            gloss: where is
+      - id: dead-end
+        roman: munde dāri illa
+        script: ಮುಂದೆ ದಾರಿ ಇಲ್ಲ
+        meaning: There's no way ahead (dead end)
+        why: "munde (ahead), dāri (road, way), illa (there isn't). What a driver says before turning back."
+        status: source_checked
+        sources: [SWALPA-travel]
+        tokens:
+          - word: munde
+            gloss: ahead
+          - word: dāri
+            gloss: road, way
+          - word: illa
+            gloss: there isn't
