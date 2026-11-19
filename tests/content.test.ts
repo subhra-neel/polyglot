@@ -144,6 +144,9 @@ describe("loaded into the database", () => {
       ["yesterday", 2],
       ["likes", 1],
       ["family", 2],
+      ["languages", 2],
+      ["directions", 2],
+      ["have-to", 2],
     ]);
     expect(list[1].title).toBe("Yesterday: what I did");
   });

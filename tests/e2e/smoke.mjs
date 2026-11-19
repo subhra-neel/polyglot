@@ -102,9 +102,9 @@ async function configured() {
     step("creating an account signs in and returns to /learn");
 
     await page.getByText("Greetings and politeness").waitFor();
-    assert.equal(await page.getByRole("listitem").count(), 12);
+    assert.equal(await page.getByRole("listitem").count(), 15);
     await page.getByText("Who I am, who you are").waitFor();
-    assert.equal(await page.getByText("0 of 2 lessons done").count(), 11);
+    assert.equal(await page.getByText("0 of 2 lessons done").count(), 14);
     assert.equal(await page.getByText("0 of 1 lessons done").count(), 1);
     assert.equal(await page.getByText("Coming soon").count(), 0);
     await page.getByRole("heading", { name: "Level 2 · Basic communication" }).waitFor();

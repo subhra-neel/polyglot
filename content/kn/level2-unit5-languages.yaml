@@ -1,0 +1,120 @@
+# Kannada · Level 2 · Unit 5: Languages: I can speak a little
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   Multibhashi-conv  multibhashi.com/blogs/free-online-kannada-conversations-for-beginners
+#                     ("nanage svalpa svalpa kannaDa barutte", "nānu kannaDa kalitā iddīni")
+#   wikiHow           wikihow.com/Speak-in-Kannada ("haudu, svalpa svalpa barutte")
+#   Penn              ccat.sas.upenn.edu/plc/kannada/lesson4.html ("kannaDa gottide",
+#                     "ingliS gottide", "illa, kannaDa aSTe gottilla")
+#   Multibhashi       multibhashi.com/blogs/6-basic-kannada-phrases-for-surviving-most-any-situation
+#                     (kannaDa baralla)
+
+language: kn
+level: 2
+unit: languages
+unit_title: "Languages: I can speak a little"
+unit_position: 5
+
+lessons:
+  - slug: a-little-kannada
+    title: I speak a little Kannada
+    sentences:
+      - id: i-speak-a-little-kannada
+        roman: nanage svalpa svalpa kannaDa barutte
+        script: ನನಗೆ ಸ್ವಲ್ಪ ಸ್ವಲ್ಪ ಕನ್ನಡ ಬರುತ್ತೆ
+        meaning: I can speak a little Kannada
+        why: >-
+          "To me, a little Kannada comes". In Kannada a skill "comes to" you,
+          so it takes nanage, like bēku and ishTa. svalpa said twice means "a
+          little bit" and sounds modest and friendly.
+        register: colloquial
+        status: source_checked
+        sources: [Multibhashi-conv]
+        tokens:
+          - word: nanage
+            gloss: to me
+          - word: svalpa svalpa
+            gloss: a little bit
+          - word: kannaDa
+            gloss: Kannada
+          - word: barutte
+            gloss: comes (I can)
+            breakdown: baru (come) + utte (it does)
+      - id: yes-a-little
+        roman: haudu, svalpa svalpa barutte
+        script: ಹೌದು, ಸ್ವಲ್ಪ ಸ್ವಲ್ಪ ಬರುತ್ತೆ
+        meaning: Yes, I can a little
+        why: >-
+          The answer to "kannaDa barutta?". barutte (it comes) vs baralla
+          (it doesn't come) from Level 1: the same switch.
+        register: colloquial
+        status: source_checked
+        sources: [wikiHow]
+        tokens:
+          - word: haudu
+            gloss: yes
+          - word: svalpa svalpa
+            gloss: a little bit
+          - word: barutte
+            gloss: comes (I can)
+      - id: im-learning-kannada
+        roman: nānu kannaDa kalitā iddīni
+        script: ನಾನು ಕನ್ನಡ ಕಲಿತಾ ಇದ್ದೀನಿ
+        meaning: I'm learning Kannada
+        why: >-
+          kalitā iddīni is "learning I am": the -tā ending + iddīni (I am)
+          means "in the middle of doing". People love to hear this one.
+        register: colloquial
+        status: source_checked
+        sources: [Multibhashi-conv]
+        tokens:
+          - word: nānu
+            gloss: I
+          - word: kannaDa
+            gloss: Kannada
+          - word: kalitā
+            gloss: learning
+            breakdown: kali (learn) + tā (-ing)
+          - word: iddīni
+            gloss: I am
+
+  - slug: known-not-known
+    title: Do you know English?
+    sentences:
+      - id: i-know-english
+        roman: inglish gottide
+        script: ಇಂಗ್ಲಿಷ್ ಗೊತ್ತಿದೆ
+        meaning: I know English
+        why: >-
+          gottide is gottu + ide, "it is known". Two ways to talk about a
+          language: gottu (known) and barutte (it comes to me). Both are
+          right; barutte is more about speaking.
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: inglish
+            gloss: English
+          - word: gottide
+            gloss: is known
+            breakdown: gottu (known) + ide (is)
+      - id: not-that-much-kannada
+        roman: illa, kannaDa ashTu gottilla
+        script: ಇಲ್ಲ, ಕನ್ನಡ ಅಷ್ಟು ಗೊತ್ತಿಲ್ಲ
+        meaning: No, I don't know much Kannada
+        why: >-
+          ashTu means "that much". ashTu gottilla, "not known that much", is a
+          softer no than plain gottilla.
+        status: source_checked
+        sources: [Penn]
+        tokens:
+          - word: illa
+            gloss: no
+          - word: kannaDa
+            gloss: Kannada
+          - word: ashTu
+            gloss: that much
+          - word: gottilla
+            gloss: not known

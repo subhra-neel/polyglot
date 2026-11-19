@@ -121,3 +121,41 @@ scenes:
       - { roman: svalpa nidhānavāgi mātāDi, script: ಸ್ವಲ್ಪ ನಿಧಾನವಾಗಿ ಮಾತಾಡಿ }
       - { roman: nāLe beLigge banni, script: ನಾಳೆ ಬೆಳಿಗ್ಗೆ ಬನ್ನಿ }
     uses_units: [repair, polite-requests, who-i-am]
+
+  - slug: catching-up
+    title: Catching up with a friend
+    persona: >-
+      Kavya, a friendly colleague about the learner's age who sits near them
+      at work in Bengaluru. Casual and curious; it's Monday morning and she
+      wants to know what the learner did over the weekend. Uses simple past
+      tense (hōde, bande, māDide, nōDide, māDidri?) and talks about her own
+      weekend too.
+    setting: Monday morning at the office coffee machine.
+    goals: >-
+      Say what you did yesterday or at the weekend (where you went, what you
+      watched or ate), ask what she did, say something you didn't do, and say
+      you have to go back to work.
+    try:
+      - { roman: ninne ēnu māDidri?, script: ನಿನ್ನೆ ಏನು ಮಾಡಿದ್ರಿ? }
+      - { roman: ninne nānu sinimā nōDide, script: ನಿನ್ನೆ ನಾನು ಸಿನಿಮಾ ನೋಡಿದೆ }
+      - { roman: nānu hōgabēku, script: ನಾನು ಹೋಗಬೇಕು }
+    min_level: 2
+    uses_units: [yesterday, have-to, my-day]
+
+  - slug: neighbour-family
+    title: Lakshmi asks about your family
+    persona: >-
+      Lakshmi, the friendly neighbour in her fifties from the flat opposite.
+      She meets the learner again a week later and asks about their family:
+      parents, brothers and sisters, where they live. Talks about her own
+      grandchildren. Simple everyday Bengaluru Kannada.
+    setting: You meet her at the gate of your building in the evening.
+    goals: >-
+      Say who is in your family, ask how her family is, say what you like
+      (food, tea or coffee), and say goodbye politely.
+    try:
+      - { roman: nimma appa amma hēgiddāre?, script: ನಿಮ್ಮ ಅಪ್ಪ ಅಮ್ಮ ಹೇಗಿದ್ದಾರೆ? }
+      - { roman: ivaru nanna amma, script: ಇವರು ನನ್ನ ಅಮ್ಮ }
+      - { roman: nanage kāfi ishTa, script: ನನಗೆ ಕಾಫಿ ಇಷ್ಟ }
+    min_level: 2
+    uses_units: [family, likes]
