@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { flagSentence, type FlagState } from "@/app/(app)/learn/actions";
 import type { Sentence } from "@/lib/lessons";
+import { SayIt } from "./say-it";
 import { type AudioUrls, SpeakButtons } from "./speak-buttons";
 
 const RELATION_LABEL: Record<string, string> = {
@@ -113,6 +114,8 @@ export function SentenceCard({ sentence, audio, index, total, showEnglish = true
           {open ? "Less" : "How it works"}
         </button>
       </div>
+
+      {sentence.script ? <SayIt roman={sentence.roman} /> : null}
 
       {open ? (
         <div id={detailsId} className="mt-4 space-y-4">

@@ -154,6 +154,17 @@ async function configured() {
     assert.match(played[1], /^\/api\/audio\/[0-9a-f-]{36}\/slow\?v=[0-9a-f]{12}$/);
     step("Play and Slow use recorded audio, with no phone voice needed");
 
+    await hello.getByRole("button", { name: "Say it" }).click();
+    await hello.getByText("Listening… say the sentence, then tap Stop.").waitFor();
+    await page.waitForTimeout(1200);
+    await hello.getByRole("button", { name: "Stop" }).click();
+    await hello.getByText("Clear! Every word came through.").waitFor();
+    await hello.getByText("Heard: namaskāra").waitFor();
+    assert.equal(mock.sttRequests.at(-1).mode, "transcribe");
+    await hello.getByRole("button", { name: "Say it again" }).waitFor();
+    await shot("13-say-it");
+    step("Say it: the learner repeats the sentence and sees which words came through");
+
     const normal = await page.request.get(played[0]);
     assert.equal(normal.status(), 200);
     assert.equal(normal.headers()["content-type"], "audio/mpeg");

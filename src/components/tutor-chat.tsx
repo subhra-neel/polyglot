@@ -227,45 +227,52 @@ export function TutorChat({ conversationId, personaName, hint, initial, ended, s
           </Link>
         </section>
       ) : (
-        <form
-          className="sticky bottom-20 mt-8 flex gap-2 bg-paper pb-2 pt-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (draft.trim()) send(draft);
-          }}
-        >
-          <div className="relative flex min-w-0 flex-1 gap-2">
-          <VoiceInput disabled={pending} onText={(t) => setDraft((d) => (d.trim() ? `${d.trim()} ${t}` : t))} />
-          <label className="sr-only" htmlFor="say">
-            Your reply in Kannada (English letters are fine)
-          </label>
-          <input
-            id="say"
-            value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            maxLength={300}
-            autoComplete="off"
-            autoCapitalize="off"
-            placeholder="Reply in Kannada…"
-            disabled={pending}
-            className="h-12 min-w-0 flex-1 rounded-full border border-line bg-surface px-4 text-base"
-          />
-          </div>
-          <button
-            type="submit"
-            disabled={pending || !draft.trim()}
-            className="h-12 rounded-full bg-accent px-5 font-medium text-accent-ink disabled:opacity-50"
+        // Pinned just above the tab bar; its own background covers the chat as it scrolls underneath.
+        <div className="sticky bottom-[calc(4rem+env(safe-area-inset-bottom))] -mx-6 mt-8 bg-paper px-6 pb-6 pt-3">
+          <form
+            className="flex gap-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (draft.trim()) send(draft);
+            }}
           >
-            Send
-          </button>
-        </form>
+            <div className="relative flex min-w-0 flex-1 gap-2">
+              <VoiceInput disabled={pending} onText={(t) => setDraft((d) => (d.trim() ? `${d.trim()} ${t}` : t))} />
+              <label className="sr-only" htmlFor="say">
+                Your reply in Kannada (English letters are fine)
+              </label>
+              <input
+                id="say"
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                maxLength={300}
+                autoComplete="off"
+                autoCapitalize="off"
+                placeholder="Reply in Kannada…"
+                disabled={pending}
+                className="h-12 min-w-0 flex-1 rounded-full border border-line bg-surface px-4 text-base"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={pending || !draft.trim()}
+              className="h-12 rounded-full bg-accent px-5 font-medium text-accent-ink disabled:opacity-50"
+            >
+              Send
+            </button>
+          </form>
+          {messages.length > 1 ? (
+            <button
+              type="button"
+              onClick={finish}
+              disabled={pending}
+              className="mx-auto mt-2 block text-sm font-medium text-muted"
+            >
+              Finish conversation
+            </button>
+          ) : null}
+        </div>
       )}
-
-      {!finished && messages.length > 1 ? (
-        <button type="button" onClick={finish} disabled={pending} className="mt-2 self-center text-sm font-medium text-muted">
-          Finish conversation
-        </button>
-      ) : null}
     </div>
   );
 }
