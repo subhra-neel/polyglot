@@ -63,6 +63,22 @@ async function UnitView({ params }: { params: Promise<{ unit: string }> }) {
           ))}
         </ol>
       )}
+
+      {unit.lessons.length > 0 ? (
+        <Link
+          href={`/learn/${unit.slug}/check`}
+          className="mt-6 flex items-center gap-4 rounded-2xl border border-dashed border-accent p-4"
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-accent-ink">✎</span>
+          <span className="flex-1">
+            <span className="block font-medium leading-snug">Unit check</span>
+            <span className="mt-0.5 block text-sm text-muted">Build, hear and say this unit&apos;s sentences yourself</span>
+          </span>
+          <span aria-hidden="true" className="text-muted">
+            ›
+          </span>
+        </Link>
+      ) : null}
     </>
   );
 }

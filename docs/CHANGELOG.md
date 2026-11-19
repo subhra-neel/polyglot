@@ -3,6 +3,23 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-19 — Unit check (assessment)
+
+### Built
+- Every unit with lessons has a "Unit check": about 8 questions built from
+  that unit's own sentences (`src/lib/unit-check.ts`), so no new content
+  needs checking. Four kinds, cycled: put the words in order; listen and
+  pick the meaning (needs audio); fill the missing word (the longest word,
+  usually the one carrying the grammar); say the English sentence in
+  Kannada (typed, loose spelling, alternatives accepted). Each answer shows
+  the correct sentence and the sentence's own explanation; the end shows a
+  score and the sentences to practise. A fresh mix on each visit.
+- Not yet saved to the database: scores are shown, not stored.
+
+### Tested
+- 8 unit tests (mix, no repeats, real jumbles, four distinct options,
+  typed matching); smoke test works through a whole check.
+
 ## 2026-11-19 — Level 2 Units 5–7; two Level 2 tutor scenes
 
 ### Built

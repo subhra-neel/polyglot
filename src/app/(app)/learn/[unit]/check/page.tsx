@@ -1,0 +1,83 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { ListSkeleton } from "@/components/screen";
+import { SetupNotice } from "@/components/setup-notice";
+import { UnitCheck } from "@/components/unit-check";
+import { getCurrentUser } from "@/lib/auth";
+import { ContentUnavailableError, getLesson, getUnit, isSlug } from "@/lib/lessons";
+import { audioUrlsFor, getTtsProvider } from "@/lib/tts";
+import { buildCheck, type CheckSentence, freshSeed, seeded } from "@/lib/unit-check";
+
+export const metadata: Metadata = { title: "Unit check" };
+
+async function Check({ params }: { params: Promise<{ unit: string }> }) {
+  const { unit: unitSlug } = await params;
+  if (!isSlug(unitSlug)) notFound();
+  await getCurrentUser();
+
+  let sentences: CheckSentence[];
+  let title: string;
+  try {
+    const unit = await getUnit(unitSlug);
+    if (!unit || unit.lessons.length === 0) notFound();
+    title = unit.title;
+    const tts = getTtsProvider();
+    const lessons = await Promise.all(unit.lessons.map((l) => getLesson(unitSlug, l.slug)));
+    sentences = lessons.flatMap((lesson) =>
+      (lesson?.sentences ?? []).map((s) => ({
+        id: s.id,
+        roman: s.roman,
+        meaning: s.meaning,
+        why: s.why,
+        tokens: s.tokens,
+        variants: s.variants,
+        audio: audioUrlsFor(s.id, s.script, tts),
+      })),
+    );
+  } catch (error) {
+    if (error instanceof ContentUnavailableError) return <SetupNotice detail={error.message} />;
+    throw error;
+  }
+
+  // A fresh mix every visit.
+  const questions = buildCheck(sentences, seeded(freshSeed()));
+
+  return (
+    <>
+      <header>
+        <p className="text-sm text-muted">Unit check</p>
+        <h1 className="mt-1 text-3xl font-semibold tracking-tight">{title}</h1>
+        <p className="mt-2 leading-relaxed text-muted">
+          {questions.length} quick questions from this unit. Type Kannada in English letters; spelling can be loose.
+        </p>
+      </header>
+      <div className="mt-6">
+        <UnitCheck questions={questions} unitHref={`/learn/${unitSlug}`} />
+      </div>
+    </>
+  );
+}
+
+export default function UnitCheckPage({ params }: PageProps<"/learn/[unit]/check">) {
+  return (
+    <>
+      <Suspense fallback={null}>
+        <BackLink params={params} />
+      </Suspense>
+      <Suspense fallback={<ListSkeleton rows={2} />}>
+        <Check params={params} />
+      </Suspense>
+    </>
+  );
+}
+
+async function BackLink({ params }: { params: Promise<{ unit: string }> }) {
+  const { unit } = await params;
+  return (
+    <Link href={`/learn/${unit}`} className="text-sm font-medium text-accent">
+      ‹ Back to the unit
+    </Link>
+  );
+}
