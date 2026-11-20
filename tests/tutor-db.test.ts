@@ -37,6 +37,8 @@ describe("tutor conversations", () => {
       "plumber-call",
       "catching-up",
       "neighbour-family",
+      "pharmacy",
+      "flat-hunting",
     ]);
     expect(list[3].opening_hint).toBe("Try: idakke eshTu? · svalpa kammi māDi · plāsTik byāg bēDa");
   });

@@ -1,0 +1,134 @@
+# Kannada · Level 3 · Unit 1: Big, new, hot, tasty: describing things
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-adj  swalpa.pages.dev/06_adjectives (doDDa, chikka, hosa, haLe, bisi,
+#               chennāgide, "doDDa mane", "bisi anna", "kāfi tumbā sihi ide",
+#               "mosaru huLi āgide", "ūTa tumbā ruchi āgittu",
+#               "ūTa svalpa khāra bēku", "tumbā jāsti āytu")
+
+language: kn
+level: 3
+unit: describing
+unit_title: "Big, new, hot, tasty: describing things"
+unit_position: 1
+
+lessons:
+  - slug: big-small-new-old
+    title: Big, small, new, old
+    sentences:
+      - id: big-house
+        roman: doDDa mane
+        script: ದೊಡ್ಡ ಮನೆ
+        meaning: A big house
+        why: >-
+          Describing words go before the thing, as in English: doDDa (big)
+          mane (house). They never change their ending to match the noun.
+        status: source_checked
+        sources: [SWALPA-adj]
+        tokens:
+          - { word: "doDDa", gloss: "big" }
+          - { word: "mane", gloss: "house" }
+        variants:
+          - { relation: alternative, sentence: small-house }
+      - id: small-house
+        roman: chikka mane
+        script: ಚಿಕ್ಕ ಮನೆ
+        meaning: A small house
+        why: chikka is small for objects; sanna also means small, or thin.
+        status: source_checked
+        sources: [SWALPA-adj]
+        tokens:
+          - { word: "chikka", gloss: "small" }
+          - { word: "mane", gloss: "house" }
+      - id: old-house
+        roman: haLe mane
+        script: ಹಳೆ ಮನೆ
+        meaning: An old house
+        why: haLe (old) and hosa (new) are a pair, like doDDa and chikka.
+        status: source_checked
+        sources: [SWALPA-adj]
+        tokens:
+          - { word: "haLe", gloss: "old" }
+          - { word: "mane", gloss: "house" }
+      - id: this-is-good
+        roman: idu chennāgide
+        script: ಇದು ಚೆನ್ನಾಗಿದೆ
+        meaning: This is good / This is nice
+        why: >-
+          chennāgide, "it is good", works for food, clothes, weather and
+          health. You met chennāgiddīni (I'm fine): same word, "it" ending.
+        status: source_checked
+        sources: [SWALPA-adj]
+        tokens:
+          - { word: "idu", gloss: "this" }
+          - { word: "chennāgide", gloss: "it is good", breakdown: "chennāgi (well) + ide (it is)" }
+
+  - slug: taste-and-temperature
+    title: Hot, sweet, spicy, tasty
+    sentences:
+      - id: hot-rice
+        roman: bisi anna
+        script: ಬಿಸಿ ಅನ್ನ
+        meaning: Hot rice
+        why: bisi is hot (for food and drinks). anna is cooked rice; akki is raw rice.
+        status: source_checked
+        sources: [SWALPA-adj]
+        tokens:
+          - { word: "bisi", gloss: "hot" }
+          - { word: "anna", gloss: "cooked rice" }
+      - id: coffee-is-very-sweet
+        roman: kāfi tumbā sihi ide
+        script: ಕಾಫಿ ತುಂಬಾ ಸಿಹಿ ಇದೆ
+        meaning: The coffee is very sweet
+        why: >-
+          Thing + tumbā (very) + taste + ide (is). Swap sihi (sweet) for
+          khāra (spicy), huLi (sour) or uppu (salty).
+        status: source_checked
+        sources: [SWALPA-adj]
+        tokens:
+          - { word: "kāfi", gloss: "coffee" }
+          - { word: "tumbā", gloss: "very" }
+          - { word: "sihi", gloss: "sweet" }
+          - { word: "ide", gloss: "is" }
+      - id: curd-has-gone-sour
+        roman: mosaru huLi āgide
+        script: ಮೊಸರು ಹುಳಿ ಆಗಿದೆ
+        meaning: The curd has gone sour
+        why: >-
+          āgide means "has become". ide is how something is; āgide is what it
+          has turned into.
+        status: source_checked
+        sources: [SWALPA-adj]
+        tokens:
+          - { word: "mosaru", gloss: "curd, yoghurt" }
+          - { word: "huLi", gloss: "sour" }
+          - { word: "āgide", gloss: "has become" }
+      - id: the-meal-was-very-tasty
+        roman: ūTa tumbā ruchi āgittu
+        script: ಊಟ ತುಂಬಾ ರುಚಿ ಆಗಿತ್ತು
+        meaning: The meal was very tasty
+        why: >-
+          The nicest thing to tell a host. āgittu is the past of āgide: "had
+          become". ruchi means taste, tasty.
+        status: source_checked
+        sources: [SWALPA-adj]
+        tokens:
+          - { word: "ūTa", gloss: "meal" }
+          - { word: "tumbā", gloss: "very" }
+          - { word: "ruchi", gloss: "tasty" }
+          - { word: "āgittu", gloss: "was (had become)" }
+      - id: a-little-spicy-please
+        roman: ūTa svalpa khāra bēku
+        script: ಊಟ ಸ್ವಲ್ಪ ಖಾರ ಬೇಕು
+        meaning: I'd like the food a little spicy
+        why: "The bēku frame again: food + how you want it + bēku."
+        status: source_checked
+        sources: [SWALPA-adj]
+        tokens:
+          - { word: "ūTa", gloss: "food, meal" }
+          - { word: "svalpa", gloss: "a little" }
+          - { word: "khāra", gloss: "spicy" }
+          - { word: "bēku", gloss: "wanted" }

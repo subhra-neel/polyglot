@@ -1,0 +1,80 @@
+# Kannada · Level 3 · Unit 4: Parcel, no sugar: eating out
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   Darshini-guide  shubham-maurya.github.io/indiranagar-survival-guide/lessons/03-darshini-food
+#                   ("ond … ond filter coffee", pārsal māDi, sakkare bēDa,
+#                   svalpa spaisi kammi māDi, sāku)
+#   KM-blog         learnkannada.onrender.com/blog/essential-kannada-phrases-autorickshaw-market-cafe
+#                   ("ondu masāle dōse, ondu kāfi", pārsal māDi)
+
+language: kn
+level: 3
+unit: eating-out
+unit_title: "Parcel, no sugar: eating out"
+unit_position: 4
+
+lessons:
+  - slug: ordering
+    title: One dosa, one coffee
+    sentences:
+      - id: one-dosa-one-coffee
+        roman: ondu masāle dōse, ondu kāfi
+        script: ಒಂದು ಮಸಾಲೆ ದೋಸೆ, ಒಂದು ಕಾಫಿ
+        meaning: One masala dosa, one coffee
+        why: >-
+          At a busy counter you don't need a verb: number + dish, number +
+          drink. In quick speech ondu shrinks to ond.
+        register: colloquial
+        status: source_checked
+        sources: [KM-blog, Darshini-guide]
+        tokens:
+          - { word: "ondu", gloss: "one" }
+          - { word: "masāle", gloss: "masala" }
+          - { word: "dōse", gloss: "dosa" }
+          - { word: "ondu", gloss: "one" }
+          - { word: "kāfi", gloss: "coffee" }
+      - id: parcel-please
+        roman: pārsal māDi
+        script: ಪಾರ್ಸಲ್ ಮಾಡಿ
+        meaning: Pack it to take away, please
+        why: Bengaluru's word for takeaway is "parcel". English word + māDi (please do).
+        register: colloquial
+        status: source_checked
+        sources: [Darshini-guide, KM-blog]
+        tokens:
+          - { word: "pārsal", gloss: "parcel, takeaway (English word)" }
+          - { word: "māDi", gloss: "please do" }
+
+  - slug: how-you-like-it
+    title: No sugar, less spicy
+    sentences:
+      - id: no-sugar
+        roman: sakkare bēDa
+        script: ಸಕ್ಕರೆ ಬೇಡ
+        meaning: No sugar, please
+        why: >-
+          Coffee and tea come sweet by default in Bengaluru, so say it while
+          ordering. sakkare (sugar) + bēDa (not wanted).
+        status: source_checked
+        sources: [Darshini-guide]
+        tokens:
+          - { word: "sakkare", gloss: "sugar" }
+          - { word: "bēDa", gloss: "not wanted" }
+      - id: a-little-less-spicy
+        roman: svalpa spaisi kammi māDi
+        script: ಸ್ವಲ್ಪ ಸ್ಪೈಸಿ ಕಮ್ಮಿ ಮಾಡಿ
+        meaning: Make it a little less spicy, please
+        why: >-
+          kammi māDi (make it less), the bargaining phrase, works for spice
+          too. You'll also hear khāra kammi.
+        register: colloquial
+        status: source_checked
+        sources: [Darshini-guide]
+        tokens:
+          - { word: "svalpa", gloss: "a little" }
+          - { word: "spaisi", gloss: "spicy (English word)" }
+          - { word: "kammi", gloss: "less" }
+          - { word: "māDi", gloss: "please do" }

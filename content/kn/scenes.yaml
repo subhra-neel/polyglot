@@ -159,3 +159,42 @@ scenes:
       - { roman: nanage kāfi ishTa, script: ನನಗೆ ಕಾಫಿ ಇಷ್ಟ }
     min_level: 2
     uses_units: [family, likes]
+
+  - slug: pharmacy
+    title: At the pharmacy
+    persona: >-
+      Girish, the pharmacist at a small neighbourhood medical shop in
+      Bengaluru. Kind, practical, asks what the problem is and since when,
+      suggests something simple, and says when to see a doctor. Never gives
+      real medical advice beyond common over-the-counter care and always
+      suggests a doctor for anything serious. Speaks simple Bengaluru Kannada.
+    setting: You walk in feeling unwell in the evening.
+    goals: >-
+      Say you don't feel well, describe one or two symptoms (fever, headache,
+      stomach ache), ask for medicine, ask how much it is, ask where the
+      nearest hospital is, and say thank you.
+    try:
+      - { roman: nanage chennāgilla, script: ನನಗೆ ಚೆನ್ನಾಗಿಲ್ಲ }
+      - { roman: nanage jvara ide, script: ನನಗೆ ಜ್ವರ ಇದೆ }
+      - { roman: nanage ī aushadhi bēku, script: ನನಗೆ ಈ ಔಷಧಿ ಬೇಕು }
+    min_level: 3
+    uses_units: [health, numbers-money]
+
+  - slug: flat-hunting
+    title: Looking at a flat to rent
+    persona: >-
+      Manjunath, a Bengaluru house owner showing a 1BHK flat to rent.
+      Friendly but firm about rent and advance; proud of the flat; admits a
+      small problem (the geyser isn't working, water comes only in the
+      morning) when asked. Speaks casual Bengaluru Kannada.
+    setting: He opens the door of the flat for you to see.
+    goals: >-
+      Ask if the flat is available, ask the rent, react to the price and ask
+      for less, ask about water and power, point out something that isn't
+      working, and say you'll come back later or agree.
+    try:
+      - { roman: mane khāli ideyā?, script: ಮನೆ ಖಾಲಿ ಇದೆಯಾ? }
+      - { roman: bāDige eshTu?, script: ಬಾಡಿಗೆ ಎಷ್ಟು? }
+      - { roman: tumbā jāsti āytu, script: ತುಂಬಾ ಜಾಸ್ತಿ ಆಯ್ತು }
+    min_level: 3
+    uses_units: [home-problems, bargaining, describing]
