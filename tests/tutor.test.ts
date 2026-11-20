@@ -3,7 +3,7 @@ import { SarvamChat } from "@/lib/llm/sarvam";
 import type { ChatProvider, ChatRequest } from "@/lib/llm/types";
 import { CHECK_SYSTEM, checkLearnerLine } from "@/lib/tutor/check";
 import { GOLDEN } from "@/lib/tutor/golden";
-import { buildSystemPrompt } from "@/lib/tutor/prompt";
+import { buildSystemPrompt, pitchLevel } from "@/lib/tutor/prompt";
 import { nextTutorTurn } from "@/lib/tutor/run";
 import {
   CHECK_JSON_SCHEMA,
@@ -162,6 +162,20 @@ describe("reply prompt", () => {
     expect(prompt).toContain("absolute beginner");
     expect(prompt).toContain("- namaskāra");
     expect(prompt).toContain("wrong_case_ending (3 times)");
+  });
+
+  it("pitches at the scene's level, never below the learner's", () => {
+    expect(pitchLevel({ ...scenario, min_level: 3 }, learner)).toBe(3);
+    expect(pitchLevel(scenario, { ...learner, level: 2 })).toBe(2);
+    expect(pitchLevel({ ...scenario, min_level: 1 }, { ...learner, level: 2 })).toBe(2);
+    expect(buildSystemPrompt({ ...scenario, min_level: 3 }, learner)).toContain("Pitch: conversational");
+  });
+
+  it("asks for natural speech, not a scripted bot", () => {
+    expect(prompt).toContain("SOUND LIKE A REAL PERSON, NOT A BOT");
+    expect(prompt).toContain("don't end every line with a question");
+    expect(prompt).toContain("You are in the scene, not teaching");
+    expect(prompt).not.toContain("Every line ends with something easy");
   });
 
   it("keeps the scene going and spells standard Kannada", () => {

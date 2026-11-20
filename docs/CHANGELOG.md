@@ -3,6 +3,30 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-20 — Tutor talks like a person; pitched at the scene's level
+
+### Why
+- Owner: conversations should be natural, "like usually people talk, not
+  like a script from a bot". Level 3 scenes were also pitched at Level 1
+  because the account is enrolled at Level 1.
+
+### Built
+- Reply prompt: new "Sound like a real person, not a bot" section: short
+  spoken turns with contractions and the English words Bengaluru speakers
+  mix in; react before answering (ayyō, hā, haudā?, sari sari) without
+  overdoing it; a personality and small real details; no formula (no
+  greeting or praise every line, not always ending with a question); never
+  teacher talk inside the scene; one or two sentences per turn. Openings
+  fit the character (a shopkeeper may just say "hēLi, ēnu bēku?").
+- Level: the tutor pitches at max(learner level, scene level), so Level 3
+  scenes speak in normal everyday sentences. The scene's level is read
+  from the scene list, so no SQL step is needed.
+- Checking is unchanged (separate call), so corrections stay as strict.
+
+### Tested
+- 142 unit tests (pitch level, prompt content); smoke test.
+- Real conversation quality needs the owner's check on the live app.
+
 ## 2026-11-19 — Level 3 (6 units) and two Level 3 scenes
 
 ### Built

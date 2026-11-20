@@ -6,8 +6,15 @@ import {
   UUID,
   addMessage,
   getConversation,
+  getScenarios,
   getTutorContext,
 } from "@/lib/conversations";
+
+/** The scene with its level (get_conversation doesn't include it; the scene list does). */
+async function withLevel<T extends { slug?: string }>(scenario: T): Promise<T & { min_level: number }> {
+  const scenes = await getScenarios().catch(() => []);
+  return { ...scenario, min_level: scenes.find((s) => s.slug === scenario.slug)?.min_level ?? 1 };
+}
 import { isSlug, LANGUAGE } from "@/lib/lessons";
 import { getChatProvider } from "@/lib/llm";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -45,7 +52,7 @@ export async function startConversation(formData: FormData) {
   try {
     const [conversation, context] = await Promise.all([getConversation(id), getTutorContext()]);
     if (conversation) {
-      const turn = await nextTutorTurn(provider, conversation.scenario, context, []);
+      const turn = await nextTutorTurn(provider, await withLevel(conversation.scenario), context, []);
       await addMessage({
         conversationId: id,
         role: "tutor",
@@ -98,7 +105,7 @@ export async function sendMessage(conversationId: string, text: string): Promise
     }
 
     // 2. The character replies, knowing what the learner meant.
-    const turn = await nextTutorTurn(provider, conversation.scenario, context, history, check);
+    const turn = await nextTutorTurn(provider, await withLevel(conversation.scenario), context, history, check);
     const aside = turn.aside_english.trim() || null;
     const correction = said ? (check ? { ...toStoredCorrection(check, said), aside } : aside ? { ...UNCHECKED, aside, checked: false } : null) : null;
 
