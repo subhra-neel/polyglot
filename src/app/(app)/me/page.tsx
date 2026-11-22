@@ -7,6 +7,7 @@ import { signOut } from "@/app/sign-in/actions";
 import { getCurrentUser } from "@/lib/auth";
 import { ContentUnavailableError } from "@/lib/lessons";
 import Link from "next/link";
+import { getPracticeStats, type PracticeStats } from "@/lib/practice-stats";
 import { getProgress, getWeakSpots, MISTAKE_LABELS, type WeakSpots } from "@/lib/progress";
 
 export const metadata: Metadata = { title: "Me" };
@@ -24,8 +25,9 @@ async function MeContent() {
   const user = await getCurrentUser();
   let progress;
   let spots: WeakSpots;
+  let practice: PracticeStats;
   try {
-    [progress, spots] = await Promise.all([getProgress(), getWeakSpots()]);
+    [progress, spots, practice] = await Promise.all([getProgress(), getWeakSpots(), getPracticeStats()]);
   } catch (error) {
     if (error instanceof ContentUnavailableError) return <SetupNotice detail={error.message} />;
     throw error;
@@ -50,6 +52,32 @@ async function MeContent() {
             ? ` ${progress.flags_open} ${progress.flags_open === 1 ? "sentence" : "sentences"} you flagged await re-checking.`
             : ""}
         </p>
+      </Card>
+
+      <Card>
+        <h2 className="text-xs font-medium uppercase tracking-wider text-muted">Practice · last {practice.days} days</h2>
+        <p className="mt-2 text-muted">
+          Active on {practice.activeDays} {practice.activeDays === 1 ? "day" : "days"}
+        </p>
+        <ul className="mt-3 space-y-3">
+          <SkillRow
+            label="Speaking"
+            detail={`${practice.speaking.attempts} Say it tries · ${practice.conversation.spoken} spoken tutor replies`}
+            right={practice.speaking.clear}
+            total={practice.speaking.attempts}
+            note="clear"
+          />
+          <SkillRow label="Listening" detail="Unit check listening questions" right={practice.listening.right} total={practice.listening.total} />
+          <SkillRow label="Building sentences" detail="Word order and missing words" right={practice.building.right} total={practice.building.total} />
+          <SkillRow label="English → Kannada" detail="Unit check translations" right={practice.translating.right} total={practice.translating.total} />
+          <SkillRow
+            label="Conversation"
+            detail={`${practice.conversation.conversations} conversations · ${practice.conversation.replies} replies`}
+            right={practice.conversation.correct}
+            total={practice.conversation.replies}
+            note="correct"
+          />
+        </ul>
       </Card>
 
       <Card>
@@ -138,5 +166,33 @@ export default function MePage() {
         <MeContent />
       </Suspense>
     </Screen>
+  );
+}
+
+function SkillRow({
+  label,
+  detail,
+  right,
+  total,
+  note = "right",
+}: {
+  label: string;
+  detail: string;
+  right: number;
+  total: number;
+  note?: string;
+}) {
+  const pct = total ? Math.round((right / total) * 100) : null;
+  return (
+    <li>
+      <div className="flex items-baseline justify-between gap-3">
+        <span className="font-medium">{label}</span>
+        <span className="text-sm text-muted">{pct === null ? "not yet" : `${pct}% ${note}`}</span>
+      </div>
+      <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-line" aria-hidden="true">
+        <div className="h-full rounded-full bg-accent" style={{ width: `${pct ?? 0}%` }} />
+      </div>
+      <p className="mt-1 text-xs text-muted">{detail}</p>
+    </li>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { logPractice } from "@/app/actions/practice";
 import { useRecorder } from "@/lib/use-recorder";
 
 export function MicIcon({ className = "h-6 w-6" }: { className?: string }) {
@@ -24,7 +25,10 @@ export function StopIcon({ className = "h-5 w-5" }: { className?: string }) {
  * put in the reply box, so the learner can check it before sending.
  */
 export function VoiceInput({ onText, disabled }: { onText: (text: string) => void; disabled?: boolean }) {
-  const { supported, state, error, start, stop } = useRecorder("reply", onText);
+  const { supported, state, error, start, stop } = useRecorder("reply", (text) => {
+    onText(text);
+    void logPractice("voice_reply");
+  });
   if (!supported) return null;
 
   const label = state === "recording" ? "Stop and use what I said" : state === "working" ? "Listening back…" : "Speak your reply";

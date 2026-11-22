@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { compareSpoken, type SpokenResult } from "@/lib/speech-match";
+import { logPractice } from "@/app/actions/practice";
 import { useRecorder } from "@/lib/use-recorder";
 import { MicIcon, StopIcon } from "./voice-input";
 
@@ -20,7 +21,9 @@ export function SayIt({ roman }: { roman: string }) {
   const [result, setResult] = useState<SpokenResult | null>(null);
   const { supported, state, error, start, stop } = useRecorder("practice", (text) => {
     setHeard(text);
-    setResult(compareSpoken(roman, text));
+    const r = compareSpoken(roman, text);
+    setResult(r);
+    void logPractice("say_it", { verdict: r.verdict });
   });
   if (!supported) return null;
 

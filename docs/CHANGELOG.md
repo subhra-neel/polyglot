@@ -3,6 +3,26 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-22 — Voice mode in the tutor; practice by skill on Me
+
+### Built
+- Tutor voice mode (switch at the top of a conversation, remembered on the
+  device): each reply plays aloud as it arrives, so a scene can be done by
+  ear and mic. Some phones block audio that starts without a tap; then the
+  Play button still works.
+- Practice events: Say it (verdict), each unit-check answer (kind, right)
+  and each spoken tutor reply are logged to the learner's own `events`
+  rows (existing table and row-level security; no SQL step).
+- Me → "Practice · last 30 days": active days; Speaking (Say it clear
+  rate, spoken replies), Listening, Building sentences, English → Kannada
+  (unit-check accuracy by question kind) and Conversation (replies marked
+  correct by the tutor). Computed in the app from the learner's own events
+  and messages (`src/lib/practice-stats.ts`).
+
+### Tested
+- 2 unit tests for the summary (144 total); smoke test turns on voice mode
+  and checks the reply is fetched for playback, and sees practice on Me.
+
 ## 2026-11-20 — Tutor talks like a person; pitched at the scene's level
 
 ### Why
