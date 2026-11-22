@@ -142,8 +142,8 @@ These two are secret: no `NEXT_PUBLIC_` in front of them.
 
 1. Open the Vercel address on your phone.
 2. **Get started → Create account** with an email and a password of 8+ characters.
-3. You should land on **Today**. Open **Learn**: it lists eight Level 1 units,
-   read live from your database. Unit 1 opens into two lessons.
+3. You should land on **Your path**: a "Start here" card, then every level
+   and unit, read live from your database. Tap **Start the first lesson**.
 4. In Chrome's menu choose **Add to Home screen** to install it.
 
 ## If something looks wrong
@@ -151,13 +151,13 @@ These two are secret: no `NEXT_PUBLIC_` in front of them.
 | What you see | Cause | Fix |
 | --- | --- | --- |
 | "Setup needed" on the sign-in page | Vercel does not have the two settings, or was not redeployed after adding them | Step 3 |
-| "The database is not set up yet" or "needs an update" on Learn | A SQL file has not been run | Steps 1 and 1b |
+| "The database is not set up yet" or "needs an update" on Home | A SQL file has not been run | Steps 1 and 1b |
 | Unit 1 says "Coming soon" | `supabase/content.sql` has not been run | Step 1b |
 | Talk says "The tutor isn't set up yet" | No `SARVAM_API_KEY` in Vercel | Add the key and redeploy |
 | A scene opens with "The scene hasn't started" | The chat model didn't answer in time | Tap Start the conversation; check the Sarvam dashboard for credit |
 | Play and Slow are greyed out | No `SARVAM_API_KEY`, and the phone has no Kannada voice | Add the key (step 3), or install Kannada voice data on the phone |
 | Play says "The audio could not load" | Sarvam refused the request (wrong key, no credit) or the connection dropped | Vercel → Logs, search for `[audio]` |
-| Learn shows no units | The SQL ran only partly | Tell Claude; the tables need checking |
+| Home shows no units | The SQL ran only partly | Tell Claude; the tables need checking |
 | "Check your email for a confirmation link" | Confirm email is on | Step 2 |
 | "Email or password is incorrect" on a new account | The account was created but not confirmed | Step 2 |
 | Reset email link opens localhost or an error page | Site URL or Redirect URLs not set | Step 2b |

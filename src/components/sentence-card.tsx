@@ -6,7 +6,7 @@ import type { Sentence } from "@/lib/lessons";
 import { SayIt } from "./say-it";
 import { type AudioUrls, SpeakButtons } from "./speak-buttons";
 
-const RELATION_LABEL: Record<string, string> = {
+export const RELATION_LABEL: Record<string, string> = {
   casual: "Casual",
   respectful: "Respectful",
   more_natural: "More natural",
@@ -15,11 +15,11 @@ const RELATION_LABEL: Record<string, string> = {
   question: "Question",
 };
 
-function Chip({ children }: { children: React.ReactNode }) {
+export function Chip({ children }: { children: React.ReactNode }) {
   return <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-medium text-accent">{children}</span>;
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+export function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="border-t border-line pt-4">
       <h3 className="text-xs font-medium uppercase tracking-wider text-muted">{title}</h3>
@@ -28,7 +28,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function FlagForm({ sentenceId }: { sentenceId: string }) {
+export function FlagForm({ sentenceId }: { sentenceId: string }) {
   const [state, action, pending] = useActionState<FlagState, FormData>(flagSentence, {});
   if (state.sent) return <p className="text-sm text-accent">Thanks. This sentence will be checked again.</p>;
 

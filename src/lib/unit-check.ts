@@ -21,7 +21,10 @@ export type Question =
   | { kind: "order"; sentenceId: string; meaning: string; chips: string[]; answer: string[]; why: string | null }
   | { kind: "listen"; sentenceId: string; audio: { normal: string; slow: string }; roman: string; options: string[]; answer: string; why: string | null }
   | { kind: "gap"; sentenceId: string; meaning: string; before: string; after: string; answer: string; gloss: string; roman: string; why: string | null }
-  | { kind: "translate"; sentenceId: string; meaning: string; answer: string; accepted: string[]; why: string | null };
+  | { kind: "translate"; sentenceId: string; meaning: string; answer: string; accepted: string[]; why: string | null }
+  | { kind: "pick"; sentenceId: string; meaning: string; options: string[]; answer: string; why: string | null };
+
+export type QuestionKind = Question["kind"];
 
 export type Random = () => number;
 
@@ -65,23 +68,67 @@ export function buildCheck(sentences: CheckSentence[], random: Random, count = 8
   const pool = shuffle(sentences, random);
   const used = new Set<string>();
   const questions: Question[] = [];
-  const meanings = [...new Set(sentences.map((s) => s.meaning))];
 
-  const make: Record<(typeof KINDS)[number], (s: CheckSentence) => Question | null> = {
+  const make = (kind: (typeof KINDS)[number], sentence: CheckSentence) => makeQuestion(kind, sentence, sentences, random);
+  for (let round = 0; questions.length < count && round < count * 4; round++) {
+    const kind = KINDS[round % KINDS.length];
+    const sentence = pool.find((s) => !used.has(s.id) && make(kind, s) !== null);
+    if (!sentence) continue;
+    const q = make(kind, sentence);
+    if (q) {
+      used.add(sentence.id);
+      questions.push(q);
+    }
+  }
+  return questions;
+}
+
+/** The meaning without notes in brackets: "How are you? (to a friend)" → "how are you". */
+const core = (meaning: string) =>
+  meaning
+    .replace(/\(.*?\)/g, "")
+    .toLowerCase()
+    .replace(/[^a-z' ]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+/** Two sentences that a learner could fairly give for the same English. */
+export function sameSense(a: CheckSentence, b: CheckSentence): boolean {
+  if (core(a.meaning) === core(b.meaning)) return true;
+  const plainA = a.roman.replace(/[?!.,]/g, "");
+  const plainB = b.roman.replace(/[?!.,]/g, "");
+  return (
+    plainA === plainB ||
+    a.variants.some((v) => v.roman.replace(/[?!.,]/g, "") === plainB) ||
+    b.variants.some((v) => v.roman.replace(/[?!.,]/g, "") === plainA)
+  );
+}
+
+/**
+ * One question of a given kind about one sentence, or null when that kind
+ * doesn't suit it (too short to reorder, no audio, too few other sentences
+ * for wrong options). `pool` supplies the wrong options.
+ */
+export function makeQuestion(kind: QuestionKind, s: CheckSentence, pool: CheckSentence[], random: Random): Question | null {
+  // Wrong options must really be wrong: never another way of saying the same
+  // thing ("How are you? (to a friend)" for "How are you?", or a listed alternative).
+  const others = pool.filter((x) => x.id !== s.id && !sameSense(x, s));
+  const meanings = [...new Set(others.map((x) => x.meaning))];
+  const builders: Record<QuestionKind, (s: CheckSentence) => Question | null> = {
     order: (s) => {
       const w = words(s.roman);
       if (w.length < 3) return null;
       return { kind: "order", sentenceId: s.id, meaning: s.meaning, chips: jumble(w, random), answer: w, why: s.why };
     },
     listen: (s) => {
-      if (!s.audio || meanings.length < 4) return null;
-      const others = shuffle(meanings.filter((m) => m !== s.meaning), random).slice(0, 3);
+      if (!s.audio || meanings.length < 3) return null;
+      const wrong = shuffle(meanings, random).slice(0, 3);
       return {
         kind: "listen",
         sentenceId: s.id,
         audio: s.audio,
         roman: s.roman,
-        options: shuffle([s.meaning, ...others], random),
+        options: shuffle([s.meaning, ...wrong], random),
         answer: s.meaning,
         why: s.why,
       };
@@ -118,19 +165,15 @@ export function buildCheck(sentences: CheckSentence[], random: Random, count = 8
         why: s.why,
       };
     },
+  
+    pick: (s) => {
+      const romans = [...new Set(others.map((x) => x.roman))];
+      if (romans.length < 2) return null;
+      const wrong = shuffle(romans, random).slice(0, 3);
+      return { kind: "pick", sentenceId: s.id, meaning: s.meaning, options: shuffle([s.roman, ...wrong], random), answer: s.roman, why: s.why };
+    },
   };
-
-  for (let round = 0; questions.length < count && round < count * 4; round++) {
-    const kind = KINDS[round % KINDS.length];
-    const sentence = pool.find((s) => !used.has(s.id) && make[kind](s) !== null);
-    if (!sentence) continue;
-    const q = make[kind](sentence);
-    if (q) {
-      used.add(sentence.id);
-      questions.push(q);
-    }
-  }
-  return questions;
+  return builders[kind](s);
 }
 
 /** Typed Kannada counts as right when every word matches (loose spelling allowed). */

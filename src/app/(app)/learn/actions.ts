@@ -37,3 +37,20 @@ export async function flagSentence(_previous: FlagState, formData: FormData): Pr
   if (error) return { error: "Could not send. Try again." };
   return { sent: true };
 }
+
+/** Marks a lesson done at the end of a lesson session; its sentences join revision. */
+export async function finishLesson(unit: string, lesson: string): Promise<{ ok: boolean; queued: number }> {
+  if (!isSlug(unit) || !isSlug(lesson)) return { ok: false, queued: 0 };
+  const supabase = await createSupabaseServerClient();
+  if (!supabase) return { ok: false, queued: 0 };
+  const { data, error } = await supabase.rpc("complete_lesson", {
+    p_unit_slug: unit,
+    p_lesson_slug: lesson,
+    p_language: LANGUAGE,
+  });
+  if (error) {
+    console.error("[finish lesson]", error.message);
+    return { ok: false, queued: 0 };
+  }
+  return { ok: true, queued: Number(data) || 0 };
+}

@@ -10,7 +10,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 const ALLOWED = {
   say_it: (p: Record<string, unknown>) => ({ verdict: ["clear", "nearly", "again"].includes(String(p.verdict)) ? p.verdict : "again" }),
   check_answer: (p: Record<string, unknown>) => ({
-    kind: ["order", "listen", "gap", "translate"].includes(String(p.kind)) ? p.kind : "order",
+    kind: ["order", "listen", "gap", "translate", "pick"].includes(String(p.kind)) ? p.kind : "order",
     right: p.right === true,
   }),
   voice_reply: () => ({}),

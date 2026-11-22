@@ -101,36 +101,36 @@ async function configured() {
     await page.waitForURL("**/learn");
     step("creating an account signs in and returns to /learn");
 
-    await page.getByText("Greetings and politeness").waitFor();
-    assert.equal(await page.getByRole("listitem").count(), 21);
-    await page.getByText("Who I am, who you are").waitFor();
-    assert.equal(await page.getByText("0 of 2 lessons done").count(), 20);
-    await page.getByRole("heading", { name: "Level 3 · Conversational" }).waitFor();
-    assert.equal(await page.getByText("0 of 1 lessons done").count(), 1);
-    assert.equal(await page.getByText("Coming soon").count(), 0);
+    await page.getByText("Start here").waitFor();
+    await page.getByRole("link", { name: "Start the first lesson" }).waitFor();
+    assert.equal(await page.locator("h3[id^=unit-]").count(), 21);
+    await page.getByRole("heading", { name: "Level 1 · Absolute beginner" }).waitFor();
     await page.getByRole("heading", { name: "Level 2 · Basic communication" }).waitFor();
-    await page.getByText("Yesterday: what I did").waitFor();
-    await assertFitsScreen("learn");
-    await shot("04-learn");
-    step("Learn lists the eight Level 1 units; all eight are open, and Levels 2 and 3 follow");
+    await page.getByRole("heading", { name: "Level 3 · Conversational" }).waitFor();
+    await page.getByRole("link", { name: "Lesson: Hello and how are you (next)" }).waitFor();
+    assert.equal(await page.getByRole("link", { name: /^Unit check:/ }).count(), 21);
+    assert.equal(await page.getByRole("button", { name: /^Talk to the tutor:/ }).count(), 11);
+    await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Home", exact: true }).waitFor();
+    await assertFitsScreen("home path");
+    await shot("04-home");
+    step("Home is one path: a Start card, then 21 units over three levels, each with lessons, a unit check and tutor scenes");
 
-    await page.getByRole("link", { name: /Greetings and politeness/ }).click();
+    await page.getByRole("link", { name: "Guide" }).first().click();
     await page.waitForURL("**/learn/greetings");
-    await page.getByText("Hello and how are you").waitFor();
     await page.getByText("6 sentences").waitFor();
     await page.getByText("9 sentences").waitFor();
+    await page.getByText("Hello and how are you").first().waitFor();
     await shot("09-unit");
     step("Unit 1 shows two lessons, counting only checked sentences");
 
-    await page.getByRole("link", { name: /Hello and how are you/ }).click();
-    await page.waitForURL("**/learn/greetings/hello-how-are-you");
+    await page.goto("/learn/greetings/hello-how-are-you/sentences");
     await page.getByRole("heading", { name: "Hello and how are you" }).waitFor();
     assert.equal(await page.locator("article:visible").count(), 6);
     await page.getByText("namaskāra", { exact: true }).waitFor();
     assert.equal(await page.getByText("āytu", { exact: true }).count(), 0, "draft sentence is visible");
     await assertFitsScreen("lesson");
     await shot("10-lesson");
-    step("lesson shows six sentence cards and hides the draft");
+    step("All sentences shows the lesson's six cards and hides the draft");
 
     if (process.env.SMOKE_NO_TTS) {
       // App built without a voice service: Play depends on the phone's voice,
@@ -215,7 +215,7 @@ async function configured() {
       });
       HTMLMediaElement.prototype.play = () => Promise.reject(new Error("network down"));
     });
-    await voicePage.goto("/learn/greetings/hello-how-are-you");
+    await voicePage.goto("/learn/greetings/hello-how-are-you/sentences");
     const firstCard = voicePage.locator("article:visible").first();
     await firstCard.getByRole("button", { name: "Play" }).click();
     await firstCard.getByRole("button", { name: "Slow" }).click();
@@ -243,21 +243,94 @@ async function configured() {
     assert.deepEqual(flags.rows, [{ note: "heard hēgidīra" }]);
     step("a flagged sentence is saved with the learner's note");
 
-    await page.getByRole("button", { name: "I've learned these" }).click();
-    await page.getByText("Lesson done. 6 sentences added to your revision.").waitFor();
-    await shot("12-done");
+    // The lesson itself: one step per screen.
+    const meanings = new Map();
+    for (const r of (await mock.db.query("select text_roman, meaning_en from public.sentences")).rows) {
+      meanings.set(r.meaning_en, [...(meanings.get(r.meaning_en) ?? []), r.text_roman]);
+    }
+    const words = (roman) => roman.replace(/[?!.,]/g, "").split(" ").filter(Boolean);
+    await page.goto("/learn/greetings/hello-how-are-you");
+    await page.getByRole("heading", { name: "Hello and how are you" }).waitFor();
+    await page.getByText(/^6 new sentences/).waitFor();
+    assert.equal(await page.getByRole("navigation", { name: "Main" }).count(), 0, "the tab bar is hidden during a lesson");
+    await shot("10-lesson-start");
+    await page.getByRole("button", { name: "Start" }).click();
+    await page.getByRole("article", { name: "New sentence 1 of 6" }).getByText("namaskāra", { exact: true }).first().waitFor();
+    await assertFitsScreen("lesson step");
+    await shot("11-new-sentence");
+    const seen = { learn: 0, nice: 0, wrong: 0, prompts: [], missed: null };
+    for (let guard = 0; guard < 40; guard++) {
+      if (await page.getByRole("region", { name: "Lesson complete" }).isVisible()) break;
+      const learn = page.getByRole("article", { name: /^New sentence \d of 6$/ });
+      if (await learn.isVisible()) {
+        seen.learn++;
+        await page.getByRole("button", { name: "Continue" }).click();
+        continue;
+      }
+      const prompt = (await page.locator("h2").first().textContent()).trim();
+      const quoted = (await page.getByText(/^“.*”$/).first().textContent().catch(() => "")).replace(/[“”]/g, "");
+      seen.prompts.push(`${prompt}|${quoted}`);
+      // Answer right where the answer is known, except one deliberate miss
+      // on the first question after the first one whose answer we control.
+      const romans = meanings.get(quoted) ?? [];
+      let missing = false;
+      if (prompt === "Which is the Kannada?") {
+        const options = await page.locator("main ul button").allTextContents();
+        missing = seen.prompts.length > 1 && !seen.missed;
+        const pick = missing ? options.find((o) => !romans.includes(o)) : options.find((o) => romans.includes(o));
+        await page.locator("main ul button", { hasText: pick }).first().click();
+      } else if (prompt === "Put the words in order") {
+        const chips = page.locator("main button.rounded-xl.border-2:not([disabled])");
+        const have = (await chips.allTextContents()).map((c) => c.trim()).sort().join(" ");
+        const right = words(romans.find((r) => words(r).sort().join(" ") === have) ?? "");
+        missing = seen.prompts.length > 1 && !seen.missed && new Set(right).size > 1;
+        for (const w of missing ? [...right].reverse() : right) {
+          await chips.filter({ hasText: new RegExp(`^${w}$`) }).first().click();
+        }
+        while ((await chips.count()) > 0) await chips.first().click();
+      } else if (await page.locator("#typed").isVisible()) {
+        missing = seen.prompts.length > 1 && !seen.missed;
+        let answer = romans[0] ?? "xyz";
+        if (prompt === "Fill in the missing word") {
+          const before = words((await page.locator("main p.text-2xl").textContent()).split("____")[0]);
+          const full = words(romans.find((r) => words(r).slice(0, before.length).join(" ") === before.join(" ")) ?? "");
+          answer = full[before.length] ?? "xyz";
+        }
+        await page.locator("#typed").fill(missing ? "xyz" : answer);
+      } else {
+        await page.locator("main ul button").first().click();
+      }
+      if (missing) seen.missed = `${prompt}|${quoted}`;
+      await page.getByRole("button", { name: "Check" }).click();
+      const verdict = (await page.getByText(/^(✓ Nice!|Not quite)$/).textContent()).trim();
+      if (verdict === "Not quite") seen.wrong++;
+      else seen.nice++;
+      if (missing) {
+        assert.equal(verdict, "Not quite", "a deliberately wrong answer is marked wrong");
+        await shot("12-feedback-wrong");
+      }
+      await page.getByRole("button", { name: "Continue" }).click();
+    }
+    assert.equal(seen.learn, 6, "each sentence is introduced once");
+    assert.ok(seen.nice >= 1 && seen.wrong >= 1, `saw right and wrong answers (${seen.nice}/${seen.wrong})`);
+    assert.ok(seen.missed, "one question was answered wrong on purpose");
+    const missedAt = seen.prompts.indexOf(seen.missed);
+    assert.ok(seen.prompts.slice(missedAt + 1).includes(seen.missed), "a missed question comes back before the end");
+    await page.getByText("Saved. 6 sentences join your revision.").waitFor();
+    await shot("13-lesson-complete");
     const cards = await mock.db.query("select count(*)::int as n from public.review_cards");
     assert.equal(cards.rows[0].n, 6);
-    step("finishing the lesson queues its six sentences for revision");
+    step("a lesson runs one step per screen: six new sentences, quick questions with feedback, a missed one comes back, and finishing queues six sentences for revision");
 
-    // Today now leads with revision, because six sentences are due.
-    await page.goto("/today");
-    await page.getByText("6 sentences are ready to practise").waitFor();
-    await page.getByText("Thanks, sorry and goodbye").waitFor();
-    await shot("15-today-due");
-    step("Today puts the six due sentences first and suggests the next lesson");
+    await page.getByRole("link", { name: "Back to the path" }).click();
+    await page.waitForURL("**/learn");
+    await page.getByText("Up next").waitFor();
+    await page.getByRole("link", { name: "Lesson: Hello and how are you (done)" }).waitFor();
+    await page.getByRole("link", { name: "Lesson: Thanks, sorry and goodbye (next)" }).waitFor();
+    await shot("15-home-due");
+    step("back home, lesson 1 is ticked, lesson 2 is next, and six sentences are waiting to revise");
 
-    await page.getByRole("link", { name: "Revise now" }).click();
+    await page.getByRole("link", { name: /6 sentences to revise/ }).click();
     await page.waitForURL("**/review");
     const reviewCard = page.getByRole("article", { name: "Review card" }).filter({ visible: true });
     await reviewCard.getByText("Say it in Kannada").waitFor();
@@ -285,9 +358,11 @@ async function configured() {
     assert.equal(due.rows[0].n, 0);
     step("a forgotten card returns in the same session; afterwards nothing is due and every answer is logged");
 
-    await page.goto("/today");
-    await page.getByText("7 / 20").waitFor();
-    step("Today counts the seven reviews toward the daily goal");
+    await page.goto("/practice");
+    await page.getByText("Nothing due right now · 7 done today").waitFor();
+    await page.getByRole("link", { name: /Greetings and politeness/ }).waitFor();
+    await assertFitsScreen("practice");
+    step("Practice counts the seven reviews and offers the started unit's check");
 
     await page.goto("/me");
     await page.getByText("sentences learning").waitFor();
@@ -298,7 +373,8 @@ async function configured() {
     await page.getByText("Saved.").waitFor();
     await shot("18-me");
     await page.goto("/learn/greetings/hello-how-are-you");
-    const firstLessonCard = page.locator("article:visible").first();
+    await page.getByRole("button", { name: "Start" }).click();
+    const firstLessonCard = page.getByRole("article", { name: "New sentence 1 of 6" });
     await firstLessonCard.getByText("ನಮಸ್ಕಾರ").waitFor();
     assert.equal(await firstLessonCard.getByText("Hello", { exact: true }).count(), 0);
     await firstLessonCard.getByRole("button", { name: "Show meaning" }).click();
@@ -359,11 +435,11 @@ async function configured() {
     await shot("20-lab-practice");
     step("practice checks a built sentence and explains a wrong ending");
 
-    await page.goto("/learn/greetings/hello-how-are-you");
+    await page.goto("/learn/greetings/hello-how-are-you/sentences");
     await page.getByRole("link", { name: "Next: Thanks, sorry and goodbye" }).click();
     await page.getByRole("heading", { name: "Thanks, sorry and goodbye" }).waitFor();
-    assert.equal(await page.locator("article:visible").count(), 9);
-    step("the next lesson opens with nine cards");
+    await page.getByText(/^9 new sentences/).waitFor();
+    step("the next lesson opens with nine new sentences");
 
     await page.goto("/learn/greetings");
     await page.getByText("6 sentences · done").waitFor();
@@ -373,36 +449,41 @@ async function configured() {
 
     await page.goto("/learn");
 
-    await page.getByRole("link", { name: "Today" }).click();
-    await page.waitForURL("**/today");
-    await assertFitsScreen("today");
-    await shot("05-today");
-    await page.getByRole("link", { name: "Talk to the tutor" }).filter({ visible: true }).waitFor();
-    await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Tutor" }).click();
+    const nav = page.getByRole("navigation", { name: "Main" });
+    await nav.getByRole("link", { name: "Practice", exact: true }).click();
+    await page.waitForURL("**/practice");
+    await shot("05-practice");
+    await nav.getByRole("link", { name: "Tutor", exact: true }).click();
     await page.waitForURL("**/talk");
     await shot("06-talk");
-    await page.getByRole("link", { name: "Build" }).click();
-    await page.waitForURL("**/build");
-    await shot("07-build");
-    await page.getByRole("link", { name: "Me", exact: true }).click();
+    await nav.getByRole("link", { name: "Me", exact: true }).click();
     await page.waitForURL("**/me");
     await page.getByText(email).filter({ visible: true }).waitFor();
     await assertFitsScreen("me");
     await shot("08-me");
-    step("all five tabs open, and Me shows the signed-in email");
+    await nav.getByRole("link", { name: "Home", exact: true }).click();
+    await page.waitForURL("**/learn");
+    assert.equal(await nav.getByRole("link").count(), 4);
+    step("all four tabs open (Home, Practice, Tutor, Me), and Me shows the signed-in email");
 
+    await page.goto("/me");
     await page.reload();
     await page.getByText(email).waitFor();
     step("session survives a reload");
 
     await page.goto("/sign-in");
-    await page.waitForURL("**/today");
-    step("a signed-in learner is sent from /sign-in to /today");
+    await page.waitForURL("**/learn");
+    step("a signed-in learner is sent from /sign-in to the path");
+
+    await page.goto("/today");
+    await page.waitForURL("**/learn");
+    step("the old Today address now opens the path");
 
     await page.goto("/learn/this-and-that");
     await page.getByRole("link", { name: /What is this\?/ }).filter({ visible: true }).click();
     await page.waitForURL("**/learn/this-and-that/what-is-this");
-    await page.locator("article:visible").first().getByText("idu ēnu?").waitFor();
+    await page.getByRole("button", { name: "Start" }).click();
+    await page.getByRole("article", { name: /^New sentence 1 of/ }).getByText("idu ēnu?").first().waitFor();
     await assertFitsScreen("unit 3 lesson");
     await shot("10-unit3-lesson");
     step("Unit 3 opens: 'What is this?' starts with idu ēnu?");
@@ -410,32 +491,33 @@ async function configured() {
     await page.goto("/learn/yesterday");
     await page.getByRole("link", { name: /I went, I came, I did/ }).filter({ visible: true }).click();
     await page.waitForURL("**/learn/yesterday/i-went-i-came");
-    await page.locator("article:visible").first().getByText("nānu ninne manege hōde").waitFor();
+    await page.getByRole("button", { name: "Start" }).click();
+    await page.getByRole("article", { name: /^New sentence 1 of/ }).getByText("nānu ninne manege hōde").first().waitFor();
     await assertFitsScreen("level 2 lesson");
     step("Level 2 opens: 'Yesterday' starts with nānu ninne manege hōde");
 
     await page.goto("/learn/i-want");
     await page.getByRole("link", { name: /Unit check/ }).filter({ visible: true }).click();
     await page.waitForURL("**/learn/i-want/check");
-    const total = Number((await page.getByText(/^\d+ quick questions/).textContent()).match(/^(\d+)/)[1]);
+    const total = Number((await page.getByText(/^Unit check · 1 of \d+$/).textContent()).match(/of (\d+)$/)[1]);
     assert.ok(total >= 6, `a unit check has at least 6 questions (got ${total})`);
     const kinds = new Set();
     for (let n = 0; n < total; n++) {
-      const label = await page.getByText(new RegExp(`^${n + 1} of ${total} · `)).textContent();
-      kinds.add(label.split(" · ")[1]);
-      if (await page.getByRole("button", { name: "Clear" }).isVisible()) {
-        const chips = page.locator("section button.rounded-full.border:not([disabled])");
+      await page.getByText(new RegExp(`^Unit check · ${n + 1} of ${total}$`)).waitFor();
+      const prompt = (await page.locator("h2").first().textContent()).trim();
+      kinds.add(prompt);
+      if (prompt === "Put the words in order") {
+        const chips = page.locator("main button.rounded-xl.border-2:not([disabled])");
         while ((await chips.count()) > 0) await chips.first().click();
-        await page.getByRole("button", { name: "Check" }).click();
       } else if (await page.locator("#typed").isVisible()) {
         await page.locator("#typed").fill("nanage");
-        await page.getByRole("button", { name: "Check" }).click();
       } else {
-        await page.locator("section ul button").first().click();
+        await page.locator("main ul button").first().click();
       }
-      await page.getByText(/^(✓ Right|Not quite)$/).waitFor();
+      await page.getByRole("button", { name: "Check" }).click();
+      await page.getByText(/^(✓ Nice!|Not quite)$/).waitFor();
       if (n === 0) await shot("14-unit-check");
-      await page.getByRole("button", { name: n + 1 === total ? "See result" : "Next" }).click();
+      await page.getByRole("button", { name: "Continue" }).click();
     }
     await page.getByText(new RegExp(`^\\d+ of ${total}$`)).waitFor();
     await page.getByRole("button", { name: "New check" }).waitFor();
@@ -573,7 +655,7 @@ async function configured() {
     await page.getByLabel("Email").fill(email);
     await page.getByLabel("Password").fill(password);
     await page.getByRole("button", { name: "Sign in" }).click();
-    await page.waitForURL("**/today");
+    await page.waitForURL("**/learn");
     step("signing back in with the same password works");
 
     // An unknown email, from a separate browser so it does not replace this
@@ -616,7 +698,7 @@ async function configured() {
     await page.getByLabel("Type it again").fill("brand-new-password");
     await shot("14-new-password");
     await page.getByRole("button", { name: "Save new password" }).click();
-    await page.waitForURL("**/today");
+    await page.waitForURL("**/learn");
     step("the email link opens Set new password, which checks the two entries match");
 
     await page.goto("/me");
@@ -629,7 +711,7 @@ async function configured() {
     await page.getByText("Email or password is incorrect.").waitFor();
     await page.getByLabel("Password").fill("brand-new-password");
     await page.getByRole("button", { name: "Sign in" }).click();
-    await page.waitForURL("**/today");
+    await page.waitForURL("**/learn");
     step("afterwards the old password fails and the new one works");
 
     // The recommended email template (token_hash), opened in a fresh browser,
@@ -672,6 +754,7 @@ try {
 } catch (error) {
   console.error("FAIL:", error.message);
   if (errors.length) console.error(errors.join("\n"));
+  if (SHOTS) await page.screenshot({ path: `${SHOTS}/failure.png`, fullPage: true }).catch(() => {});
   process.exitCode = 1;
 } finally {
   await browser.close();

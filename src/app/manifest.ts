@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Polyglot",
     short_name: "Polyglot",
     description: "Learn to speak Kannada through real conversations.",
-    start_url: "/today",
+    start_url: "/learn",
     display: "standalone",
     background_color: "#faf8f3",
     theme_color: "#0e5f55",

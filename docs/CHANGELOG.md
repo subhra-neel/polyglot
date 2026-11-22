@@ -3,6 +3,58 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-22 — Redesign: one path home, step-by-step lessons
+
+### Why
+- Owner: the app was "still a bit confusing", and should feel "like
+  Duolingo". The two problems: lessons were lists to read, and it wasn't
+  clear what to do next. No game layer (no streaks, XP, hearts or leagues).
+  Soft path: one highlighted next lesson, but every lesson stays open.
+
+### Built
+- Home is the path (`/learn`): a "Start here" / "Up next" card with one big
+  button, a "N sentences to revise" banner when anything is due, then every
+  level (title and can-do line), every unit (banner with a Guide link), its
+  lessons as a zigzag of round nodes (done ✓, next with a "Start" bubble),
+  the unit check, and the tutor scenes that use that unit, placed after it.
+- Lessons are sessions (`/learn/[unit]/[lesson]`), one thing per screen,
+  with the tab bar hidden and a progress bar plus ✕ at the top:
+  a new sentence (big, audio plays on tap, word tiles, "How it works", Say
+  it; more detail folded away), then after every two sentences a quick
+  question about them (Which is the Kannada?, What did you hear?, Put the
+  words in order), and a closing round that asks you to produce (type it,
+  fill the gap). Check / Continue sit in a bottom bar that turns green
+  ("✓ Nice!") or red ("Not quite", the answer and why). A missed question
+  comes back once before the end. Finishing saves the lesson and queues its
+  sentences for revision; the finish screen offers the next lesson.
+- New question kind "pick" (meaning → choose the Kannada). Wrong options
+  never include a sentence with the same meaning or a listed variant of the
+  answer (`sameSense`).
+- The old card list stays at `/learn/[unit]/[lesson]/sentences` ("Just read
+  all the sentences instead" on the lesson start screen).
+- Unit checks use the same screens and bottom bar as lessons.
+- Tabs are now Home, Practice, Tutor, Me. Practice gathers revision (due
+  count and today's goal), the unit checks for units you've started, and
+  the Sentence lab. `/today` redirects to the path; sign-in and the
+  installed app open on the path.
+- `content-pipeline` also writes `src/content/kn-scenes.json` so the path
+  can place tutor scenes without a database call.
+
+### Tested
+- 6 new unit tests for building a lesson session (150 total).
+- Smoke test (52 steps) walks the path, a full lesson session with a
+  deliberate wrong answer that comes back, the finish screen and its six
+  revision cards, the new tabs, Practice, the redirects and the redesigned
+  unit check.
+
+### No database step
+- Uses the existing functions; nothing to run in Supabase.
+
+### Pending
+- Home makes one database call per unit (about 27); a single `get_path`
+  function would cut this if the page feels slow.
+- Level 4 resumes after the redesign is accepted.
+
 ## 2026-11-22 — Voice mode in the tutor; practice by skill on Me
 
 ### Built

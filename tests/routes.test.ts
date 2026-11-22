@@ -3,7 +3,7 @@ import { isAppRoute, safeNextPath } from "@/lib/routes";
 
 describe("isAppRoute", () => {
   it("covers the five tabs and anything beneath them", () => {
-    for (const path of ["/today", "/learn", "/learn/unit/1", "/review", "/talk", "/build", "/me"]) {
+    for (const path of ["/today", "/learn", "/practice", "/learn/unit/1", "/review", "/talk", "/build", "/me"]) {
       expect(isAppRoute(path)).toBe(true);
     }
   });
@@ -25,9 +25,9 @@ describe("safeNextPath", () => {
     expect(safeNextPath("/reset-password")).toBe("/reset-password");
   });
 
-  it("falls back to Today for anything else", () => {
+  it("falls back to the path home for anything else", () => {
     for (const next of [null, undefined, "", "/", "/sign-in", "/forgot-password", "learn", "https://evil.example", "//evil.example", "/\\evil.example"]) {
-      expect(safeNextPath(next)).toBe("/today");
+      expect(safeNextPath(next)).toBe("/learn");
     }
   });
 });

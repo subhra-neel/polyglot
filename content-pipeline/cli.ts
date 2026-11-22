@@ -67,6 +67,13 @@ if (command === "build") {
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, unitsToSql(allUnits) + "\n" + sceneFiles.map(scenesToSql).join("\n"));
   console.log(`\nWrote ${out.replace(root + "/", "")}`);
+  for (const file of sceneFiles) {
+    // Which units each scene practises, so the path can offer it after them.
+    const target = join(root, "src", "content", `${file.language}-scenes.json`);
+    const scenes = file.scenes.map((s) => ({ slug: s.slug, title: s.title, min_level: s.min_level, uses_units: s.uses_units }));
+    writeFileSync(target, JSON.stringify(scenes, null, 2) + "\n");
+    console.log(`Wrote ${target.replace(root + "/", "")}`);
+  }
   for (const { language, file } of patternFiles) {
     const target = join(root, "src", "content", `${language}-patterns.json`);
     mkdirSync(dirname(target), { recursive: true });

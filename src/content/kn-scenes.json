@@ -1,0 +1,109 @@
+[
+  {
+    "slug": "new-neighbour",
+    "title": "Meeting a new neighbour",
+    "min_level": 1,
+    "uses_units": [
+      "greetings",
+      "who-i-am"
+    ]
+  },
+  {
+    "slug": "tea-stall",
+    "title": "At a tea stall",
+    "min_level": 1,
+    "uses_units": [
+      "i-want",
+      "is-there",
+      "numbers-money"
+    ]
+  },
+  {
+    "slug": "auto-ride",
+    "title": "Taking an auto",
+    "min_level": 1,
+    "uses_units": [
+      "i-want",
+      "numbers-money"
+    ]
+  },
+  {
+    "slug": "vegetable-market",
+    "title": "Bargaining at the vegetable market",
+    "min_level": 1,
+    "uses_units": [
+      "numbers-money",
+      "i-want",
+      "polite-requests"
+    ]
+  },
+  {
+    "slug": "guiding-the-auto",
+    "title": "Guiding the auto home",
+    "min_level": 1,
+    "uses_units": [
+      "polite-requests",
+      "is-there",
+      "numbers-money"
+    ]
+  },
+  {
+    "slug": "darshini",
+    "title": "Ordering at a darshini",
+    "min_level": 1,
+    "uses_units": [
+      "is-there",
+      "i-want",
+      "polite-requests",
+      "numbers-money"
+    ]
+  },
+  {
+    "slug": "plumber-call",
+    "title": "Calling the plumber",
+    "min_level": 1,
+    "uses_units": [
+      "repair",
+      "polite-requests",
+      "who-i-am"
+    ]
+  },
+  {
+    "slug": "catching-up",
+    "title": "Catching up with a friend",
+    "min_level": 2,
+    "uses_units": [
+      "yesterday",
+      "have-to",
+      "my-day"
+    ]
+  },
+  {
+    "slug": "neighbour-family",
+    "title": "Lakshmi asks about your family",
+    "min_level": 2,
+    "uses_units": [
+      "family",
+      "likes"
+    ]
+  },
+  {
+    "slug": "pharmacy",
+    "title": "At the pharmacy",
+    "min_level": 3,
+    "uses_units": [
+      "health",
+      "numbers-money"
+    ]
+  },
+  {
+    "slug": "flat-hunting",
+    "title": "Looking at a flat to rent",
+    "min_level": 3,
+    "uses_units": [
+      "home-problems",
+      "bargaining",
+      "describing"
+    ]
+  }
+]

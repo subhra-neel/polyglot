@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ListSkeleton } from "@/components/screen";
@@ -44,40 +43,13 @@ async function Check({ params }: { params: Promise<{ unit: string }> }) {
   // A fresh mix every visit.
   const questions = buildCheck(sentences, seeded(freshSeed()));
 
-  return (
-    <>
-      <header>
-        <p className="text-sm text-muted">Unit check</p>
-        <h1 className="mt-1 text-3xl font-semibold tracking-tight">{title}</h1>
-        <p className="mt-2 leading-relaxed text-muted">
-          {questions.length} quick questions from this unit. Type Kannada in English letters; spelling can be loose.
-        </p>
-      </header>
-      <div className="mt-6">
-        <UnitCheck questions={questions} unitSlug={unitSlug} />
-      </div>
-    </>
-  );
+  return <UnitCheck questions={questions} unitSlug={unitSlug} unitTitle={title} />;
 }
 
 export default function UnitCheckPage({ params }: PageProps<"/learn/[unit]/check">) {
   return (
-    <>
-      <Suspense fallback={null}>
-        <BackLink params={params} />
-      </Suspense>
-      <Suspense fallback={<ListSkeleton rows={2} />}>
-        <Check params={params} />
-      </Suspense>
-    </>
-  );
-}
-
-async function BackLink({ params }: { params: Promise<{ unit: string }> }) {
-  const { unit } = await params;
-  return (
-    <Link href={`/learn/${unit}`} className="text-sm font-medium text-accent">
-      ‹ Back to the unit
-    </Link>
+    <Suspense fallback={<ListSkeleton rows={2} />}>
+      <Check params={params} />
+    </Suspense>
   );
 }

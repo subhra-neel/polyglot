@@ -65,7 +65,7 @@ node tests/e2e/smoke.mjs configured
 ## Layout
 
 ```
-src/app/            pages: welcome, sign-in, and the five tabs under (app)/
+src/app/            pages: welcome, sign-in, and the four tabs under (app)/
 src/components/     shared interface pieces
 src/lib/            settings, routes, sign-in helpers, Supabase client
 src/proxy.ts        keeps sessions fresh and guards the signed-in pages

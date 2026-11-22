@@ -39,7 +39,11 @@ export function summarisePractice(events: EventRow[], messages: MessageRow[], da
     } else if (e.name === "check_answer") {
       const right = e.props.right === true ? 1 : 0;
       const bucket =
-        e.props.kind === "listen" ? s.listening : e.props.kind === "translate" ? s.translating : s.building;
+        e.props.kind === "listen"
+          ? s.listening
+          : e.props.kind === "translate" || e.props.kind === "pick"
+            ? s.translating
+            : s.building;
       bucket.total++;
       bucket.right += right;
     } else if (e.name === "voice_reply") {
