@@ -61,6 +61,19 @@ function stopEverything() {
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
 }
 
+/** Plays a recorded clip on its own (used by the tutor's voice mode). Resolves false if the browser blocks it. */
+export async function playAudio(url: string): Promise<boolean> {
+  stopEverything();
+  const element = new Audio(url);
+  playing = element;
+  try {
+    await element.play();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 const buttonClass =
   "inline-flex h-11 items-center gap-2 rounded-full border border-line px-4 text-sm font-medium disabled:opacity-40";
 

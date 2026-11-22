@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { endConversation, sendMessage } from "@/app/(app)/talk/actions";
 import type { ConversationMessage } from "@/lib/conversations";
-import { SpeakButtons } from "./speak-buttons";
+import { playAudio, SpeakButtons } from "./speak-buttons";
 import { VoiceInput } from "./voice-input";
 
 const CATEGORY: Record<string, { label: string; tone: string } | undefined> = {
@@ -135,6 +135,25 @@ export function TutorChat({ conversationId, personaName, hint, initial, ended, s
   const [error, setError] = useState<string | null>(null);
   const [finished, setFinished] = useState(ended);
   const [pending, startTransition] = useTransition();
+  // Voice mode: the tutor's replies play aloud by themselves (remembered on this device).
+  const [voiceMode, setVoiceMode] = useState(false);
+  useEffect(() => {
+    try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setVoiceMode(localStorage.getItem("polyglot.voiceMode") === "1");
+    } catch {
+      // Storage unavailable: stay off.
+    }
+  }, []);
+  function toggleVoiceMode() {
+    const next = !voiceMode;
+    setVoiceMode(next);
+    try {
+      localStorage.setItem("polyglot.voiceMode", next ? "1" : "0");
+    } catch {
+      // Not remembered; still works for this visit.
+    }
+  }
   const end = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -152,6 +171,8 @@ export function TutorChat({ conversationId, personaName, hint, initial, ended, s
       }
       setDraft("");
       setMessages((prev) => (said ? [...prev, result.learner, result.tutor] : [...prev, result.tutor]));
+      const clip = audioFor(result.tutor, audioEnabled);
+      if (voiceMode && clip) void playAudio(clip.normal);
     });
   }
 
@@ -169,6 +190,28 @@ export function TutorChat({ conversationId, personaName, hint, initial, ended, s
   return (
     <div className="flex flex-col">
       {hint ? <p className="mb-4 rounded-xl bg-accent-soft p-3 text-sm leading-relaxed">{hint}</p> : null}
+      {audioEnabled && !finished ? (
+        <button
+          type="button"
+          role="switch"
+          aria-checked={voiceMode}
+          onClick={toggleVoiceMode}
+          className="mb-4 flex w-full items-center justify-between rounded-xl border border-line bg-surface p-3 text-left text-sm"
+        >
+          <span>
+            <span className="block font-medium">Voice mode</span>
+            <span className="block text-muted">Replies play aloud by themselves. Answer with the mic.</span>
+          </span>
+          <span
+            aria-hidden="true"
+            className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${voiceMode ? "bg-accent" : "bg-line"}`}
+          >
+            <span
+              className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${voiceMode ? "left-[1.375rem]" : "left-0.5"}`}
+            />
+          </span>
+        </button>
+      ) : null}
 
       <div className="flex flex-col gap-3" aria-live="polite">
         {messages.map((m) =>

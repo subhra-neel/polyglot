@@ -448,7 +448,10 @@ async function configured() {
     await weak.waitFor();
     assert.match(await weak.textContent(), /\d+\/\d+/);
     await assertFitsScreen("me with weak spots");
-    step("Me lists the checked unit under Weak spots with its score");
+    await page.getByText(/^Practice · last 30 days$/).waitFor();
+    await page.getByText(/^Active on [1-9]\d* days?$/).waitFor();
+    assert.notEqual(await page.locator("li", { hasText: "Building sentences" }).getByText("not yet").count(), 1);
+    step("Me lists the checked unit under Weak spots with its score, and practice by skill");
 
     // AI tutor: the stand-in chat model opens the scene, corrects "nānu", and remembers it.
     await page.goto("/talk");
@@ -479,12 +482,18 @@ async function configured() {
     await shot("09-tutor-correction");
     step("a mistake gets a correction that explains why, and the scene carries on");
 
+    const speechBefore = mock.speechRequests.length;
+    await page.getByRole("switch", { name: /Voice mode/ }).click();
+    assert.equal(await page.getByRole("switch", { name: /Voice mode/ }).getAttribute("aria-checked"), "true");
     await say.fill("ondu kāfi koDi");
     await page.getByRole("button", { name: "Send" }).filter({ visible: true }).click();
     await page.getByText("sari. innēnu bēku?").filter({ visible: true }).waitFor();
     assert.equal(await page.getByRole("button", { name: /Correction/ }).filter({ visible: true }).count(), 1);
     await page.getByText("✓ Correct").filter({ visible: true }).waitFor();
-    step("a correct sentence is marked ✓ Correct");
+    for (let i = 0; i < 20 && mock.speechRequests.length === speechBefore; i++) await page.waitForTimeout(250);
+    assert.ok(mock.speechRequests.length > speechBefore, "voice mode played the reply");
+    await page.getByRole("switch", { name: /Voice mode/ }).click();
+    step("a correct sentence is marked ✓ Correct, and voice mode plays the reply aloud");
 
     await say.fill("ūTa martara");
     await page.getByRole("button", { name: "Send" }).filter({ visible: true }).click();

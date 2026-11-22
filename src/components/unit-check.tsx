@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { saveUnitCheck } from "@/app/(app)/learn/[unit]/check/actions";
+import { logPractice } from "@/app/actions/practice";
 import { type Question, typedMatches } from "@/lib/unit-check";
 import { SpeakButtons } from "./speak-buttons";
 
@@ -245,6 +246,7 @@ export function UnitCheck({ questions, unitSlug }: { questions: Question[]; unit
   const q = questions[index];
   const onDone = (r: Result) => {
     setAnswered(true);
+    void logPractice("check_answer", { kind: q.kind, right: r.right });
     if (r.right) setScore((s) => s + 1);
     else setMissed((m) => [...m, { id: q.sentenceId, roman: r.answer }]);
   };

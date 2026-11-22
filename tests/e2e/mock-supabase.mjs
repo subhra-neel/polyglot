@@ -247,6 +247,41 @@ export async function startMockSupabase(port) {
     }
 
     // Reading one tutor message, as the signed-in learner (row-level security applies).
+    // Practice events: insert and read the learner's own (row-level security applies).
+    if (url.pathname === "/rest/v1/events") {
+      const userId = sessions.get(token)?.id ?? null;
+      try {
+        if (request.method === "POST") {
+          const body = await readJson(request);
+          const rows = Array.isArray(body) ? body : [body];
+          await asUser(db, userId, async () => {
+            for (const r of rows) {
+              await db.query("insert into public.events (user_id, name, props) values ($1, $2, $3)", [r.user_id, r.name, r.props ?? {}]);
+            }
+          });
+          return send(201, null);
+        }
+        const names = (url.searchParams.get("name") ?? "").replace(/^in\.\(/, "").replace(/\)$/, "").split(",").filter(Boolean);
+        const since = (url.searchParams.get("created_at") ?? "").replace(/^gte\./, "") || "1970-01-01";
+        const rows = await asUser(db, userId, async () =>
+          (await db.query("select name, props, created_at from public.events where name = any($1) and created_at >= $2", [names, since])).rows,
+        );
+        return send(200, rows);
+      } catch (error) {
+        return send(400, { code: "42501", message: error.message });
+      }
+    }
+
+    // Learner messages for the practice summary.
+    if (url.pathname === "/rest/v1/messages" && request.method === "GET" && !url.searchParams.get("id")) {
+      const userId = sessions.get(token)?.id ?? null;
+      const since = (url.searchParams.get("created_at") ?? "").replace(/^gte\./, "") || "1970-01-01";
+      const rows = await asUser(db, userId, async () =>
+        (await db.query("select conversation_id, correction, created_at from public.messages where role = 'learner' and created_at >= $1", [since])).rows,
+      );
+      return send(200, rows);
+    }
+
     if (url.pathname === "/rest/v1/messages" && request.method === "GET") {
       const id = (url.searchParams.get("id") ?? "").replace(/^eq\./, "");
       const role = (url.searchParams.get("role") ?? "").replace(/^eq\./, "");
