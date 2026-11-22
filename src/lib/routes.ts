@@ -1,8 +1,8 @@
-/** Routes that need a signed-in learner. Everything under the five tabs. */
-export const APP_ROUTES = ["/today", "/learn", "/review", "/talk", "/build", "/me"] as const;
+/** Routes that need a signed-in learner: everything behind the tabs (/today now redirects home). */
+export const APP_ROUTES = ["/today", "/learn", "/practice", "/review", "/talk", "/build", "/me"] as const;
 
 export const SIGN_IN_ROUTE = "/sign-in";
-export const HOME_AFTER_SIGN_IN = "/today";
+export const HOME_AFTER_SIGN_IN = "/learn";
 export const FORGOT_PASSWORD_ROUTE = "/forgot-password";
 /** Where a password-reset email link lands, once the link has signed the learner in. */
 export const RESET_PASSWORD_ROUTE = "/reset-password";

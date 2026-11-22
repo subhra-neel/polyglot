@@ -4,52 +4,52 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Suspense, type ReactNode } from "react";
 
-type Tab = { href: string; label: string; icon: ReactNode };
+type Tab = { href: string; label: string; also?: string[]; icon: ReactNode };
 
 const stroke = {
   fill: "none",
   stroke: "currentColor",
-  strokeWidth: 1.75,
+  strokeWidth: 2,
   strokeLinecap: "round",
   strokeLinejoin: "round",
 } as const;
 
 function Icon({ children }: { children: ReactNode }) {
   return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true" {...stroke}>
+    <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden="true" {...stroke}>
       {children}
     </svg>
   );
 }
 
-const SIDE_TABS: Tab[] = [
-  {
-    href: "/today",
-    label: "Today",
-    icon: (
-      <Icon>
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4" />
-      </Icon>
-    ),
-  },
+const TABS: Tab[] = [
   {
     href: "/learn",
-    label: "Learn",
+    label: "Home",
     icon: (
       <Icon>
-        <path d="M12 6.5C10 5 7 4.5 4 5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V5c-3-.5-6 0-8 1.5zM12 6.5v13" />
+        <path d="M4 11.5 12 5l8 6.5V20a1 1 0 0 1-1 1h-4.5v-5.5h-5V21H5a1 1 0 0 1-1-1z" />
       </Icon>
     ),
   },
   {
-    href: "/build",
-    label: "Build",
+    href: "/practice",
+    label: "Practice",
+    also: ["/review", "/build"],
     icon: (
       <Icon>
-        <rect x="3.5" y="13.5" width="7" height="7" rx="1.5" />
-        <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" />
-        <rect x="8.5" y="3.5" width="7" height="7" rx="1.5" />
+        <path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6" />
+        <path d="M18 3v4h-4M6 21v-4h4" />
+      </Icon>
+    ),
+  },
+  {
+    href: "/talk",
+    label: "Tutor",
+    icon: (
+      <Icon>
+        <rect x="9" y="3" width="6" height="11" rx="3" />
+        <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" />
       </Icon>
     ),
   },
@@ -65,27 +65,13 @@ const SIDE_TABS: Tab[] = [
   },
 ];
 
-function isActive(pathname: string, href: string) {
-  return pathname === href || pathname.startsWith(`${href}/`);
-}
+const under = (pathname: string, href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
-function SideTab({ tab, active }: { tab: Tab; active: boolean }) {
-  return (
-    <Link
-      href={tab.href}
-      aria-current={active ? "page" : undefined}
-      className={`flex flex-1 flex-col items-center justify-center gap-1 py-2 text-xs font-medium ${
-        active ? "text-accent" : "text-muted"
-      }`}
-    >
-      {tab.icon}
-      {tab.label}
-    </Link>
-  );
-}
+/** Lessons and unit checks take the whole screen, like a focused task. */
+export const isFocusScreen = (pathname: string) => /^\/learn\/[^/]+\/[^/]+$/.test(pathname);
 
 /**
- * Five tabs. The tutor sits in the middle, one tap from anywhere.
+ * Four tabs: the path (Home), Practice, the Tutor and Me.
  *
  * On pages whose address is only known at request time (a lesson, say), the
  * bar first renders with no tab highlighted, then highlights once the
@@ -104,39 +90,26 @@ function TabBarWithPath() {
 }
 
 function TabBarView({ pathname }: { pathname: string }) {
-  const talkActive = isActive(pathname, "/talk");
-
+  if (isFocusScreen(pathname)) return null;
   return (
-    <nav
-      aria-label="Main"
-      className="fixed inset-x-0 bottom-0 z-10 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)]"
-    >
+    <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-10 border-t-2 border-line bg-surface pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto flex h-16 max-w-md items-stretch px-2">
-        <SideTab tab={SIDE_TABS[0]} active={isActive(pathname, SIDE_TABS[0].href)} />
-        <SideTab tab={SIDE_TABS[1]} active={isActive(pathname, SIDE_TABS[1].href)} />
-
-        <div className="flex flex-1 flex-col items-center justify-end pb-2.5">
-          <Link
-            href="/talk"
-            aria-current={talkActive ? "page" : undefined}
-            className="-mt-7 flex flex-col items-center gap-0.5"
-          >
-            <span
-              className={`flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-ink shadow-lg ring-4 ${
-                talkActive ? "ring-accent-soft" : "ring-paper"
+        {TABS.map((tab) => {
+          const active = under(pathname, tab.href) || (tab.also ?? []).some((h) => under(pathname, h));
+          return (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              aria-current={active ? "page" : undefined}
+              className={`flex flex-1 flex-col items-center justify-center gap-0.5 text-xs font-semibold ${
+                active ? "text-accent" : "text-muted"
               }`}
             >
-              <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden="true" {...stroke}>
-                <rect x="9" y="3" width="6" height="11" rx="3" />
-                <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" />
-              </svg>
-            </span>
-            <span className={`text-xs font-medium ${talkActive ? "text-accent" : "text-muted"}`}>Tutor</span>
-          </Link>
-        </div>
-
-        <SideTab tab={SIDE_TABS[2]} active={isActive(pathname, SIDE_TABS[2].href)} />
-        <SideTab tab={SIDE_TABS[3]} active={isActive(pathname, SIDE_TABS[3].href)} />
+              <span className={`flex h-8 w-12 items-center justify-center rounded-xl ${active ? "bg-accent-soft" : ""}`}>{tab.icon}</span>
+              {tab.label}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );
