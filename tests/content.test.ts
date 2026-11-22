@@ -3,7 +3,8 @@
  * generated SQL loaded into a real Postgres engine and read back through
  * the same database functions the app calls.
  */
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { PGlite } from "@electric-sql/pglite";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
@@ -107,6 +108,29 @@ describe("Kannada content files", () => {
 
   it("have no problems", () => {
     expect(problems).toEqual([]);
+  });
+
+  it("refuse a sentence id used in two units (it would silently move the sentence)", () => {
+    const dir = mkdtempSync(join(tmpdir(), "polyglot-content-"));
+    const greetings = readFileSync(join(ROOT, "content", "kn", "level1-unit1-greetings.yaml"), "utf8");
+    writeFileSync(join(dir, "level1-unit1-greetings.yaml"), greetings);
+    writeFileSync(
+      join(dir, "level4-unit9-copy.yaml"),
+      [
+        "language: kn",
+        "level: 4",
+        "unit: copy",
+        "unit_title: Copy",
+        "unit_position: 9",
+        "lessons:",
+        "  - slug: one",
+        "    title: One",
+        "    sentences:",
+        "      - { id: its-okay, roman: tondre illa, script: ತೊಂದ್ರೆ ಇಲ್ಲ, meaning: x, why: x, status: draft, tokens: [{ word: tondre, gloss: x }, { word: illa, gloss: x }] }",
+      ].join("\n"),
+    );
+    const result = loadContentDir(dir);
+    expect(result.problems.map((p) => p.message)).toEqual(['sentence id "its-okay" is already used in unit "greetings"']);
   });
 
   it("match the committed supabase/content.sql (run `npm run content:build`)", () => {

@@ -99,12 +99,23 @@ export function loadContentDir(dir: string): { units: UnitFile[]; problems: Prob
   }
   // Lessons are found by unit slug alone (/learn/<unit>), so slugs must be unique across levels.
   const seen = new Map<string, number>();
+  const sentenceOwner = new Map<string, string>();
   for (const unit of units) {
     const key = `${unit.language}/${unit.unit}`;
     if (seen.has(key)) {
       problems.push({ file: unit.unit, where: "unit", message: `unit slug "${unit.unit}" is used in levels ${seen.get(key)} and ${unit.level}` });
     }
     seen.set(key, unit.level);
+    // Sentence ids are database keys: a repeat would silently move the sentence to the later unit.
+    for (const sentence of [...unit.lessons.flatMap((l) => l.sentences), ...unit.alternatives]) {
+      const id = `${unit.language}/${sentence.id}`;
+      const owner = sentenceOwner.get(id);
+      if (owner) {
+        problems.push({ file: unit.unit, where: sentence.id, message: `sentence id "${sentence.id}" is already used in unit "${owner}"` });
+      } else {
+        sentenceOwner.set(id, unit.unit);
+      }
+    }
     if (unit.level > 1 && !(unit.unit_title && unit.unit_position)) {
       problems.push({ file: unit.unit, where: "unit", message: "units after Level 1 need unit_title and unit_position" });
     }

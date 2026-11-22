@@ -103,17 +103,19 @@ async function configured() {
 
     await page.getByText("Start here").waitFor();
     await page.getByRole("link", { name: "Start the first lesson" }).waitFor();
-    assert.equal(await page.locator("h3[id^=unit-]").count(), 21);
+    assert.equal(await page.locator("h3[id^=unit-]").count(), 27);
     await page.getByRole("heading", { name: "Level 1 · Absolute beginner" }).waitFor();
     await page.getByRole("heading", { name: "Level 2 · Basic communication" }).waitFor();
     await page.getByRole("heading", { name: "Level 3 · Conversational" }).waitFor();
+    await page.getByRole("heading", { name: "Level 4 · Intermediate" }).waitFor();
+    await page.getByRole("link", { name: "Lesson: Because" }).waitFor();
     await page.getByRole("link", { name: "Lesson: Hello and how are you (next)" }).waitFor();
-    assert.equal(await page.getByRole("link", { name: /^Unit check:/ }).count(), 21);
-    assert.equal(await page.getByRole("button", { name: /^Talk to the tutor:/ }).count(), 11);
+    assert.equal(await page.getByRole("link", { name: /^Unit check:/ }).count(), 27);
+    assert.equal(await page.getByRole("button", { name: /^Talk to the tutor:/ }).count(), 13);
     await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Home", exact: true }).waitFor();
     await assertFitsScreen("home path");
     await shot("04-home");
-    step("Home is one path: a Start card, then 21 units over three levels, each with lessons, a unit check and tutor scenes");
+    step("Home is one path: a Start card, then 27 units over four levels, each with lessons, a unit check and tutor scenes");
 
     await page.getByRole("link", { name: "Guide" }).first().click();
     await page.waitForURL("**/learn/greetings");
