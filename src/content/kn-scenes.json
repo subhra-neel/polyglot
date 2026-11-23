@@ -126,5 +126,13 @@
       "sorting-it-out",
       "because-so"
     ]
+  },
+  {
+    "slug": "old-friend-at-the-darshini",
+    "title": "Bumping into an old friend",
+    "min_level": 5,
+    "uses_units": [
+      "bengaluru-slang"
+    ]
   }
 ]

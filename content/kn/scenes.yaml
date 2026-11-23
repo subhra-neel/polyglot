@@ -236,3 +236,22 @@ scenes:
       - { roman: gēT hatra iri, script: ಗೇಟ್ ಹತ್ರ ಇರಿ }
     min_level: 4
     uses_units: [deliveries, sorting-it-out, because-so]
+
+  - slug: old-friend-at-the-darshini
+    title: Bumping into an old friend
+    persona: >-
+      Kiran, your old college friend, delighted to run into you at a darshini
+      in Malleshwaram. Loud, warm, full of Bengaluru slang (guru, maga, sakkat,
+      bombāT, sīn illa, kirik), jumps between topics: the food, a new movie, a
+      friend who is always kirik, and whether you can give him a drop.
+    setting: Standing at a darshini counter, coffee in hand.
+    goals: >-
+      Greet him like a local, talk about the food and a movie with sakkat or
+      bombāT, react to his gossip, brush off a small problem with sīn illa,
+      and say whether you can drop him near the metro.
+    try:
+      - { roman: "ēn guru, ēn samāchāra?", script: "ಏನ್ ಗುರು, ಏನ್ ಸಮಾಚಾರ?" }
+      - { roman: ūTa bombāT āgittu, script: ಊಟ ಬೊಂಬಾಟ್ ಆಗಿತ್ತು }
+      - { roman: "ēnu prāblam? sīn illa", script: "ಏನು ಪ್ರಾಬ್ಲಮ್? ಸೀನ್ ಇಲ್ಲ" }
+    min_level: 5
+    uses_units: [bengaluru-slang]

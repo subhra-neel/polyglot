@@ -1,0 +1,144 @@
+# Kannada · Level 3 · Unit 7: Chores, haircuts, tailoring
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-home   swalpa.pages.dev/10_household_and_logistics (Kasa haaki,
+#                 Kasam gudisu, Paathre tolee, Batte ogey, Bagilu tegey,
+#                 Kudlu jaasthi ide, Chikkadagi maadi, Gadda tegeyiri,
+#                 Alathe thogoli)
+#   SWALPA-history swalpa.pages.dev/01_history_and_nuances (add -i or -ri to a
+#                 verb for respect: baa → banni, hogu → hogi)
+
+language: kn
+level: 3
+unit: chores-and-salon
+unit_title: "Chores, haircuts, tailoring"
+unit_position: 7
+
+lessons:
+  - slug: around-the-house
+    title: Around the house
+    sentences:
+      - id: please-throw-out-the-rubbish
+        roman: kasa hāki
+        script: ಕಸ ಹಾಕಿ
+        meaning: Please throw out the rubbish
+        why: >-
+          kasa is rubbish; hāku is "put, throw". The -i ending makes it a polite
+          request, the way you'd ask anyone who helps at home.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-home, SWALPA-history]
+        tokens:
+          - { word: "kasa", gloss: "rubbish" }
+          - { word: "hāki", gloss: "please put (out)" }
+      - id: please-sweep
+        roman: kasa guDisi
+        script: ಕಸ ಗುಡಿಸಿ
+        meaning: Please sweep (the floor)
+        why: >-
+          guDisu is "sweep"; you sweep the kasa, so the rubbish word comes
+          first. -i again for politeness.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-home, SWALPA-history]
+        tokens:
+          - { word: "kasa", gloss: "rubbish, dust" }
+          - { word: "guDisi", gloss: "please sweep" }
+      - id: please-wash-the-vessels
+        roman: pātre toLeyiri
+        script: ಪಾತ್ರೆ ತೊಳೆಯಿರಿ
+        meaning: Please wash the dishes
+        why: >-
+          toLe is "wash (by scrubbing)", for hard things like pots and plates.
+          For a verb ending in -e, respect is -yiri: toLe → toLeyiri.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-home, SWALPA-history]
+        tokens:
+          - { word: "pātre", gloss: "vessels, dishes" }
+          - { word: "toLeyiri", gloss: "please wash" }
+      - id: please-wash-the-clothes
+        roman: baTTe ogeyiri
+        script: ಬಟ್ಟೆ ಒಗೆಯಿರಿ
+        meaning: Please wash the clothes
+        why: >-
+          Kannada has a separate verb for washing cloth: oge, not toLe. Same
+          polite -yiri.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-home, SWALPA-history]
+        tokens:
+          - { word: "baTTe", gloss: "clothes" }
+          - { word: "ogeyiri", gloss: "please wash (cloth)" }
+      - id: please-open-the-door
+        roman: bāgilu tegeyiri
+        script: ಬಾಗಿಲು ತೆಗೆಯಿರಿ
+        meaning: Please open the door
+        why: >-
+          tege is "open, take off". To a friend: bāgilu tege. To anyone else:
+          tegeyiri.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-home, SWALPA-history]
+        tokens:
+          - { word: "bāgilu", gloss: "door" }
+          - { word: "tegeyiri", gloss: "please open" }
+
+  - slug: salon-and-tailor
+    title: At the salon and the tailor
+    sentences:
+      - id: my-hair-is-too-long
+        roman: kūdlu jāsti ide
+        script: ಕೂದ್ಲು ಜಾಸ್ತಿ ಇದೆ
+        meaning: My hair's got too long
+        why: >-
+          "Hair is too much". jāsti is "a lot, too much", the opposite of kammi.
+          Say it as you sit in the barber's chair.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-home]
+        tokens:
+          - { word: "kūdlu", gloss: "hair" }
+          - { word: "jāsti", gloss: "too much" }
+          - { word: "ide", gloss: "is" }
+      - id: make-it-shorter
+        roman: chikkadāgi māDi
+        script: ಚಿಕ್ಕದಾಗಿ ಮಾಡಿ
+        meaning: Make it shorter, please
+        why: >-
+          chikka is "small"; chikkadāgi is "smaller, short". Works at the
+          barber's and at the tailor's.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-home]
+        tokens:
+          - { word: "chikkadāgi", gloss: "short, small", breakdown: "chikka (small) + -dāgi (in a way)" }
+          - { word: "māDi", gloss: "please make" }
+      - id: please-shave
+        roman: gaDDa tegeyiri
+        script: ಗಡ್ಡ ತೆಗೆಯಿರಿ
+        meaning: Please shave off the beard
+        why: >-
+          The same tegeyiri as opening a door: here it is "take off".
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-home]
+        tokens:
+          - { word: "gaDDa", gloss: "beard" }
+          - { word: "tegeyiri", gloss: "please take off" }
+      - id: please-take-measurements
+        roman: aLate tagoLLi
+        script: ಅಳತೆ ತಗೊಳ್ಳಿ
+        meaning: Please take the measurements
+        why: >-
+          aLate is "measurement". tagoLLi is "please take", a cousin of
+          tagōtīni (I'll take it).
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-home]
+        tokens:
+          - { word: "aLate", gloss: "measurement" }
+          - { word: "tagoLLi", gloss: "please take" }

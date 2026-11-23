@@ -1,0 +1,161 @@
+# Kannada · Level 5 · Unit 1: Bengaluru street talk
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-slang  swalpa.pages.dev/07_slang (Yen guru, yen samachar?; Oota aytha
+#                 guru?; Nanna sisya avnu; Metro hathira drop kodi; Movie sakkath
+#                 agithu; Bombaat; Dabba service; Avnu thumba kirik; Eno problem?
+#                 Scene illa)
+#
+# Left out on purpose: "off aago" (rude) and "full tight" (drunk).
+
+language: kn
+level: 5
+unit: bengaluru-slang
+unit_title: "Bengaluru street talk"
+unit_position: 1
+
+lessons:
+  - slug: talking-like-a-local
+    title: Talking like a local
+    sentences:
+      - id: whats-up-boss
+        roman: ēn guru, ēn samāchāra?
+        script: ಏನ್ ಗುರು, ಏನ್ ಸಮಾಚಾರ?
+        meaning: Hey boss, what's new?
+        why: >-
+          guru (teacher) is Bengaluru's friendly "boss" for anyone: auto drivers,
+          waiters, the man at the counter. ēn is ēnu said short.
+        register: colloquial
+        formality: casual
+        status: source_checked
+        sources: [SWALPA-slang]
+        tokens:
+          - { word: "ēn", gloss: "what" }
+          - { word: "guru", gloss: "boss (friendly)" }
+          - { word: "ēn", gloss: "what" }
+          - { word: "samāchāra", gloss: "news" }
+      - id: had-lunch-boss
+        roman: ūTa āytā guru?
+        script: ಊಟ ಆಯ್ತಾ ಗುರು?
+        meaning: Had your lunch, boss?
+        why: >-
+          The Level 1 ūTa āytā? with guru on the end. It's a greeting more than
+          a question: nobody wants a menu.
+        register: colloquial
+        formality: casual
+        status: source_checked
+        sources: [SWALPA-slang]
+        tokens:
+          - { word: "ūTa", gloss: "meal" }
+          - { word: "āytā", gloss: "is (it) done?" }
+          - { word: "guru", gloss: "boss (friendly)" }
+      - id: hes-my-pal
+        roman: nanna shishya avnu
+        script: ನನ್ನ ಶಿಷ್ಯ ಅವ್ನು
+        meaning: He's my pal
+        why: >-
+          shishya means "student, disciple", used jokingly for a younger friend
+          or sidekick. Putting avnu (he) last is how people talk.
+        register: colloquial
+        formality: casual
+        status: source_checked
+        sources: [SWALPA-slang]
+        tokens:
+          - { word: "nanna", gloss: "my" }
+          - { word: "shishya", gloss: "pal (lit. student)" }
+          - { word: "avnu", gloss: "he" }
+      - id: drop-me-near-the-metro
+        roman: meTrō hatra Drāp koDi
+        script: ಮೆಟ್ರೋ ಹತ್ರ ಡ್ರಾಪ್ ಕೊಡಿ
+        meaning: Drop me near the metro, please
+        why: >-
+          "Give a drop": Drāp koDi asks for a lift. hatra is "near", as in gēT
+          hatra.
+        register: colloquial
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-slang]
+        tokens:
+          - { word: "meTrō", gloss: "metro (English word)" }
+          - { word: "hatra", gloss: "near" }
+          - { word: "Drāp", gloss: "drop (English word)" }
+          - { word: "koDi", gloss: "please give" }
+
+  - slug: great-useless-trouble
+    title: Great, useless, trouble
+    sentences:
+      - id: the-movie-was-fantastic
+        roman: mūvi sakkat āgittu
+        script: ಮೂವಿ ಸಕ್ಕತ್ ಆಗಿತ್ತು
+        meaning: The movie was fantastic
+        why: >-
+          sakkat is "super, awesome". āgittu is "had been". Swap the noun:
+          ūTa sakkat āgittu, the food was fantastic.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-slang]
+        tokens:
+          - { word: "mūvi", gloss: "movie (English word)" }
+          - { word: "sakkat", gloss: "fantastic" }
+          - { word: "āgittu", gloss: "was" }
+      - id: the-food-was-superb
+        roman: ūTa bombāT āgittu
+        script: ಊಟ ಬೊಂಬಾಟ್ ಆಗಿತ್ತು
+        meaning: The food was superb
+        why: >-
+          bombāT is sakkat's twin: "fantastic". Food and films get both.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-slang]
+        tokens:
+          - { word: "ūTa", gloss: "meal" }
+          - { word: "bombāT", gloss: "superb" }
+          - { word: "āgittu", gloss: "was" }
+      - id: useless-service
+        roman: idu Dabba sarvīs
+        script: ಇದು ಡಬ್ಬ ಸರ್ವೀಸ್
+        meaning: This is useless service
+        why: >-
+          Dabba is a tin box: something broken or worthless. A complaint, but
+          a casual one, not a fight.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-slang]
+        tokens:
+          - { word: "idu", gloss: "this" }
+          - { word: "Dabba", gloss: "useless (lit. tin box)" }
+          - { word: "sarvīs", gloss: "service (English word)" }
+      - id: hes-a-real-pain
+        roman: avnu tumbā kirik
+        script: ಅವ್ನು ತುಂಬಾ ಕಿರಿಕ್
+        meaning: He's a real pain
+        why: >-
+          kirik is trouble, a nuisance, an argument. Say it about someone, not
+          to them.
+        register: colloquial
+        formality: casual
+        status: source_checked
+        sources: [SWALPA-slang]
+        tokens:
+          - { word: "avnu", gloss: "he" }
+          - { word: "tumbā", gloss: "very" }
+          - { word: "kirik", gloss: "trouble, a pain" }
+      - id: no-issue-at-all
+        roman: ēnu prāblam? sīn illa
+        script: ಏನು ಪ್ರಾಬ್ಲಮ್? ಸೀನ್ ಇಲ್ಲ
+        meaning: What problem? No issue at all
+        why: >-
+          "There's no scene": nothing to worry about. Brushing a problem off,
+          Bengaluru style.
+        register: colloquial
+        formality: casual
+        status: source_checked
+        sources: [SWALPA-slang]
+        tokens:
+          - { word: "ēnu", gloss: "what" }
+          - { word: "prāblam", gloss: "problem (English word)" }
+          - { word: "sīn", gloss: "scene, issue (English word)" }
+          - { word: "illa", gloss: "isn't there" }
