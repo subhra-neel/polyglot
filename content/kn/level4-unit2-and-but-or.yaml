@@ -1,0 +1,129 @@
+# Kannada · Level 4 · Unit 2: And, but, or: joining ideas
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-grammar    swalpa.pages.dev/05_verbs_and_grammar (Idli mattu Vada,
+#                     Coffee athava Tea?, Aamele matthe?, Nodi aamele heli,
+#                     Naanu bande, aadare neevu irilla)
+#   SWALPA-social     swalpa.pages.dev/03_social_interactions (swalpa busy iddini,
+#                     nanage kelsa ide)
+#   SWALPA-conflict   swalpa.pages.dev/08_travel_and_conflict (parvagilla)
+#   Manual-18         Zydenbos, A Manual of Modern Kannada (Heidelberg 2020),
+#                     Lesson 18 (ādare "but")
+#   Manual-colloquial Zydenbos, "Colloquialisms" (-are → -re: ādare → ādre)
+
+language: kn
+level: 4
+unit: and-but-or
+unit_title: "And, but, or: joining ideas"
+unit_position: 2
+
+lessons:
+  - slug: and-or
+    title: And, or, then
+    sentences:
+      - id: idli-and-vada
+        roman: iDli mattu vaDe
+        script: ಇಡ್ಲಿ ಮತ್ತು ವಡೆ
+        meaning: Idli and vada
+        why: mattu is "and" between two things, in the same place as English.
+        status: source_checked
+        sources: [SWALPA-grammar]
+        tokens:
+          - { word: "iDli", gloss: "idli" }
+          - { word: "mattu", gloss: "and" }
+          - { word: "vaDe", gloss: "vada" }
+      - id: coffee-or-tea
+        roman: kāfi athavā Tī?
+        script: ಕಾಫಿ ಅಥವಾ ಟೀ?
+        meaning: Coffee or tea?
+        why: >-
+          athavā is "or". No question word needed: a rising voice on Tī makes it
+          a question.
+        status: source_checked
+        sources: [SWALPA-grammar]
+        tokens:
+          - { word: "kāfi", gloss: "coffee" }
+          - { word: "athavā", gloss: "or" }
+          - { word: "Tī", gloss: "tea" }
+      - id: and-then-what
+        roman: āmēle matte?
+        script: ಆಮೇಲೆ ಮತ್ತೆ?
+        meaning: And then what?
+        why: >-
+          āmēle (after that) + matte (then, again). What you say to keep
+          someone's story going.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-grammar]
+        tokens:
+          - { word: "āmēle", gloss: "after that" }
+          - { word: "matte", gloss: "then, again" }
+      - id: look-then-tell-me
+        roman: nōDi, āmēle hēLi
+        script: ನೋಡಿ, ಆಮೇಲೆ ಹೇಳಿ
+        meaning: Have a look, then tell me
+        why: >-
+          Two polite requests (the -i ending) joined by āmēle, "then". Chain as
+          many as you like.
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-grammar]
+        tokens:
+          - { word: "nōDi", gloss: "please look" }
+          - { word: "āmēle", gloss: "then" }
+          - { word: "hēLi", gloss: "please tell" }
+
+  - slug: but
+    title: But
+    sentences:
+      - id: i-came-but-you-werent-there
+        roman: nānu bande, ādre nīvu irlilla
+        script: ನಾನು ಬಂದೆ, ಆದ್ರೆ ನೀವು ಇರ್ಲಿಲ್ಲ
+        meaning: I came, but you weren't there
+        why: >-
+          ādre is "but" (written ādare). It starts the second half, just like
+          English. irlilla is "weren't there", the past of illa.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-grammar, Manual-18, Manual-colloquial]
+        tokens:
+          - { word: "nānu", gloss: "I" }
+          - { word: "bande", gloss: "came" }
+          - { word: "ādre", gloss: "but" }
+          - { word: "nīvu", gloss: "you (respectful)" }
+          - { word: "irlilla", gloss: "weren't there" }
+      - id: busy-but-go-ahead
+        roman: svalpa byusi iddīni, ādre hēLi
+        script: ಸ್ವಲ್ಪ ಬ್ಯುಸಿ ಇದ್ದೀನಿ, ಆದ್ರೆ ಹೇಳಿ
+        meaning: I'm a bit busy, but go ahead
+        why: >-
+          Unit 1's "I'm a bit busy" + ādre + hēLi (please tell). Busy, but
+          still kind.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-social, SWALPA-grammar]
+        tokens:
+          - { word: "svalpa", gloss: "a little" }
+          - { word: "byusi", gloss: "busy (English word)" }
+          - { word: "iddīni", gloss: "I am" }
+          - { word: "ādre", gloss: "but" }
+          - { word: "hēLi", gloss: "please tell" }
+      - id: work-but-its-fine
+        roman: nanage kelsa ide, ādre paravāgilla
+        script: ನನಗೆ ಕೆಲ್ಸ ಇದೆ, ಆದ್ರೆ ಪರವಾಗಿಲ್ಲ
+        meaning: I have work, but it's fine
+        why: >-
+          paravāgilla (Level 1) is "it's okay". After ādre it means "but I can
+          manage".
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-social, SWALPA-conflict, SWALPA-grammar]
+        tokens:
+          - { word: "nanage", gloss: "to me" }
+          - { word: "kelsa", gloss: "work" }
+          - { word: "ide", gloss: "is there" }
+          - { word: "ādre", gloss: "but" }
+          - { word: "paravāgilla", gloss: "it's okay" }

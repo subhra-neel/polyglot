@@ -105,5 +105,26 @@
       "bargaining",
       "describing"
     ]
+  },
+  {
+    "slug": "colleague-needs-help",
+    "title": "A colleague needs a hand",
+    "min_level": 4,
+    "uses_units": [
+      "at-work",
+      "and-but-or",
+      "because-so",
+      "if"
+    ]
+  },
+  {
+    "slug": "lost-delivery-rider",
+    "title": "The delivery rider can't find you",
+    "min_level": 4,
+    "uses_units": [
+      "deliveries",
+      "sorting-it-out",
+      "because-so"
+    ]
   }
 ]

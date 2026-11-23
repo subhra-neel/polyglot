@@ -1,0 +1,108 @@
+# Kannada · Level 4 · Unit 1: At work: busy, meetings, done
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-social     swalpa.pages.dev/03_social_interactions (nanage kelsa ide,
+#                     kelsa mugithu, meeting mugithu, meeting-ge nade,
+#                     swalpa busy iddini)
+#   SWALPA-logistics  swalpa.pages.dev/09_everyday_logistics_and_services
+#                     (naanu illi kelsa maadtheeni)
+#   Manual-colloquial Zydenbos, A Manual of Modern Kannada (Heidelberg 2020),
+#                     "Colloquialisms": written -ēne → spoken -īni
+
+language: kn
+level: 4
+unit: at-work
+unit_title: "At work: busy, meetings, done"
+unit_position: 1
+
+lessons:
+  - slug: busy-or-free
+    title: Busy or free?
+    sentences:
+      - id: i-have-work
+        roman: nanage kelsa ide
+        script: ನನಗೆ ಕೆಲ್ಸ ಇದೆ
+        meaning: I have work (to do)
+        why: >-
+          The same "to me, … is there" frame as nanage jvara ide: there is no
+          verb "have". Say it to turn down a plan without saying no.
+        status: source_checked
+        sources: [SWALPA-social]
+        tokens:
+          - { word: "nanage", gloss: "to me" }
+          - { word: "kelsa", gloss: "work" }
+          - { word: "ide", gloss: "is there" }
+      - id: im-a-bit-busy
+        roman: svalpa byusi iddīni
+        script: ಸ್ವಲ್ಪ ಬ್ಯುಸಿ ಇದ್ದೀನಿ
+        meaning: I'm a bit busy
+        why: >-
+          byusi is the English "busy", used as is. iddīni is "I am", as in
+          chennāgiddīni. svalpa (a little) softens it, so it never sounds rude.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-social]
+        tokens:
+          - { word: "svalpa", gloss: "a little" }
+          - { word: "byusi", gloss: "busy (English word)" }
+          - { word: "iddīni", gloss: "I am" }
+      - id: the-meeting-is-over
+        roman: mīTing mugītu
+        script: ಮೀಟಿಂಗ್ ಮುಗೀತು
+        meaning: The meeting's over
+        why: >-
+          mugītu is "got finished", the spoken form of mugiyitu. Anything can go
+          in front: klās mugītu, ūTa mugītu.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-social]
+        tokens:
+          - { word: "mīTing", gloss: "meeting (English word)" }
+          - { word: "mugītu", gloss: "got finished" }
+      - id: work-is-done
+        roman: kelsa mugītu
+        script: ಕೆಲ್ಸ ಮುಗೀತು
+        meaning: Work's done (I'm finished)
+        why: The same mugītu, with kelsa. The happiest sentence of the day.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-social]
+        tokens:
+          - { word: "kelsa", gloss: "work" }
+          - { word: "mugītu", gloss: "got finished" }
+
+  - slug: coming-and-going
+    title: Coming and going
+    sentences:
+      - id: i-work-here
+        roman: nānu illi kelsa māDtīni
+        script: ನಾನು ಇಲ್ಲಿ ಕೆಲ್ಸ ಮಾಡ್ತೀನಿ
+        meaning: I work here
+        why: >-
+          kelsa māDu is "do work". māDtīni is "I do" (written māDuttēne). Handy
+          with a new security guard at the office gate.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-logistics, Manual-colloquial]
+        tokens:
+          - { word: "nānu", gloss: "I" }
+          - { word: "illi", gloss: "here" }
+          - { word: "kelsa", gloss: "work" }
+          - { word: "māDtīni", gloss: "I do" }
+      - id: lets-go-to-the-meeting
+        roman: mīTingge naDe
+        script: ಮೀಟಿಂಗ್ಗೆ ನಡೆ
+        meaning: Come on, let's go to the meeting
+        why: >-
+          -ge is "to", as in manege (to home). naDe (walk) is a casual nudge to a
+          colleague you know well.
+        register: colloquial
+        formality: casual
+        status: source_checked
+        sources: [SWALPA-social]
+        tokens:
+          - { word: "mīTingge", gloss: "to the meeting", breakdown: "mīTing + ge (to)" }
+          - { word: "naDe", gloss: "walk, come on" }

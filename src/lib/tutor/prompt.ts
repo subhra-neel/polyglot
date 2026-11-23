@@ -16,7 +16,7 @@ const LEVEL_STYLE: Record<number, string> = {
   1: "Pitch: absolute beginner. Short, everyday lines (about 2 to 7 words), one idea at a time, mostly words from the studied sentences. Still sound like a real person, not a textbook.",
   2: "Pitch: basic. Short natural lines, everyday words, simple past (hōde, bande, māDide) and now/next (-tīni) forms.",
   3: "Pitch: conversational. Normal everyday sentences, the way people actually talk in shops, homes and streets. Two short sentences in one turn are fine.",
-  4: "Pitch: intermediate. Speak naturally, with some longer sentences and the odd idiom.",
+  4: "Pitch: intermediate. Speak naturally, joining ideas the way people do: ādre (but), yākandre (because), adakke (so), -dre (if), with the odd idiom. Two or three short sentences in one turn are fine.",
   5: "Pitch: advanced. Speak naturally and at normal speed, with idioms where natural.",
 };
 

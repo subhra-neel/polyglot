@@ -1,0 +1,92 @@
+# Kannada · Level 4 · Unit 6: Sorting it out: firm but calm
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-conflict   swalpa.pages.dev/08_travel_and_conflict (Meter rate kodthini,
+#                     Nanna thappu illa, Idu mosa, Thondre illa / Parvagilla)
+#   SWALPA-repairs    swalpa.pages.dev/09_everyday_logistics_and_services
+#                     (Swalpa adjust maadi)
+
+language: kn
+level: 4
+unit: sorting-it-out
+unit_title: "Sorting it out: firm but calm"
+unit_position: 6
+
+lessons:
+  - slug: standing-firm
+    title: Standing firm
+    sentences:
+      - id: ill-pay-the-meter-rate
+        roman: mīTar rēT koDtīni
+        script: ಮೀಟರ್ ರೇಟ್ ಕೊಡ್ತೀನಿ
+        meaning: I'll pay the meter rate
+        why: >-
+          koDtīni is "I'll give". Calm and clear: you are not refusing, you are
+          naming the fair price. Say it before you get in.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-conflict]
+        tokens:
+          - { word: "mīTar", gloss: "meter (English word)" }
+          - { word: "rēT", gloss: "rate (English word)" }
+          - { word: "koDtīni", gloss: "I'll give" }
+      - id: its-not-my-fault
+        roman: nanna tappu illa
+        script: ನನ್ನ ತಪ್ಪು ಇಲ್ಲ
+        meaning: It's not my fault
+        why: >-
+          "My mistake isn't there". tappu is "mistake". Firm, for when you're
+          blamed for something you didn't do.
+        status: source_checked
+        sources: [SWALPA-conflict]
+        tokens:
+          - { word: "nanna", gloss: "my" }
+          - { word: "tappu", gloss: "mistake, fault" }
+          - { word: "illa", gloss: "isn't there" }
+      - id: this-is-cheating
+        roman: idu mōsa
+        script: ಇದು ಮೋಸ
+        meaning: This is cheating
+        why: >-
+          Strong: mōsa means fraud, so it raises the temperature. Keep it for
+          when someone is clearly cheating you.
+        status: source_checked
+        sources: [SWALPA-conflict]
+        tokens:
+          - { word: "idu", gloss: "this" }
+          - { word: "mōsa", gloss: "cheating, fraud" }
+
+  - slug: calming-it-down
+    title: Calming it down
+    sentences:
+      - id: no-trouble
+        roman: tondre illa
+        script: ತೊಂದ್ರೆ ಇಲ್ಲ
+        meaning: No trouble, it's fine
+        why: >-
+          tondre (trouble) + illa. Like paravāgilla, it ends small arguments: a
+          bump in the lift, a late delivery. Said with a smile.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-conflict]
+        tokens:
+          - { word: "tondre", gloss: "trouble" }
+          - { word: "illa", gloss: "isn't there" }
+      - id: please-adjust-a-little
+        roman: svalpa aDjasT māDi
+        script: ಸ್ವಲ್ಪ ಅಡ್ಜಸ್ಟ್ ಮಾಡಿ
+        meaning: Please adjust a little (meet me halfway)
+        why: >-
+          The Bengaluru way to ask someone to give a little: on price, on space,
+          on time. The English "adjust" + māDi (please do).
+        register: colloquial
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-repairs]
+        tokens:
+          - { word: "svalpa", gloss: "a little" }
+          - { word: "aDjasT", gloss: "adjust (English word)" }
+          - { word: "māDi", gloss: "please do" }

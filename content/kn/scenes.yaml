@@ -198,3 +198,41 @@ scenes:
       - { roman: tumbā jāsti āytu, script: ತುಂಬಾ ಜಾಸ್ತಿ ಆಯ್ತು }
     min_level: 3
     uses_units: [home-problems, bargaining, describing]
+
+  - slug: colleague-needs-help
+    title: A colleague needs a hand
+    persona: >-
+      Shruthi, a friendly colleague at a Bengaluru IT office, a little stressed
+      about a deadline. Chatty, uses English work words (meeting, deadline,
+      mail) inside casual Bengaluru Kannada, like real offices do.
+    setting: She stops at your desk in the afternoon.
+    goals: >-
+      She asks if you have a moment and wants help with something. The learner
+      says they are a bit busy but listens, gives a reason with yākandre or
+      adakke, makes a plan with -dre (if you have time, if the meeting ends),
+      and agrees on when to meet.
+    try:
+      - { roman: "svalpa byusi iddīni, ādre hēLi", script: "ಸ್ವಲ್ಪ ಬ್ಯುಸಿ ಇದ್ದೀನಿ, ಆದ್ರೆ ಹೇಳಿ" }
+      - { roman: "nanage kelsa ide, adakke nāLe sigōNa", script: "ನನಗೆ ಕೆಲ್ಸ ಇದೆ, ಅದಕ್ಕೆ ನಾಳೆ ಸಿಗೋಣ" }
+      - { roman: "Taim idre, nāLe sigōNa", script: "ಟೈಮ್ ಇದ್ರೆ, ನಾಳೆ ಸಿಗೋಣ" }
+    min_level: 4
+    uses_units: [at-work, and-but-or, because-so, if]
+
+  - slug: lost-delivery-rider
+    title: The delivery rider can't find you
+    persona: >-
+      Naveen, a food-delivery rider phoning from his bike near your apartment.
+      In a hurry, a bit lost, asks short questions. When he finally arrives he
+      wants extra money for the long wait; he backs down if the learner stays
+      calm and firm. Speaks fast, casual Bengaluru Kannada.
+    setting: Your phone rings. It's the rider, and he can't find the building.
+    goals: >-
+      Tell him you've sent the location, say you've paid online, tell him to
+      wait at (or leave it at) the gate, say you're coming right now, refuse
+      the extra charge politely, and end things calmly.
+    try:
+      - { roman: lokēshan kaLsiddīni, script: ಲೊಕೇಶನ್ ಕಳ್ಸಿದ್ದೀನಿ }
+      - { roman: ānlain pē māDiddīni, script: ಆನ್ಲೈನ್ ಪೇ ಮಾಡಿದ್ದೀನಿ }
+      - { roman: gēT hatra iri, script: ಗೇಟ್ ಹತ್ರ ಇರಿ }
+    min_level: 4
+    uses_units: [deliveries, sorting-it-out, because-so]

@@ -1,0 +1,122 @@
+# Kannada · Level 4 · Unit 4: If you go, I'll come: saying "if"
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-grammar    swalpa.pages.dev/05_verbs_and_grammar (Neenu hodre, naanu
+#                     barthini; Barthini)
+#   SWALPA-social     swalpa.pages.dev/03_social_interactions (naale sigona)
+#   SWALPA-logistics  swalpa.pages.dev/09_everyday_logistics_and_services (Time ideya?)
+#   Manual-18         Zydenbos, A Manual of Modern Kannada (Heidelberg 2020),
+#                     Lesson 18: conditional -are ("avanu baṃdare nānū baruttēne",
+#                     "amma karedare nīnu takṣaṇa hōgabēku"), concessive -arū,
+#                     hāgādare "in that case"
+#   Manual-colloquial Zydenbos, "Colloquialisms" (māḍidare → māḍidre,
+#                     karedarū → karedrū, baruttēne → baruttīni)
+
+language: kn
+level: 4
+unit: if
+unit_title: "If you go, I'll come: saying if"
+unit_position: 4
+
+lessons:
+  - slug: if
+    title: If …
+    sentences:
+      - id: if-you-go-ill-come
+        roman: nīnu hōdre, nānu bartīni
+        script: ನೀನು ಹೋದ್ರೆ, ನಾನು ಬರ್ತೀನಿ
+        meaning: If you go, I'll come
+        why: >-
+          -dre on a verb means "if": hōgu (go) → hōdre. You met it in kammi
+          māDidre tagōtīni. Written Kannada says hōdare.
+        register: colloquial
+        formality: casual
+        status: source_checked
+        sources: [SWALPA-grammar, Manual-colloquial]
+        tokens:
+          - { word: "nīnu", gloss: "you (casual)" }
+          - { word: "hōdre", gloss: "if (you) go" }
+          - { word: "nānu", gloss: "I" }
+          - { word: "bartīni", gloss: "will come" }
+      - id: if-he-comes-me-too
+        roman: avnu bandre, nānū bartīni
+        script: ಅವ್ನು ಬಂದ್ರೆ, ನಾನೂ ಬರ್ತೀನಿ
+        meaning: If he comes, I'll come too
+        why: >-
+          bandre is "if (he) comes". nānū, with a long ū at the end, is "me
+          too". The long vowel does the work of "too".
+        register: colloquial
+        formality: casual
+        status: source_checked
+        sources: [Manual-18, Manual-colloquial]
+        tokens:
+          - { word: "avnu", gloss: "he (casual)" }
+          - { word: "bandre", gloss: "if (he) comes" }
+          - { word: "nānū", gloss: "I too" }
+          - { word: "bartīni", gloss: "will come" }
+      - id: if-you-have-time
+        roman: Taim idre, nāLe sigōNa
+        script: ಟೈಮ್ ಇದ್ರೆ, ನಾಳೆ ಸಿಗೋಣ
+        meaning: If you have time, let's meet tomorrow
+        why: >-
+          idre is "if it is there", from ide. Taim ideyā? asks; Taim idre makes
+          a plan.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-logistics, SWALPA-social, Manual-18]
+        tokens:
+          - { word: "Taim", gloss: "time (English word)" }
+          - { word: "idre", gloss: "if (it) is there" }
+          - { word: "nāLe", gloss: "tomorrow" }
+          - { word: "sigōNa", gloss: "let's meet" }
+
+  - slug: in-that-case
+    title: In that case, even if
+    sentences:
+      - id: if-mum-calls
+        roman: amma karedre takshaNa hōgbēku
+        script: ಅಮ್ಮ ಕರೆದ್ರೆ ತಕ್ಷಣ ಹೋಗ್ಬೇಕು
+        meaning: If Mum calls, you have to go at once
+        why: >-
+          kare is "call (someone over)", so karedre is "if (she) calls".
+          takshaNa is "at once". hōgbēku is "have to go".
+        register: colloquial
+        status: source_checked
+        sources: [Manual-18, Manual-colloquial]
+        tokens:
+          - { word: "amma", gloss: "mum" }
+          - { word: "karedre", gloss: "if (she) calls" }
+          - { word: "takshaNa", gloss: "at once" }
+          - { word: "hōgbēku", gloss: "have to go" }
+      - id: in-that-case-me-too
+        roman: hāgādre nānū bartīni
+        script: ಹಾಗಾದ್ರೆ ನಾನೂ ಬರ್ತೀನಿ
+        meaning: In that case, I'll come too
+        why: >-
+          hāge (like that) + ādre (if it is) = "if so, in that case". Use it
+          after someone tells you a plan.
+        register: colloquial
+        status: source_checked
+        sources: [Manual-18, Manual-colloquial]
+        tokens:
+          - { word: "hāgādre", gloss: "in that case", breakdown: "hāge (like that) + ādre (if it is)" }
+          - { word: "nānū", gloss: "I too" }
+          - { word: "bartīni", gloss: "will come" }
+      - id: even-if-it-rains
+        roman: maLe bandrū nānu bartīni
+        script: ಮಳೆ ಬಂದ್ರೂ ನಾನು ಬರ್ತೀನಿ
+        meaning: Even if it rains, I'll come
+        why: >-
+          -drū instead of -dre means "even if". bandre is "if it comes"; bandrū
+          is "even if it comes". One vowel changes the meaning.
+        register: colloquial
+        status: source_checked
+        sources: [Manual-18, Manual-colloquial, SWALPA-grammar]
+        tokens:
+          - { word: "maLe", gloss: "rain" }
+          - { word: "bandrū", gloss: "even if (it) comes" }
+          - { word: "nānu", gloss: "I" }
+          - { word: "bartīni", gloss: "will come" }

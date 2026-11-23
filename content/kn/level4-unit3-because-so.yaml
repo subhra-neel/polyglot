@@ -1,0 +1,130 @@
+# Kannada · Level 4 · Unit 3: Because, so: giving reasons
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-grammar    swalpa.pages.dev/05_verbs_and_grammar (Naanu barilla,
+#                     yakandre kelsa itthu; Male banthu, adakke traffic)
+#   SWALPA-social     swalpa.pages.dev/03_social_interactions (nanage kelsa ide,
+#                     naale sigona)
+#   SWALPA-repairs    swalpa.pages.dev/09_everyday_logistics_and_services
+#                     (kelsa maadthilla)
+#   Manual-18         Zydenbos, A Manual of Modern Kannada (Heidelberg 2020),
+#                     Lesson 18 ("nānu bēga manege hōgabēku, eṃdare caḷiyāguttade";
+#                     "avaru ēke baralilla eṃdare avarige huṣāriralilla")
+#   Manual-colloquial Zydenbos, "Colloquialisms" (spoken short forms)
+
+language: kn
+level: 4
+unit: because-so
+unit_title: "Because, so: giving reasons"
+unit_position: 3
+
+lessons:
+  - slug: because
+    title: Because
+    sentences:
+      - id: didnt-come-had-work
+        roman: nānu barlilla, yākandre kelsa ittu
+        script: ನಾನು ಬರ್ಲಿಲ್ಲ, ಯಾಕಂದ್ರೆ ಕೆಲ್ಸ ಇತ್ತು
+        meaning: I didn't come, because I had work
+        why: >-
+          yākandre is yāke (why) + andre (if you say): "if you ask why …".
+          Say what happened, then yākandre, then the reason. ittu is the past
+          of ide: "there was".
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-grammar]
+        tokens:
+          - { word: "nānu", gloss: "I" }
+          - { word: "barlilla", gloss: "didn't come" }
+          - { word: "yākandre", gloss: "because", breakdown: "yāke (why) + andre (if you say)" }
+          - { word: "kelsa", gloss: "work" }
+          - { word: "ittu", gloss: "there was" }
+      - id: home-soon-its-cold
+        roman: nānu bēga manege hōgbēku, yākandre chaLi āgtide
+        script: ನಾನು ಬೇಗ ಮನೆಗೆ ಹೋಗ್ಬೇಕು, ಯಾಕಂದ್ರೆ ಚಳಿ ಆಗ್ತಿದೆ
+        meaning: I have to go home soon, because it's getting cold
+        why: >-
+          hōgbēku is "have to go" from Level 2. chaLi āgtide is "cold is
+          happening", the same āgtide as līk āgtide.
+        register: colloquial
+        status: source_checked
+        sources: [Manual-18, Manual-colloquial, SWALPA-grammar]
+        tokens:
+          - { word: "nānu", gloss: "I" }
+          - { word: "bēga", gloss: "soon, quickly" }
+          - { word: "manege", gloss: "to home" }
+          - { word: "hōgbēku", gloss: "have to go" }
+          - { word: "yākandre", gloss: "because" }
+          - { word: "chaLi", gloss: "cold" }
+          - { word: "āgtide", gloss: "is happening" }
+      - id: they-didnt-come-not-well
+        roman: avru barlilla, yākandre avrige chennāgilla
+        script: ಅವ್ರು ಬರ್ಲಿಲ್ಲ, ಯಾಕಂದ್ರೆ ಅವ್ರಿಗೆ ಚೆನ್ನಾಗಿಲ್ಲ
+        meaning: She didn't come, because she isn't well
+        why: >-
+          avru is he or she said with respect (also "they"). avrige is "to
+          them", the same frame as nanage chennāgilla.
+        register: colloquial
+        formality: respectful
+        status: source_checked
+        sources: [Manual-18, SWALPA-grammar]
+        tokens:
+          - { word: "avru", gloss: "he, she (respectful), they" }
+          - { word: "barlilla", gloss: "didn't come" }
+          - { word: "yākandre", gloss: "because" }
+          - { word: "avrige", gloss: "to them" }
+          - { word: "chennāgilla", gloss: "not well" }
+
+  - slug: so
+    title: So, that's why
+    sentences:
+      - id: it-rained-so-traffic
+        roman: maLe bantu, adakke Trāfik
+        script: ಮಳೆ ಬಂತು, ಅದಕ್ಕೆ ಟ್ರಾಫಿಕ್
+        meaning: It rained, so there's traffic
+        why: >-
+          adakke is "for that": so, that's why. Reason first, then adakke, then
+          the result. It's yākandre the other way round.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-grammar]
+        tokens:
+          - { word: "maLe", gloss: "rain" }
+          - { word: "bantu", gloss: "came" }
+          - { word: "adakke", gloss: "so, that's why", breakdown: "adu (that) + akke (for)" }
+          - { word: "Trāfik", gloss: "traffic (English word)" }
+      - id: no-power-so-no-fan
+        roman: karenT illa, adakke fyān kelsa māDtilla
+        script: ಕರೆಂಟ್ ಇಲ್ಲ, ಅದಕ್ಕೆ ಫ್ಯಾನ್ ಕೆಲ್ಸ ಮಾಡ್ತಿಲ್ಲ
+        meaning: There's no power, so the fan isn't working
+        why: Two Level 3 sentences, joined by adakke.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-grammar, SWALPA-repairs]
+        tokens:
+          - { word: "karenT", gloss: "electricity" }
+          - { word: "illa", gloss: "there isn't" }
+          - { word: "adakke", gloss: "so" }
+          - { word: "fyān", gloss: "fan (English word)" }
+          - { word: "kelsa", gloss: "work" }
+          - { word: "māDtilla", gloss: "isn't doing" }
+      - id: work-so-meet-tomorrow
+        roman: nanage kelsa ide, adakke nāLe sigōNa
+        script: ನನಗೆ ಕೆಲ್ಸ ಇದೆ, ಅದಕ್ಕೆ ನಾಳೆ ಸಿಗೋಣ
+        meaning: I've got work, so let's meet tomorrow
+        why: >-
+          nāLe sigōNa is how people move a plan without saying no. With adakke,
+          you've given the reason too.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-social, SWALPA-grammar]
+        tokens:
+          - { word: "nanage", gloss: "to me" }
+          - { word: "kelsa", gloss: "work" }
+          - { word: "ide", gloss: "is there" }
+          - { word: "adakke", gloss: "so" }
+          - { word: "nāLe", gloss: "tomorrow" }
+          - { word: "sigōNa", gloss: "let's meet" }

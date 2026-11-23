@@ -3,6 +3,40 @@
 The full plan lives in the Claude doc "Polyglot — Phase 1 architecture and
 Kannada MVP plan". This file records what has actually been built and tested.
 
+## 2026-11-22 — Level 4: work, joining ideas, deliveries, sorting it out
+
+### Built
+- Six Level 4 units (35 sentences), all source_checked:
+  1. At work: busy, meetings, done (nanage kelsa ide, svalpa byusi iddīni,
+     mīTing mugītu, nānu illi kelsa māDtīni)
+  2. And, but, or (mattu, athavā, āmēle, ādre)
+  3. Because, so (yākandre, adakke)
+  4. If (-dre: hōdre, bandre, idre; hāgādre "in that case"; -drū "even if")
+  5. At the door: deliveries (lokēshan kaLsiddīni, ānlain pē māDiddīni,
+     gēT hatra biDi / iri, nānu īgalē bartīni)
+  6. Sorting it out (mīTar rēT koDtīni, nanna tappu illa, idu mōsa,
+     tondre illa, svalpa aDjasT māDi)
+- Two Level 4 tutor scenes: "A colleague needs a hand" (Shruthi, office)
+  and "The delivery rider can't find you" (Naveen, on the phone, then
+  asks for extra money).
+- Tutor pitch for Level 4 now asks for linked sentences (ādre, yākandre,
+  adakke, -dre).
+- Content check now refuses a sentence id used in two units. Two Level 4
+  drafts reused ids from Levels 1 and 2 (paravāgilla, nāLe māDtīni); the
+  database load would have silently moved them out of their old lessons.
+
+### Sources
+- SWALPA pages 03, 05, 08, 09 (spoken examples); Zydenbos, *A Manual of
+  Modern Kannada* (Heidelberg 2020, CC BY-NC-ND), Lesson 18 (conditional,
+  concessive, ādare, hāgādare) and "Colloquialisms" (written → spoken:
+  -are → -re, -ēne → -īni).
+
+### Left out
+- Phone calls and "I think / in my opinion": still no reliable source.
+
+### Owner step
+- Run `supabase/content.sql` again in Supabase.
+
 ## 2026-11-22 — Redesign: one path home, step-by-step lessons
 
 ### Why

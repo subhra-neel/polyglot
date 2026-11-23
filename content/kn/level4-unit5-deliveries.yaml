@@ -1,0 +1,97 @@
+# Kannada · Level 4 · Unit 5: At the door: deliveries
+#
+# Spoken Bengaluru Kannada. See level1-unit2-who-i-am.yaml for what the
+# status values mean.
+#
+# Sources
+#   SWALPA-logistics  swalpa.pages.dev/09_everyday_logistics_and_services
+#                     (Location kalsideeni, Online pay maadideeni, Gate hatra bidi,
+#                     Naanu eegale bartheeni, Aache iri)
+#   Manual-colloquial Zydenbos, A Manual of Modern Kannada (Heidelberg 2020),
+#                     "Colloquialisms" (-ēne → -īni)
+
+language: kn
+level: 4
+unit: deliveries
+unit_title: "At the door: deliveries"
+unit_position: 5
+
+lessons:
+  - slug: rider-calls
+    title: When the rider calls
+    sentences:
+      - id: ive-sent-the-location
+        roman: lokēshan kaLsiddīni
+        script: ಲೊಕೇಶನ್ ಕಳ್ಸಿದ್ದೀನಿ
+        meaning: I've sent the location
+        why: >-
+          kaLsu (send) + iddīni = "I have sent". The -iddīni ending is "I have
+          done (it)", and it works on any verb.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-logistics, Manual-colloquial]
+        tokens:
+          - { word: "lokēshan", gloss: "location (English word)" }
+          - { word: "kaLsiddīni", gloss: "I have sent", breakdown: "kaLsu (send) + iddīni (I have)" }
+      - id: ive-paid-online
+        roman: ānlain pē māDiddīni
+        script: ಆನ್ಲೈನ್ ಪೇ ಮಾಡಿದ್ದೀನಿ
+        meaning: I've paid online
+        why: >-
+          English words + māDu (do), with the same -iddīni: "I have done pay
+          online". Say it before the rider asks for cash.
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - { word: "ānlain", gloss: "online (English word)" }
+          - { word: "pē", gloss: "pay (English word)" }
+          - { word: "māDiddīni", gloss: "I have done" }
+      - id: im-coming-right-now
+        roman: nānu īgalē bartīni
+        script: ನಾನು ಈಗಲೇ ಬರ್ತೀನಿ
+        meaning: I'm coming right now
+        why: >-
+          īga (now) + lē (right, this very) = "right now". bartīni is "I'm
+          coming" or "I'll come".
+        register: colloquial
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - { word: "nānu", gloss: "I" }
+          - { word: "īgalē", gloss: "right now", breakdown: "īga (now) + lē (this very)" }
+          - { word: "bartīni", gloss: "I'm coming" }
+
+  - slug: at-the-gate
+    title: At the gate
+    sentences:
+      - id: leave-it-at-the-gate
+        roman: gēT hatra biDi
+        script: ಗೇಟ್ ಹತ್ರ ಬಿಡಿ
+        meaning: Please leave it at the gate
+        why: >-
+          hatra is "near, at" (said quickly from hattira). biDi is "please
+          leave", the polite -i ending.
+        register: colloquial
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - { word: "gēT", gloss: "gate (English word)" }
+          - { word: "hatra", gloss: "near, at" }
+          - { word: "biDi", gloss: "please leave" }
+      - id: wait-at-the-gate
+        roman: gēT hatra iri
+        script: ಗೇಟ್ ಹತ್ರ ಇರಿ
+        meaning: Please wait at the gate
+        why: >-
+          iri is "please stay", from iru (be). Swap biDi for iri and the rider
+          waits instead of leaving the parcel.
+        register: colloquial
+        formality: respectful
+        status: source_checked
+        sources: [SWALPA-logistics]
+        tokens:
+          - { word: "gēT", gloss: "gate (English word)" }
+          - { word: "hatra", gloss: "near, at" }
+          - { word: "iri", gloss: "please stay" }
